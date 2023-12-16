@@ -18,7 +18,7 @@ public class IdExpression extends Expression{
     @Override
     public Object execute(VirtualFrame frame) {
         if(pos == null){
-             return id;
+             return new UndefinedVar(id);
         }
         return frame.getObject(pos);
     }
