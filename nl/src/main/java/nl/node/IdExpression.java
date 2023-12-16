@@ -3,11 +3,11 @@ package nl.node;
 import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.strings.TruffleString;
-import nl.NLLang;
 
 public class IdExpression extends Expression{
     private TruffleString id;
     private Integer pos;
+
 
     public IdExpression(TruffleLanguage<?> language, TruffleString id, Integer pos) {
         super(language);
@@ -18,7 +18,7 @@ public class IdExpression extends Expression{
     @Override
     public Object execute(VirtualFrame frame) {
         if(pos == null){
-             return new UndefinedVar(this.getLanguage(NLLang.class),id);
+             return id;
         }
         return frame.getObject(pos);
     }
@@ -36,8 +36,8 @@ public class IdExpression extends Expression{
         return id;
     }
 
-//    @Override
-//    public String toString() {
-//        return  id.toString() ;
-//    }
+    @Override
+    public String toString() {
+        return  id.toString() ;
+    }
 }

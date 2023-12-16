@@ -1,25 +1,18 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.VirtualFrame;
+
 import com.oracle.truffle.api.interop.TruffleObject;
 import com.oracle.truffle.api.strings.TruffleString;
 
-public class UndefinedVar extends Node implements TruffleObject {
+public class UndefinedVar  implements TruffleObject {
     private TruffleString name;
 
-    public UndefinedVar(TruffleLanguage<?> language, TruffleString name) {
-        super(language);
+    public UndefinedVar(TruffleString name) {
         this.name = name;
     }
 
     @Override
-    public Object execute(VirtualFrame frame) {
-        return this;
+    public String toString() {
+        return "未定义变量：" + name ;
     }
-
-//    @Override
-//    public String toString() {
-//        return "未定义变量：" + name ;
-//    }
 }

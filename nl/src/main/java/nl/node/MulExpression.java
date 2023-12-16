@@ -30,9 +30,9 @@ public abstract class MulExpression extends NumberBinaryExpression{
     protected double doLongDouble(long left, double right) {
         return  (double) left * right;
     }
-//
-//    @Override
-//    public String toString() {
-//        return getLeft()+"*"+getRight();
-//    }
+
+    @Override
+    public String toString() {
+        return getLeft()+"*"+getRight();
+    }
 }

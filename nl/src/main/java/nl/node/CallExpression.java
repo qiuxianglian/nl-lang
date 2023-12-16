@@ -3,6 +3,9 @@ package nl.node;
 import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.frame.VirtualFrame;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 
 public class CallExpression extends Node {
     private Node functionExpression;
@@ -30,10 +33,10 @@ public class CallExpression extends Node {
         }
     }
 
-//    @Override
-//    public String toString() {
-//        return "("+functionExpression +")(" + Arrays.stream(inputs).map(com.oracle.truffle.api.nodes.Node::toString).collect(Collectors.joining(",")) +")";
-//    }
+    @Override
+    public String toString() {
+        return "("+functionExpression +")(" + Arrays.stream(inputs).map(com.oracle.truffle.api.nodes.Node::toString).collect(Collectors.joining(",")) +")";
+    }
 
     //
 //    @Override

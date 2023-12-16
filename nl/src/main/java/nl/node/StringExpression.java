@@ -16,8 +16,8 @@ public class StringExpression extends Expression{
         return str;
     }
 
-//    @Override
-//    public String toString() {
-//        return "\\\\'"+str.toString().replaceAll("'","\\\\'")+"\\\\'";
-//    }
+    @Override
+    public String toString() {
+        return "\\\\'"+str.toString().replaceAll("'","\\\\'")+"\\\\'";
+    }
 }

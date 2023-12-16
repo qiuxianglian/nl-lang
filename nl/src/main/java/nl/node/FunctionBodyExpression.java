@@ -35,8 +35,8 @@ public class FunctionBodyExpression extends Node implements TruffleObject {
         return body;
     }
 
-//    @Override
-//    public String toString() {
-//        return body.toString();
-//    }
+    @Override
+    public String toString() {
+        return body.toString();
+    }
 }

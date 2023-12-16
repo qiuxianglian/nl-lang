@@ -33,8 +33,8 @@ public abstract class SubExpression extends NumberBinaryExpression{
     }
 
 
-//    @Override
-//    public String toString() {
-//        return getLeft()+"-"+getRight();
-//    }
+    @Override
+    public String toString() {
+        return getLeft()+"-"+getRight();
+    }
 }

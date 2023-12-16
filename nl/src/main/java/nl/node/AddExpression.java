@@ -33,10 +33,10 @@ public abstract class AddExpression extends NumberBinaryExpression{
 
 
 
-//    @Override
-//    public String toString() {
-//        return getLeft()+"+"+getRight();
-//    }
+    @Override
+    public String toString() {
+        return getLeft()+"+"+getRight();
+    }
 
 
 }

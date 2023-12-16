@@ -88,13 +88,13 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         startBlock();
         List<WriteVarExpression> writeVarExpressions = new ArrayList<>();
         List<NLLangParser.IdContext> ids = ctx.id();
-//        List<IdExpression> idExpressions = new ArrayList<>();
+        List<IdExpression> idExpressions = new ArrayList<>();
         FrameDescriptor.Builder builder = FrameDescriptor.newBuilder();
         for (int i = 0; i < ids.size(); i++) {
             NLLangParser.IdContext idContext = ids.get(i);
             IdExpression id = (IdExpression) visitInputArgs(idContext);
             id.setPos(i);
-//            idExpressions.add(id);
+            idExpressions.add(id);
             lexicalScope.locals.put(id.getId(),i);
             WriteVarExpression writeVarExpression = WriteVarExpressionNodeGen.create(language, new ReadArgumentExpression(language, i), i);
             writeVarExpressions.add(writeVarExpression);
@@ -111,7 +111,7 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         }
         finishBlock();
         return new FunctionExpression(language
-//                ,idExpressions
+                ,idExpressions
                 , new FunctionBodyExpression(language,builder.build(),writeVarExpressions, bodyRes));
     }
     public Node visitInputArgs(NLLangParser.IdContext ctx) {

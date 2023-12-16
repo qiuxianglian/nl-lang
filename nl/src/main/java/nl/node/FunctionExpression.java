@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 @NodeInfo(shortName = "fn")
 public class FunctionExpression extends Node implements TruffleObject {
     private Node body;
-//    private List<IdExpression> idExpressions;
+    private List<IdExpression> idExpressions;
     public FunctionExpression(TruffleLanguage<?> language
-//            , List<IdExpression> idExpressions
+            , List<IdExpression> idExpressions
             , Node body) {
         super(language);
         this.body = body;
-//        this.idExpressions = idExpressions;
+        this.idExpressions = idExpressions;
     }
     @Override
     public Object execute(VirtualFrame frame) {
@@ -29,22 +29,22 @@ public class FunctionExpression extends Node implements TruffleObject {
         return body;
     }
 
-//    public List<IdExpression> getIdExpressions() {
-//        return idExpressions;
-//    }
+    public List<IdExpression> getIdExpressions() {
+        return idExpressions;
+    }
 
-//    @Override
-//    public String toString() {
-//        StringBuffer sb = new StringBuffer();
-//        if(idExpressions.size()==1){
-//            sb.append(idExpressions.stream().findFirst().get());
-//        } else {
-//            sb.append("(");
-//            sb.append(idExpressions.stream().map(com.oracle.truffle.api.nodes.Node::toString).collect(Collectors.joining(",")));
-//            sb.append(")");
-//        }
-//        sb.append("=>");
-//        sb.append(body);
-//        return sb.toString();
-//    }
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        if(idExpressions.size()==1){
+            sb.append(idExpressions.stream().findFirst().get());
+        } else {
+            sb.append("(");
+            sb.append(idExpressions.stream().map(com.oracle.truffle.api.nodes.Node::toString).collect(Collectors.joining(",")));
+            sb.append(")");
+        }
+        sb.append("=>");
+        sb.append(body);
+        return sb.toString();
+    }
 }
