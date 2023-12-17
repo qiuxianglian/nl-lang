@@ -84,11 +84,17 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCall(NLLangParser.CallContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NLLangParser#callInputs}.
+	 * Visit a parse tree produced by {@link NLLangParser#callValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCallInputs(NLLangParser.CallInputsContext ctx);
+	T visitCallValue(NLLangParser.CallValueContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#callInput}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallInput(NLLangParser.CallInputContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code int}
 	 * labeled alternative in {@link NLLangParser#number}.

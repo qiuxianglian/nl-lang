@@ -2,7 +2,7 @@ grammar NLLang;
 
 
 nllang :
- expression |call
+ expression|call
 ;
 
 
@@ -19,15 +19,22 @@ expression:
 id: Identifier;
 
 function : id FN_SP (expression|call)
-|'(' ')' FN_SP (expression|call)
-|'(' id (',' id)* ')' FN_SP (expression|call)
+|'(' id? (',' id)* ')' FN_SP (expression|call)
+|'(' function ')'
 ;
 
-call: (expression|'(' expression ')') callInputs
-   |'(' (expression|'(' expression ')') callInputs ')'
+call: callValue callInput callInput*
+   |'(' callValue callInput callInput* ')'
 ;
 
-callInputs: '(' nllang? (',' nllang)* ')';
+callValue: id
+|'(' function ')'
+| '(' id ')'
+;
+
+//callInputs : callInput callInput*;
+
+callInput: '(' nllang? (',' nllang)* ')';
 
 number:
  INT #int

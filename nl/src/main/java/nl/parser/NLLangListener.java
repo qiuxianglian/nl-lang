@@ -132,15 +132,25 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitCall(NLLangParser.CallContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NLLangParser#callInputs}.
+	 * Enter a parse tree produced by {@link NLLangParser#callValue}.
 	 * @param ctx the parse tree
 	 */
-	void enterCallInputs(NLLangParser.CallInputsContext ctx);
+	void enterCallValue(NLLangParser.CallValueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NLLangParser#callInputs}.
+	 * Exit a parse tree produced by {@link NLLangParser#callValue}.
 	 * @param ctx the parse tree
 	 */
-	void exitCallInputs(NLLangParser.CallInputsContext ctx);
+	void exitCallValue(NLLangParser.CallValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#callInput}.
+	 * @param ctx the parse tree
+	 */
+	void enterCallInput(NLLangParser.CallInputContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#callInput}.
+	 * @param ctx the parse tree
+	 */
+	void exitCallInput(NLLangParser.CallInputContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code int}
 	 * labeled alternative in {@link NLLangParser#number}.

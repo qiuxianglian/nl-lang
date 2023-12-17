@@ -38,6 +38,10 @@ lambda和计算器例子　见[tests](./tests).
 // 结果　Resource exhausted: Stack overflow
 (你好=>你好)(1)
 // 结果 1
+
+// y组合算子
+(fn => (u => u(u))(x => fn((args) => x(x)(args))))(a=>a)
+// 结果 args=>((x)(x))(args) 
 ```
 
 # 编译

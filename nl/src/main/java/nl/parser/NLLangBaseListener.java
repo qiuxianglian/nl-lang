@@ -149,13 +149,25 @@ public class NLLangBaseListener implements NLLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCallInputs(NLLangParser.CallInputsContext ctx) { }
+	@Override public void enterCallValue(NLLangParser.CallValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCallInputs(NLLangParser.CallInputsContext ctx) { }
+	@Override public void exitCallValue(NLLangParser.CallValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCallInput(NLLangParser.CallInputContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCallInput(NLLangParser.CallInputContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

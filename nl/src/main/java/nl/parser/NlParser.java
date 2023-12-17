@@ -17,7 +17,7 @@ import java.util.Map;
 public class NlParser extends NLLangBaseVisitor<Node> {
 
     public static void main(String[] args) {
-        Source nl = Source.newBuilder("nl",new StringBuffer("(id=>(2*1+2+7)*3/122*22)(a)"),"nl").build();
+        Source nl = Source.newBuilder("nl",new StringBuffer("(x=>y=>x)(1)(2)"),"nl").build();
         Node node = parseNL(null,nl);
         System.out.println(node);
     }
@@ -37,67 +37,58 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         return nlParser.visit(parser.nllang());
     }
 
+    @Override
+    public Node visitCallValue(NLLangParser.CallValueContext ctx) {
+        NLLangParser.IdContext id = ctx.id();
+        if(id!=null){
+            return visit(id);
+        }
+        NLLangParser.FunctionContext function = ctx.function();
+        if(function!=null){
+            return visit(function);
+        }
+
+        return super.visitCallValue(ctx);
+    }
 
     @Override
     public Node visitCall(NLLangParser.CallContext ctx) {
-        Node callTarget = visit(ctx.expression());
-        NLLangParser.CallInputsContext callInputsContext = ctx.callInputs();
+        NLLangParser.CallValueContext callValueContext = ctx.callValue();
+        Node callTarget = visit(callValueContext);
+        List<NLLangParser.CallInputContext> callInputContexts = ctx.callInput();
+        CallExpression callExpression = null;
+        for (NLLangParser.CallInputContext callInputContext : callInputContexts) {
+            List<NLLangParser.NllangContext> expressionList = callInputContext.nllang();
+            Node[] nodes = new Node[expressionList.size()];
 
-        List<NLLangParser.NllangContext> expressionList = callInputsContext.nllang();
-        Node[] nodes = new Node[expressionList.size()];
-
-        for (int i = 0; i < expressionList.size(); i++) {
-            NLLangParser.NllangContext expressionContext = expressionList.get(i);
-            nodes[i]= visit(expressionContext);
-        }
-
-        return new CallExpression(language,callTarget,nodes);
-    }
-
-    static class LexicalScope {
-        protected final LexicalScope outer;
-        protected final Map<TruffleString, Integer> locals;
-
-        LexicalScope(LexicalScope outer) {
-            this.outer = outer;
-            this.locals = new HashMap<>();
-        }
-
-        public Integer find(TruffleString name) {
-            Integer result = locals.get(name);
-            if (result != null) {
-                return result;
-            } else if (outer != null) {
-                return outer.find(name);
+            for (int i = 0; i < expressionList.size(); i++) {
+                NLLangParser.NllangContext expressionContext = expressionList.get(i);
+                nodes[i] = visit(expressionContext);
+            }
+            if (callExpression == null) {
+                callExpression = new CallExpression(language, callTarget, nodes);
             } else {
-                return null;
+                callExpression = new CallExpression(language, callExpression, nodes);
             }
         }
-    }
-    private LexicalScope lexicalScope;
-    public void startBlock() {
-        lexicalScope = new LexicalScope(lexicalScope);
+        return callExpression;
     }
 
-    public void finishBlock(){
-        lexicalScope = lexicalScope.outer;
-    }
 
     @Override
     public Node visitFunction(NLLangParser.FunctionContext ctx) {
-        startBlock();
-        List<WriteVarExpression> writeVarExpressions = new ArrayList<>();
+
+        NLLangParser.FunctionContext function = ctx.function();
+        if(function!=null){
+            return visit(function);
+        }
         List<NLLangParser.IdContext> ids = ctx.id();
         List<IdExpression> idExpressions = new ArrayList<>();
         FrameDescriptor.Builder builder = FrameDescriptor.newBuilder();
         for (int i = 0; i < ids.size(); i++) {
             NLLangParser.IdContext idContext = ids.get(i);
-            IdExpression id = (IdExpression) visitInputArgs(idContext);
-            id.setPos(i);
+            IdExpression id = (IdExpression) visit(idContext);
             idExpressions.add(id);
-            lexicalScope.locals.put(id.getId(),i);
-            WriteVarExpression writeVarExpression = WriteVarExpressionNodeGen.create(language, new ReadArgumentExpression(language, i), i);
-            writeVarExpressions.add(writeVarExpression);
             builder.addSlot(FrameSlotKind.Illegal, id.getId(), i);
         }
 
@@ -109,13 +100,10 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         } else if(call!=null){
             bodyRes =  visit(call);
         }
-        finishBlock();
         return new FunctionExpression(language
                 ,idExpressions
-                , new FunctionBodyExpression(language,builder.build(),writeVarExpressions, bodyRes));
-    }
-    public Node visitInputArgs(NLLangParser.IdContext ctx) {
-        return new IdExpression(language,TruffleString.fromConstant(ctx.start.getText(), TruffleString.Encoding.UTF_8),0);
+                ,new FunctionBodyExpression(language,builder.build(), bodyRes)
+        );
     }
 
     @Override
@@ -126,8 +114,7 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     @Override
     public Node visitId(NLLangParser.IdContext ctx) {
         TruffleString id = TruffleString.fromConstant(ctx.start.getText(), TruffleString.Encoding.UTF_8);
-        Integer index = lexicalScope.find(id);
-        return new IdExpression(language, id,index);
+        return new IdExpression(language, id);
     }
 
     @Override
