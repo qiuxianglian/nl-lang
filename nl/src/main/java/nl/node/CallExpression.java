@@ -59,6 +59,18 @@ public class CallExpression extends Node {
 
     @Override
     public String toString() {
-        return "("+functionExpression +")(" + Arrays.stream(inputs).map(com.oracle.truffle.api.nodes.Node::toString).collect(Collectors.joining(",")) +")";
+        StringBuffer sb = new StringBuffer();
+        if(functionExpression instanceof IdExpression||functionExpression instanceof CallExpression){
+            sb.append(functionExpression);
+        }else{
+            sb.append("(");
+            sb.append(functionExpression);
+            sb.append(")");
+        }
+        sb.append("(");
+        sb.append(Arrays.stream(inputs).map(com.oracle.truffle.api.nodes.Node::toString).collect(Collectors.joining(",")));
+        sb.append(")");
+
+        return sb.toString();
     }
 }
