@@ -2,7 +2,7 @@ grammar NLLang;
 
 
 nllang :
- expression|call
+ expression
 ;
 
 
@@ -14,6 +14,7 @@ expression:
 |STRING_LITERAL #str
 |function #fn
 |id #theid
+|call #c
 ;
 
 id: Identifier;
@@ -32,9 +33,8 @@ callValue: id
 | '(' id ')'
 ;
 
-//callInputs : callInput callInput*;
 
-callInput: '(' nllang? (',' nllang)* ')';
+callInput: '(' expression? (',' expression)* ')';
 
 number:
  INT #int

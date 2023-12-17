@@ -75,11 +75,11 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         List<NLLangParser.CallInputContext> callInputContexts = ctx.callInput();
         CallExpression callExpression = null;
         for (NLLangParser.CallInputContext callInputContext : callInputContexts) {
-            List<NLLangParser.NllangContext> expressionList = callInputContext.nllang();
+            List<NLLangParser.ExpressionContext> expressionList = callInputContext.expression();
             Node[] nodes = new Node[expressionList.size()];
 
             for (int i = 0; i < expressionList.size(); i++) {
-                NLLangParser.NllangContext expressionContext = expressionList.get(i);
+                NLLangParser.ExpressionContext expressionContext = expressionList.get(i);
                 nodes[i] = visit(expressionContext);
             }
             if (callExpression == null) {

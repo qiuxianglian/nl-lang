@@ -53,6 +53,18 @@ public class NLLangBaseListener implements NLLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterC(NLLangParser.CContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitC(NLLangParser.CContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMulDiv(NLLangParser.MulDivContext ctx) { }
 	/**
 	 * {@inheritDoc}

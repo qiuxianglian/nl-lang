@@ -42,6 +42,18 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitParens(NLLangParser.ParensContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code c}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterC(NLLangParser.CContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code c}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitC(NLLangParser.CContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code MulDiv}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree

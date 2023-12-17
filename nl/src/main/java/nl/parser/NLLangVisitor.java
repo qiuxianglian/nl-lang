@@ -31,6 +31,13 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParens(NLLangParser.ParensContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code c}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitC(NLLangParser.CContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code MulDiv}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree
