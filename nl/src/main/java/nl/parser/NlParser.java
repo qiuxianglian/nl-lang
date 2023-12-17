@@ -5,6 +5,7 @@ import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.FrameSlotKind;
 import com.oracle.truffle.api.source.Source;
 import com.oracle.truffle.api.strings.TruffleString;
+import nl.NLLang;
 import nl.node.*;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -17,9 +18,25 @@ import java.util.Map;
 public class NlParser extends NLLangBaseVisitor<Node> {
 
     public static void main(String[] args) {
-        Source nl = Source.newBuilder("nl",new StringBuffer("(x=>y=>x)(1)(2)"),"nl").build();
+        Source nl = Source.newBuilder("nl",new StringBuffer("1+2"),"nl").build();
         Node node = parseNL(null,nl);
-        System.out.println(node);
+        AddExpression addExpression = AddExpressionNodeGen.create(null,
+                new NumberExpression(null, 1), new NumberExpression(null, 2));
+
+        Object add = add(addExpression);
+
+
+        Node node2 = parseNL(null, Source.newBuilder("nl"
+                , new StringBuffer("1 + 2 * 5"), "nl").build());
+
+        Node 你好 = parseNL(null,Source.newBuilder("nl",new StringBuffer("12 + (你好=>你好)(1)"),"nl").build());
+
+        System.out.println(add);
+    }
+
+    private static Object add(AddExpression addExpression){
+        return ((NumberExpression)addExpression.getLeft().execute(null)).getNum().longValue()
+                +((NumberExpression)addExpression.getRight().execute(null)).getNum().longValue();
     }
 
 

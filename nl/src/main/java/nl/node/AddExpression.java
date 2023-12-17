@@ -2,6 +2,7 @@ package nl.node;
 
 import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.dsl.Specialization;
+import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.nodes.NodeInfo;
 
 @NodeInfo(shortName = "+")
@@ -10,6 +11,14 @@ public abstract class AddExpression extends NumberBinaryExpression{
     protected AddExpression(TruffleLanguage<?> language) {
         super(language);
     }
+
+//    public Object execute(VirtualFrame virtualFrame){
+//        Object leftValue_ = this.getLeft().execute(virtualFrame);
+//        Object rightValue_ = this.getRight().execute(virtualFrame);
+//        if(leftValue_ instanceof Long && rightValue_ instanceof Long){
+//            return doLong((Long) leftValue_, (Long) rightValue_);
+//        }
+//    }
 
     @Specialization(rewriteOn = ArithmeticException.class)
     protected long doLong(long left, long right) {

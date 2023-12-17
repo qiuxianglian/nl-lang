@@ -9,8 +9,8 @@ import com.oracle.truffle.api.dsl.NodeChild;
 public abstract   class BinaryExpression extends Node {
 
 
-    protected abstract Node getLeft();
-    protected abstract Node getRight();
+    public abstract Node getLeft();
+    public abstract Node getRight();
 
 
 

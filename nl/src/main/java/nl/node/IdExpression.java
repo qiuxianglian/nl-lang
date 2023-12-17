@@ -15,6 +15,9 @@ public class IdExpression extends Expression{
 
     @Override
     public Object execute(VirtualFrame frame) {
+        if(frame.getArguments().length == 0){
+            return new UndefinedVar(id);
+        }
         NLScope argument = (NLScope) frame.getArguments()[0];
         Object o = argument.find(id);
         if(o == null){

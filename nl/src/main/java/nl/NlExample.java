@@ -1,5 +1,8 @@
 package nl;
 
+import nl.node.AddExpression;
+import nl.node.AddExpressionNodeGen;
+import nl.node.NumberExpression;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Value;
@@ -15,7 +18,8 @@ public class NlExample {
                 .allowHostClassLookup(className -> true)
                 .build();
 //        Value o = nl.eval(NLMain.NL, "(x=>y=>x)(1)(2)");
-        Value o1 = nl.eval(NLMain.NL, "((f=>f()))(a=>1)");
+
+        Value o1 = nl.eval(NLMain.NL, "(2*1+2+7.5)*3/1.2*22-99");
         System.out.println(o1);
     }
 }
