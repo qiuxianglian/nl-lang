@@ -34,6 +34,12 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         System.out.println(add);
     }
 
+
+    @Override
+    public Node visitBoolean(NLLangParser.BooleanContext ctx) {
+        return new BooleanExpression(language,Boolean.parseBoolean(ctx.start.getText()));
+    }
+
     private static Object add(AddExpression addExpression){
         return ((NumberExpression)addExpression.getLeft().execute(null)).getNum().longValue()
                 +((NumberExpression)addExpression.getRight().execute(null)).getNum().longValue();

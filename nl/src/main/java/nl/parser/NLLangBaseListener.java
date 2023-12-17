@@ -65,6 +65,18 @@ public class NLLangBaseListener implements NLLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBool(NLLangParser.BoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBool(NLLangParser.BoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMulDiv(NLLangParser.MulDivContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -120,6 +132,18 @@ public class NLLangBaseListener implements NLLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTheid(NLLangParser.TheidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBoolean(NLLangParser.BooleanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoolean(NLLangParser.BooleanContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

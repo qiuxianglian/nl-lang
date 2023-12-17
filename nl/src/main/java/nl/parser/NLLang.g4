@@ -15,7 +15,10 @@ expression:
 |function #fn
 |id #theid
 |call #c
+|boolean #bool
 ;
+
+boolean : TRUE | FALSE;
 
 id: Identifier;
 
@@ -74,5 +77,7 @@ Decimal : INT '.' [0-9] [0-9_]*
     | '.' [0-9] [0-9_]* ;
 
 FN_SP: ('＝'|'=')('>'|'》');
+TRUE: 'T''R''U''E';
+FALSE: 'F''A''L''S''E';
 
 

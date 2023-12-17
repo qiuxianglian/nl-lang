@@ -54,6 +54,18 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitC(NLLangParser.CContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code bool}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool(NLLangParser.BoolContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bool}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool(NLLangParser.BoolContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code MulDiv}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree
@@ -113,6 +125,16 @@ public interface NLLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTheid(NLLangParser.TheidContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#boolean}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolean(NLLangParser.BooleanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#boolean}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolean(NLLangParser.BooleanContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NLLangParser#id}.
 	 * @param ctx the parse tree

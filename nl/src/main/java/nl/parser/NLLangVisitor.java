@@ -38,6 +38,13 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitC(NLLangParser.CContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code bool}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(NLLangParser.BoolContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code MulDiv}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree
@@ -72,6 +79,12 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTheid(NLLangParser.TheidContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#boolean}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolean(NLLangParser.BooleanContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NLLangParser#id}.
 	 * @param ctx the parse tree
