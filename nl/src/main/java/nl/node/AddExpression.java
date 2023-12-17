@@ -12,14 +12,6 @@ public abstract class AddExpression extends NumberBinaryExpression{
         super(language);
     }
 
-//    public Object execute(VirtualFrame virtualFrame){
-//        Object leftValue_ = this.getLeft().execute(virtualFrame);
-//        Object rightValue_ = this.getRight().execute(virtualFrame);
-//        if(leftValue_ instanceof Long && rightValue_ instanceof Long){
-//            return doLong((Long) leftValue_, (Long) rightValue_);
-//        }
-//    }
-
     @Specialization(rewriteOn = ArithmeticException.class)
     protected long doLong(long left, long right) {
         return Math.addExact(left, right);

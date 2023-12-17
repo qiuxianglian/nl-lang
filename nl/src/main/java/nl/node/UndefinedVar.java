@@ -13,6 +13,6 @@ public class UndefinedVar  implements TruffleObject {
 
     @Override
     public String toString() {
-        return "未定义变量：" + name ;
+        return ""+name ;
     }
 }
