@@ -36,18 +36,41 @@ public class NlParser extends NLLangBaseVisitor<Node> {
 
 
     @Override
+    public Node visitNllang(NLLangParser.NllangContext ctx) {
+        NLLangParser.StatementsContext statements = ctx.statements();
+        if(statements!=null){
+            return new RootEnter(language,visit(statements));
+        }
+        NLLangParser.ExpressionContext expression = ctx.expression();
+        if(expression!=null){
+            return new RootEnter(language,visit(expression));
+        }
+        return super.visitNllang(ctx);
+    }
+
+    @Override
     public Node visitStatements(NLLangParser.StatementsContext ctx) {
-        return super.visitStatements(ctx);
+        List<Node> statements = new ArrayList<>();
+        List<NLLangParser.StatementContext> statement = ctx.statement();
+        for (NLLangParser.StatementContext statementContext : statement) {
+            statements.add(visit(statementContext));
+        }
+        NLLangParser.ExpressionContext expression = ctx.expression();
+        if(expression!=null){
+            Node exp = visit(expression);
+            statements.add(exp);
+        }
+        return new Statements(language,statements);
     }
 
     @Override
     public Node visitStatement(NLLangParser.StatementContext ctx) {
-        return super.visitStatement(ctx);
+        return new Statement(language,visit(ctx.expression()));
     }
 
     @Override
     public Node visitAssign(NLLangParser.AssignContext ctx) {
-        return super.visitAssign(ctx);
+        return new AssignExpression(language, (IdExpression) visitId(ctx.id()),visit(ctx.expression()));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class NlExample {
                 .allowHostClassLookup(className -> true)
                 .build();
 
-        Value o1 = nl.eval(NLMain.NL, "((f=>f()))(a=>1)");
+        Value o1 = nl.eval(NLMain.NL, "a:=1;a");
         System.out.println(o1);
     }
 }

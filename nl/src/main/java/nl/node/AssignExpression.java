@@ -2,6 +2,7 @@ package nl.node;
 
 import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.frame.VirtualFrame;
+import nl.NLScope;
 
 public class AssignExpression extends Node{
     private IdExpression id;
@@ -15,6 +16,9 @@ public class AssignExpression extends Node{
 
     @Override
     public Object execute(VirtualFrame frame) {
-        return 1;
+        Object execute = expression.execute(frame);
+        NLScope.NLScopeOperator argument = ( NLScope.NLScopeOperator) frame.getArguments()[0];
+        argument.getScope().put(id.getId(),execute);
+        return execute;
     }
 }

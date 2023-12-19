@@ -2,7 +2,8 @@ grammar NLLang;
 
 
 nllang :
- statements|expression
+ statements
+ |expression
 ;
 
 
@@ -19,7 +20,7 @@ expression:
 |assign #as
 ;
 
-statements: statement statement*;
+statements: statement statement* (statement|expression)?;
 
 statement: expression? ';';
 
