@@ -2,18 +2,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.example</groupId>
   <artifactId>native</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>Archetype - native</name>
   <url>http://maven.apache.org</url>
 
   <parent>
-    <groupId>com.oracle</groupId>
+    <groupId>qiuxianglian</groupId>
     <artifactId>nl-parent</artifactId>
-    <version>${graalvm.version}</version>
+    <version>1.0.0</version>
   </parent>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <m2e.apt.activation>jdt_apt</m2e.apt.activation>
@@ -21,6 +19,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <launcherClass>nl/nl.NLMain</launcherClass>
+    <mainClass>nl.NLMain</mainClass>
     <antlr.version>4.12.0</antlr.version>
 
   </properties>
@@ -110,11 +109,54 @@
         </plugins>
       </build>
     </profile>
+
+    <profile>
+      <id>one</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>${mainClass}</mainClass>
+                </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <descriptors>
+                <descriptor>assembly.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>qiuxianglian</groupId>
+          <artifactId>nl</artifactId>
+          <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+          <groupId>org.graalvm.sdk</groupId>
+          <artifactId>graal-sdk</artifactId>
+          <version>23.1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.graalvm.truffle</groupId>
+          <artifactId>truffle-api</artifactId>
+          <version>23.1.0</version>
+        </dependency>
+      </dependencies>
+
+
+    </profile>
   </profiles>
 
   <dependencies>
     <dependency>
-      <groupId>org.example</groupId>
+      <groupId>qiuxianglian</groupId>
       <artifactId>nl</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>

@@ -26,18 +26,19 @@ public class CallExpression extends Node {
     @Override
     public Object execute(VirtualFrame frame) {
         Object[] arr;
-        NLScope scope;
+        NLScope.NLScopeOperator scope;
         if(frame.getArguments()!=null && frame.getArguments().length>0 && frame.getArguments()[0]!=null){
-            scope = (NLScope) frame.getArguments()[0];
+            scope = (NLScope.NLScopeOperator) frame.getArguments()[0];
             arr = frame.getArguments();
         }else{
-            scope = new NLScope(null);
+            scope = NLScope.NLScopeOperator.newScope();
             arr=new Object[2];
             arr[0] = scope;
         }
 
         Object function = functionExpression.getRootNode().getCallTarget().call(arr);
         if(function instanceof FunctionExpression fn){
+
             Object[] argumentValues = new Object[inputs.length];
             for (int i = 0; i < inputs.length; i++) {
                 argumentValues[i] = inputs[i].execute(frame);
@@ -46,14 +47,15 @@ public class CallExpression extends Node {
             for (int i = 0; i < fn.getIdExpressions().size(); i++) {
                 IdExpression idExpression = fn.getIdExpressions().get(i);
                 if(i<argumentValues.length){
-                    scope.put(idExpression.getId(),argumentValues[i]);
+                    scope.getScope().put(idExpression.getId(),argumentValues[i]);
                 }
             }
 
             Object call = fn.getBody().getRootNode().getCallTarget().call(arr);
             return call;
         } else {
-            throw new RuntimeException();
+            String concat = "target is not function ".concat(function.toString());
+            throw new RuntimeException(concat);
         }
     }
 

@@ -2,7 +2,7 @@ grammar NLLang;
 
 
 nllang :
- expression
+ statements|expression
 ;
 
 
@@ -16,7 +16,14 @@ expression:
 |id #theid
 |call #c
 |boolean #bool
+|assign #as
 ;
+
+statements: statement statement*;
+
+statement: expression? ';';
+
+assign : id ':''=' expression;
 
 boolean : TRUE | FALSE;
 

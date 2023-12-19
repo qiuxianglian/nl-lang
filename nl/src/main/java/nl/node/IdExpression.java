@@ -18,8 +18,8 @@ public class IdExpression extends Expression{
         if(frame.getArguments().length == 0){
             return new UndefinedVar(id);
         }
-        NLScope argument = (NLScope) frame.getArguments()[0];
-        Object o = argument.find(id);
+        NLScope.NLScopeOperator argument = ( NLScope.NLScopeOperator) frame.getArguments()[0];
+        Object o = argument.getScope().find(id);
         if(o == null){
             return new UndefinedVar(id);
         }

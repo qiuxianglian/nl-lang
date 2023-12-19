@@ -36,6 +36,21 @@ public class NlParser extends NLLangBaseVisitor<Node> {
 
 
     @Override
+    public Node visitStatements(NLLangParser.StatementsContext ctx) {
+        return super.visitStatements(ctx);
+    }
+
+    @Override
+    public Node visitStatement(NLLangParser.StatementContext ctx) {
+        return super.visitStatement(ctx);
+    }
+
+    @Override
+    public Node visitAssign(NLLangParser.AssignContext ctx) {
+        return super.visitAssign(ctx);
+    }
+
+    @Override
     public Node visitBoolean(NLLangParser.BooleanContext ctx) {
         return new BooleanExpression(language,Boolean.parseBoolean(ctx.start.getText()));
     }
