@@ -25,18 +25,9 @@ public class CallExpression extends Node {
 
     @Override
     public Object execute(VirtualFrame frame) {
-        Object[] arr;
-        NLScope.NLScopeOperator scope;
-        if(frame.getArguments()!=null && frame.getArguments().length>0 && frame.getArguments()[0]!=null){
-            scope = (NLScope.NLScopeOperator) frame.getArguments()[0];
-            arr = frame.getArguments();
-        }else{
-            scope = NLScope.NLScopeOperator.newScope();
-            arr=new Object[2];
-            arr[0] = scope;
-        }
+        NLScope.NLScopeOperator scope = (NLScope.NLScopeOperator) frame.getArguments()[0];
 
-        Object function = functionExpression.getRootNode().getCallTarget().call(arr);
+        Object function = functionExpression.execute(frame);
         if(function instanceof FunctionExpression fn){
 
             Object[] argumentValues = new Object[inputs.length];
@@ -51,7 +42,7 @@ public class CallExpression extends Node {
                 }
             }
 
-            Object call = fn.getBody().getRootNode().getCallTarget().call(arr);
+            Object call = fn.getBody().execute(frame);
             return call;
         } else {
             String concat = "target is not function ".concat(function.toString());
