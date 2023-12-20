@@ -20,8 +20,8 @@ public class Statements extends Node{
 
 
         Object res = null;
-        for (Node statement : statements) {
-            res = statement.execute(frame);
+        for (int i = 0; i < statements.size(); i++) {
+            res = statements.get(i).execute(frame);
         }
         return res;
     }
