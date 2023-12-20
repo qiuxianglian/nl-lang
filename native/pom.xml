@@ -95,7 +95,7 @@
                 </goals>
                 <configuration>
                   <executable>
-                    ${env.JAVA_HOME}/bin/native-image</executable>
+                    ${env.JAVA_HOME}/lib/svm/bin/native-image</executable>
                   <commandlineArgs>
                     -p %classpath
                     -H:+ReportExceptionStackTraces
