@@ -21,9 +21,14 @@ public class NLLang extends Lang {
     }
 
     public Object eval(InputStreamReader source) throws Exception {
-        Node parse = parse(source);
-        DFSNLLangRunner dfsnlLangRunner = new DFSNLLangRunner();
-        return dfsnlLangRunner.eval(parse);
+        try {
+            Node parse = parse(source);
+            DFSNLLangRunner dfsnlLangRunner = new DFSNLLangRunner();
+            return dfsnlLangRunner.eval(parse);
+        } catch (Error e){
+            throw new NLException(e.getClass().getName());
+        }
+
     }
 
 }
