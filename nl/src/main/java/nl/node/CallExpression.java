@@ -2,6 +2,7 @@ package nl.node;
 
 import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.strings.TruffleStringBuilder;
 import nl.NLScope;
 
 import java.util.Arrays;
@@ -44,8 +45,7 @@ public class CallExpression extends Node {
             Object call = fn.getBody().execute(frame);
             return call;
         } else {
-            String concat = "target is not function ".concat(function.toString());
-            throw new RuntimeException(concat);
+            throw new RuntimeException("target is not function ");
         }
     }
 
