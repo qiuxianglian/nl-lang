@@ -4,9 +4,7 @@ import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.interop.TruffleObject;
-import nl.NLScope;
 
-import java.util.List;
 
 public class FunctionBodyExpression extends Node implements TruffleObject {
     private Node body;

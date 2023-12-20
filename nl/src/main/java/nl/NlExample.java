@@ -17,9 +17,8 @@ public class NlExample {
                 //allows access to all Java classes
                 .allowHostClassLookup(className -> true)
                 .build();
-//        Value o = nl.eval(NLMain.NL, "(x=>y=>x)(1)(2)");
 
-        Value o1 = nl.eval(NLMain.NL, "(2*1+2+7.5)*3/1.2*22-99");
+        Value o1 = nl.eval(NLMain.NL, "a:=1;a");
         System.out.println(o1);
     }
 }

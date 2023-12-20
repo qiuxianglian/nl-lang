@@ -31,6 +31,13 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParens(NLLangParser.ParensContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code as}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAs(NLLangParser.AsContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code c}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree
@@ -79,6 +86,24 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTheid(NLLangParser.TheidContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#statements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatements(NLLangParser.StatementsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(NLLangParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#assign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssign(NLLangParser.AssignContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NLLangParser#boolean}.
 	 * @param ctx the parse tree

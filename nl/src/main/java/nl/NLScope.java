@@ -8,12 +8,43 @@ import java.util.List;
 
 public class NLScope {
 
-    protected final NLScope outer;
-    protected final List<TruffleString> index ;
-    protected final List<Object> values;
+    public static class NLScopeOperator{
+        private NLScope scope;
+
+        public NLScopeOperator(NLScope scope) {
+            this.scope = scope;
+        }
+
+        public static NLScopeOperator newScope(){
+            return new NLScopeOperator(new NLScope(null));
+        }
+
+        public void enter(){
+            this.scope = new NLScope(this.scope);
+        }
+
+        public void exit(){
+            if(this.scope.outer == null){
+                return;
+            }
+            this.scope = this.scope.outer;
+        }
+
+        public NLScope getScope() {
+            return scope;
+        }
+    }
+
+    protected  NLScope outer;
+    protected  List<TruffleString> index ;
+    protected  List<Object> values;
 
     public NLScope(NLScope outer) {
         this.outer = outer;
+        init();
+    }
+
+    private void init(){
         this.index = new ArrayList<>();
         this.values = new ArrayList<>();
     }
