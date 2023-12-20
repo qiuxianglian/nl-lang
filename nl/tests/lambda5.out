@@ -1,1 +1,1 @@
-Resource exhausted: Stack overflow
+java.lang.StackOverflowError
