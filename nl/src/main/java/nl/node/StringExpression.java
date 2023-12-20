@@ -1,12 +1,11 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.VirtualFrame;
-import com.oracle.truffle.api.strings.TruffleString;
+
+
 
 public class StringExpression extends Expression{
-    private final TruffleString str;
-    public StringExpression(TruffleLanguage<?> language,TruffleString str) {
+    private final String str;
+    public StringExpression(Lang language,String str) {
         super(language);
         this.str = str;
     }
@@ -18,6 +17,6 @@ public class StringExpression extends Expression{
 
     @Override
     public String toString() {
-        return "\\\\'"+str.toString().replaceAll("'","\\\\'")+"\\\\'";
+        return "\\\\'"+str.replaceAll("'","\\\\'")+"\\\\'";
     }
 }

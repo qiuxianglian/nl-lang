@@ -1,13 +1,13 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.VirtualFrame;
+
+
 import nl.NLScope;
 
 public class RootEnter extends Node{
     private Node node;
 
-    public RootEnter(TruffleLanguage<?> language, Node node) {
+    public RootEnter(Lang language, Node node) {
         super(language);
         this.node = node;
     }
@@ -26,6 +26,8 @@ public class RootEnter extends Node{
             arr=new Object[2];
             arr[0] = scope;
         }
-        return node.getRootNode().getCallTarget().call(arr);
+        VirtualFrame virtualFrame = new VirtualFrame();
+        virtualFrame.setArguments(arr);
+        return node.execute(virtualFrame);
     }
 }

@@ -1,32 +1,38 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.dsl.NodeChild;
-import com.oracle.truffle.api.dsl.Specialization;
 
 
-@NodeChild("left")
-@NodeChild("right")
+
 public abstract   class BinaryExpression extends Node {
 
+    protected Node left;
+    protected Node right;
 
-    public abstract Node getLeft();
-    public abstract Node getRight();
+    public BinaryExpression(Lang language, Node left, Node right) {
+        super(language);
+        this.left = left;
+        this.right = right;
+    }
+
+    public  Node getLeft(){
+        return this.left;
+    }
+    public  Node getRight(){
+        return this.right;
+    }
 
 
-    @Specialization(rewriteOn = ArithmeticException.class)
     protected Node doUndefined(UndefinedVar left, Object right) {
         return  this;
     }
 
-    @Specialization(rewriteOn = ArithmeticException.class)
     protected Node doUndefined(Object left, UndefinedVar right) {
         return  this;
     }
 
 
 
-    protected BinaryExpression(TruffleLanguage<?> language) {
+    protected BinaryExpression(Lang language) {
         super(language);
     }
 }

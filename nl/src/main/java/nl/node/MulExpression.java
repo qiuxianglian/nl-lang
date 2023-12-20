@@ -1,32 +1,28 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.dsl.Specialization;
-import com.oracle.truffle.api.nodes.NodeInfo;
 
-@NodeInfo(shortName = "*")
-public abstract class MulExpression extends NumberBinaryExpression{
 
-    protected MulExpression(TruffleLanguage<?> language) {
-        super(language);
+
+
+public  class MulExpression extends NumberBinaryExpression{
+
+
+    public MulExpression(Lang language, Node left, Node right) {
+        super(language, left, right);
     }
 
-    @Specialization(rewriteOn = ArithmeticException.class)
     protected long doLong(long left, long right) {
         return Math.multiplyExact(left, right);
     }
 
 
-    @Specialization(rewriteOn = ArithmeticException.class)
     protected double doDouble(double left, double right) {
         return left * right;
     }
 
-    @Specialization(rewriteOn = ArithmeticException.class)
     protected double doDoubleLong(double left, long right) {
         return left * (double) right;
     }
-    @Specialization(rewriteOn = ArithmeticException.class)
     protected double doLongDouble(long left, double right) {
         return  (double) left * right;
     }
@@ -34,5 +30,10 @@ public abstract class MulExpression extends NumberBinaryExpression{
     @Override
     public String toString() {
         return getLeft()+"*"+getRight();
+    }
+
+    @Override
+    public Object execute(VirtualFrame frame) {
+        return null;
     }
 }

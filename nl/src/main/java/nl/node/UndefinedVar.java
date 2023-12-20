@@ -1,13 +1,10 @@
 package nl.node;
 
 
-import com.oracle.truffle.api.interop.TruffleObject;
-import com.oracle.truffle.api.strings.TruffleString;
+public class UndefinedVar{
+    private String name;
 
-public class UndefinedVar  implements TruffleObject {
-    private TruffleString name;
-
-    public UndefinedVar(TruffleString name) {
+    public UndefinedVar(String name) {
         this.name = name;
     }
 

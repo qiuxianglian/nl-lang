@@ -1,13 +1,13 @@
 package nl.node;
 
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.VirtualFrame;
+
+
 
 public  class NumberExpression extends Expression{
     private final Number num;
 
-    public NumberExpression(TruffleLanguage<?> language, Number num) {
+    public NumberExpression(Lang language, Number num) {
         super(language);
 
         this.num = num;

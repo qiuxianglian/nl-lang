@@ -20,7 +20,6 @@
     <graalvm.version>23.1.0</graalvm.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-<!--    <launcherClass>org.graalvm.sl.launcher/com.oracle.truffle.sl.launcher.SLMain</launcherClass>-->
     <antlr.version>4.12.0</antlr.version>
 
   </properties>
@@ -58,13 +57,13 @@
           <configuration>
             <source>17</source>
             <target>17</target>
-            <annotationProcessorPaths>
-              <path>
-                <groupId>org.graalvm.truffle</groupId>
-                <artifactId>truffle-dsl-processor</artifactId>
-                <version>${graalvm.version}</version>
-              </path>
-            </annotationProcessorPaths>
+<!--            <annotationProcessorPaths>-->
+<!--              <path>-->
+<!--                <groupId>org.graalvm.truffle</groupId>-->
+<!--                <artifactId>truffle-dsl-processor</artifactId>-->
+<!--                <version>${graalvm.version}</version>-->
+<!--              </path>-->
+<!--            </annotationProcessorPaths>-->
           </configuration>
         </plugin>
       </plugins>
@@ -73,28 +72,6 @@
   </build>
 
   <dependencies>
-    <dependency>
-      <groupId>org.graalvm.polyglot</groupId>
-      <artifactId>polyglot</artifactId>
-      <version>${graalvm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.graalvm.truffle</groupId>
-      <artifactId>truffle-api</artifactId>
-      <version>${graalvm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.graalvm.truffle</groupId>
-      <artifactId>truffle-runtime</artifactId>
-      <version>${graalvm.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.graalvm.truffle</groupId>
-      <artifactId>truffle-tck</artifactId>
-      <version>${graalvm.version}</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

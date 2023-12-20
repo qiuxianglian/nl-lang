@@ -1,37 +1,30 @@
 package nl.parser;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.FrameDescriptor;
-import com.oracle.truffle.api.frame.FrameSlotKind;
-import com.oracle.truffle.api.source.Source;
-import com.oracle.truffle.api.strings.TruffleString;
-import nl.NLLang;
+
 import nl.node.*;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class NlParser extends NLLangBaseVisitor<Node> {
 
     public static void main(String[] args) {
-        Source nl = Source.newBuilder("nl",new StringBuffer("1+2"),"nl").build();
-        Node node = parseNL(null,nl);
-        AddExpression addExpression = AddExpressionNodeGen.create(null,
-                new NumberExpression(null, 1), new NumberExpression(null, 2));
-
-        Object add = add(addExpression);
-
-
-        Node node2 = parseNL(null, Source.newBuilder("nl"
-                , new StringBuffer("1 + 2 * 5"), "nl").build());
-
-        Node 你好 = parseNL(null,Source.newBuilder("nl",new StringBuffer("12 + (你好=>你好)(1)"),"nl").build());
-
-        System.out.println(add);
+//        Source nl = Source.newBuilder("nl",new StringBuffer("1+2"),"nl").build();
+//        Node node = parseNL(null,nl);
+//        AddExpression addExpression = AddExpressionNodeGen.create(null,
+//                new NumberExpression(null, 1), new NumberExpression(null, 2));
+//
+//        Object add = add(addExpression);
+//
+//
+//        Node node2 = parseNL(null, Source.newBuilder("nl"
+//                , new StringBuffer("1 + 2 * 5"), "nl").build());
+//
+//        Node 你好 = parseNL(null,Source.newBuilder("nl",new StringBuffer("12 + (你好=>你好)(1)"),"nl").build());
+//
+//        System.out.println(add);
     }
 
 
@@ -84,14 +77,14 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     }
 
 
-    private final TruffleLanguage<?> language;
+    private final Lang language;
 
-    public NlParser(TruffleLanguage<?> language) {
+    public NlParser(Lang language) {
         this.language = language;
     }
 
-    public static Node parseNL(TruffleLanguage<?> language,Source source) {
-        String string = source.getCharacters().toString();
+    public static Node parseNL(Lang language,String source) {
+        String string = source;
         NLLangLexer lexer = new NLLangLexer(CharStreams.fromString(string));
         NLLangParser parser = new NLLangParser(new CommonTokenStream(lexer));
         NlParser nlParser = new NlParser(language);
@@ -145,12 +138,10 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         }
         List<NLLangParser.IdContext> ids = ctx.id();
         List<IdExpression> idExpressions = new ArrayList<>();
-        FrameDescriptor.Builder builder = FrameDescriptor.newBuilder();
         for (int i = 0; i < ids.size(); i++) {
             NLLangParser.IdContext idContext = ids.get(i);
             IdExpression id = (IdExpression) visit(idContext);
             idExpressions.add(id);
-            builder.addSlot(FrameSlotKind.Illegal, id.getId(), i);
         }
 
         Node bodyRes = null;
@@ -163,18 +154,18 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         }
         return new FunctionExpression(language
                 ,idExpressions
-                ,new FunctionBodyExpression(language,builder.build(), bodyRes)
+                ,new FunctionBodyExpression(language, bodyRes)
         );
     }
 
     @Override
     public Node visitStr(NLLangParser.StrContext ctx) {
-        return new StringExpression(language,TruffleString.fromConstant(ctx.start.getText(), TruffleString.Encoding.UTF_8));
+        return new StringExpression(language, ctx.start.getText());
     }
 
     @Override
     public Node visitId(NLLangParser.IdContext ctx) {
-        TruffleString id = TruffleString.fromConstant(ctx.start.getText(), TruffleString.Encoding.UTF_8);
+        String id = ctx.start.getText();
         return new IdExpression(language, id);
     }
 
@@ -197,8 +188,8 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     @Override
     public Node visitMulDiv(NLLangParser.MulDivContext ctx) {
         return switch (ctx.op.getText()) {
-            case "*" -> MulExpressionNodeGen.create(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
-            case "/" -> DevExpressionNodeGen.create(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
+            case "*" -> new MulExpression(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
+            case "/" -> new DevExpression(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
             default -> super.visitMulDiv(ctx);
         };
     }
@@ -206,8 +197,8 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     @Override
     public Node visitAddSub(NLLangParser.AddSubContext ctx) {
         return switch (ctx.op.getText()) {
-            case "+" -> AddExpressionNodeGen.create(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
-            case "-" -> SubExpressionNodeGen.create(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
+            case "+" -> new AddExpression(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
+            case "-" -> new SubExpression(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
             default -> super.visitAddSub(ctx);
         };
     }

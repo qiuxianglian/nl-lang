@@ -40,7 +40,7 @@
  */
 package nl;
 
-import org.graalvm.polyglot.*;
+
 
 import java.io.*;
 import java.util.HashMap;
@@ -51,61 +51,43 @@ public final class NLMain {
     public static final String NL = "nl";
 
 
-
-
     /**
      * The main entry point.
      */
     public static void main(String[] args) throws IOException {
-        Source source;
+        InputStreamReader source;
         Map<String, String> options = new HashMap<>();
         String file = null;
         boolean launcherOutput = true;
         for (String arg : args) {
-            if (arg.equals("--disable-launcher-output")) {
-                launcherOutput = false;
-            } else if (parseOption(options, arg)) {
-                continue;
-            } else {
-                if (file == null) {
-                    file = arg;
-                }
+            if (file == null) {
+                file = arg;
             }
         }
 
         if (file == null) {
             // @formatter:off
-            source = Source.newBuilder(NL, new InputStreamReader(System.in), "<stdin>").interactive(!launcherOutput).build();
+            source =  new InputStreamReader(System.in);
             // @formatter:on
         } else {
-            source = Source.newBuilder(NL, new File(file)).interactive(!launcherOutput).build();
+            source =  new InputStreamReader(new FileInputStream(file));
         }
 
         System.exit(executeSource(source, System.in, System.out, options, launcherOutput));
     }
 
-    private static int executeSource(Source source, InputStream in, PrintStream out, Map<String, String> options, boolean launcherOutput) {
-        Context context;
+    private static int executeSource(InputStreamReader source, InputStream in, PrintStream out, Map<String, String> options, boolean launcherOutput) {
         PrintStream err = System.err;
+        NLLang nlLang;
         try {
-            context = Context.newBuilder(NL).in(in).out(out).options(options).allowAllAccess(true).build();
-        } catch (IllegalArgumentException e) {
-            err.println(e.getMessage());
-            return 1;
-        }
+            nlLang = new NLLang();
+            Object result = nlLang.eval(source);
 
-        if (launcherOutput) {
-//            out.println("== running on " + context.getEngine());
-        }
-
-        try {
-            Value result = context.eval(source);
-
-            if (launcherOutput && !result.isNull()) {
-                out.println(result.toString());
+            if (result!=null) {
+                out.println(result);
             }
             return 0;
-        } catch (PolyglotException ex) {
+        } catch (NLException ex) {
             if (ex.isInternalError()) {
                 // for internal errors we print the full stack trace
                 ex.printStackTrace();
@@ -114,35 +96,8 @@ public final class NLMain {
             }
             return 1;
         } finally {
-            context.close();
         }
     }
 
-    private static boolean parseOption(Map<String, String> options, String arg) {
-        if (arg.length() <= 2 || !arg.startsWith("--")) {
-            return false;
-        }
-        int eqIdx = arg.indexOf('=');
-        String key;
-        String value;
-        if (eqIdx < 0) {
-            key = arg.substring(2);
-            value = null;
-        } else {
-            key = arg.substring(2, eqIdx);
-            value = arg.substring(eqIdx + 1);
-        }
-
-        if (value == null) {
-            value = "true";
-        }
-        int index = key.indexOf('.');
-        String group = key;
-        if (index >= 0) {
-            group = group.substring(0, index);
-        }
-        options.put(key, value);
-        return true;
-    }
 
 }

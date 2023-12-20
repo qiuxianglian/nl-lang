@@ -1,6 +1,5 @@
 package nl;
 
-import com.oracle.truffle.api.strings.TruffleString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class NLScope {
     }
 
     protected  NLScope outer;
-    protected  List<TruffleString> index ;
+    protected  List<String> index ;
     protected  List<Object> values;
 
     public NLScope(NLScope outer) {
@@ -48,19 +47,19 @@ public class NLScope {
         this.index = new ArrayList<>();
         this.values = new ArrayList<>();
     }
-    public void put(TruffleString id, Object val){
+    public void put(String id, Object val){
         innerPut(id,val);
     }
 
-    private void innerPut(TruffleString id, Object val){
+    private void innerPut(String id, Object val){
         if(id == null) return;
         index.add(id);
         values.add(val);
     }
 
-    private Object innerGet(TruffleString id){
+    private Object innerGet(String id){
         for (int i = index.size() - 1; i >= 0; i--) {
-            TruffleString truffleString = index.get(i);
+            String truffleString = index.get(i);
             if(truffleString.equals(id)){
                 return values.get(i);
             }
@@ -68,7 +67,7 @@ public class NLScope {
         return null;
     }
 
-    public Object find(TruffleString name) {
+    public Object find(String name) {
         Object result = innerGet(name);
         if (result != null) {
             return result;

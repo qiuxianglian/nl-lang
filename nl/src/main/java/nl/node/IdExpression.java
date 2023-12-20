@@ -1,14 +1,13 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.VirtualFrame;
-import com.oracle.truffle.api.strings.TruffleString;
+
+
 import nl.NLScope;
 
 public class IdExpression extends Expression{
-    private TruffleString id;
+    private String id;
 
-    public IdExpression(TruffleLanguage<?> language, TruffleString id) {
+    public IdExpression(Lang language, String id) {
         super(language);
         this.id = id;
     }
@@ -26,7 +25,7 @@ public class IdExpression extends Expression{
         return o;
     }
 
-    public TruffleString getId() {
+    public String getId() {
         return id;
     }
 

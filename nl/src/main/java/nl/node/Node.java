@@ -1,20 +1,10 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.FrameDescriptor;
-import com.oracle.truffle.api.interop.TruffleObject;
-import com.oracle.truffle.api.nodes.NodeInfo;
-import com.oracle.truffle.api.nodes.RootNode;
 
-@NodeInfo(language = "NL", description = "The abstract base node for all NL node")
-public abstract class Node extends RootNode  implements TruffleObject {
-    protected Node(TruffleLanguage<?> language) {
-        super(language);
+
+public abstract class Node {
+    protected Node(Lang language) {
+
     }
-
-    protected Node(TruffleLanguage<?> language, FrameDescriptor frameDescriptor) {
-        super(language, frameDescriptor);
-    }
-
-
+    public abstract Object execute(VirtualFrame frame);
 }

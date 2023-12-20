@@ -1,8 +1,8 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.VirtualFrame;
-import com.oracle.truffle.api.strings.TruffleStringBuilder;
+
+
+
 import nl.NLScope;
 
 import java.util.Arrays;
@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 
 public class CallExpression extends Node {
     private Node functionExpression;
-    @Children private final Node[] inputs;
+    private final Node[] inputs;
 
 
 
-    public CallExpression(TruffleLanguage<?> language, Node functionExpression, Node[] inputs) {
+    public CallExpression(Lang language, Node functionExpression, Node[] inputs) {
         super(language);
         this.functionExpression = functionExpression;
         this.inputs = inputs;
@@ -60,7 +60,7 @@ public class CallExpression extends Node {
             sb.append(")");
         }
         sb.append("(");
-        sb.append(Arrays.stream(inputs).map(com.oracle.truffle.api.nodes.Node::toString).collect(Collectors.joining(",")));
+        sb.append(Arrays.stream(inputs).map(k->k.toString()).collect(Collectors.joining(",")));
         sb.append(")");
 
         return sb.toString();

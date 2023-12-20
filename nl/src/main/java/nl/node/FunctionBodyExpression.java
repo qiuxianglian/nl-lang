@@ -1,17 +1,14 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.FrameDescriptor;
-import com.oracle.truffle.api.frame.VirtualFrame;
-import com.oracle.truffle.api.interop.TruffleObject;
 
 
-public class FunctionBodyExpression extends Node implements TruffleObject {
+
+public class FunctionBodyExpression extends Node  {
     private Node body;
 
 
-    public FunctionBodyExpression(TruffleLanguage<?> language, FrameDescriptor frameDescriptor, Node body) {
-        super(language,frameDescriptor);
+    public FunctionBodyExpression(Lang language,  Node body) {
+        super(language);
         this.body = body;
     }
 

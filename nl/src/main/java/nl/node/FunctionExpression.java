@@ -1,19 +1,16 @@
 package nl.node;
 
-import com.oracle.truffle.api.TruffleLanguage;
-import com.oracle.truffle.api.frame.VirtualFrame;
-import com.oracle.truffle.api.interop.TruffleObject;
-import com.oracle.truffle.api.nodes.NodeInfo;
+
+
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-@NodeInfo(shortName = "fn")
-public class FunctionExpression extends Node implements TruffleObject {
+public class FunctionExpression extends Node  {
     private Node body;
     private List<IdExpression> idExpressions;
-    public FunctionExpression(TruffleLanguage<?> language
+    public FunctionExpression(Lang language
             , List<IdExpression> idExpressions
             , Node body) {
         super(language);
@@ -40,7 +37,7 @@ public class FunctionExpression extends Node implements TruffleObject {
             sb.append(idExpressions.stream().findFirst().get());
         } else {
             sb.append("(");
-            sb.append(idExpressions.stream().map(com.oracle.truffle.api.nodes.Node::toString).collect(Collectors.joining(",")));
+            sb.append(idExpressions.stream().map(k->toString()).collect(Collectors.joining(",")));
             sb.append(")");
         }
         sb.append("=>");
