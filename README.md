@@ -14,7 +14,7 @@
 
 # 例子
 
-lambda和计算器例子　见[tests](./tests).
+lambda和计算器例子　见[tests](nl/tests).
 
 命令行执行`./native/target/nlnative tests/number1`
 
