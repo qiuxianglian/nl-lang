@@ -32,8 +32,5 @@ public  class MulExpression extends NumberBinaryExpression{
         return getLeft()+"*"+getRight();
     }
 
-    @Override
-    public Object execute(VirtualFrame frame) {
-        return null;
-    }
+
 }

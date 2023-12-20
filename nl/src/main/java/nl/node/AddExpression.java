@@ -1,6 +1,7 @@
 package nl.node;
 
 
+
 public  class AddExpression extends NumberBinaryExpression{
 
 
@@ -8,10 +9,6 @@ public  class AddExpression extends NumberBinaryExpression{
         super(language, left, right);
     }
 
-    @Override
-    public Object execute(VirtualFrame frame) {
-        return null;
-    }
 
     protected long doLong(long left, long right) {
         return Math.addExact(left, right);

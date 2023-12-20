@@ -1,12 +1,13 @@
 package nl;
 
 
+import java.io.*;
 
 public class NlExample {
-    /**
-     * The main entry point.
-     */
-    public static void main(String[] args) throws InterruptedException {
 
+    public static void main(String[] args) throws Exception {
+        NLLang nlLang = new NLLang();
+        Object eval = nlLang.eval(new InputStreamReader((new ByteArrayInputStream("1+1".getBytes()))));
+        System.out.println(eval);
     }
 }

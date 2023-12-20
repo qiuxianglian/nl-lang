@@ -10,18 +10,20 @@ import java.io.InputStreamReader;
 
 public class NLLang extends Lang {
     public final static String ID = "nl";
+
     public NLLang() {
     }
 
 
-    public Node parse(String request) throws Exception {
-        String source = request;
-        Node node = NlParser.parseNL(this,source);
+    public Node parse(InputStreamReader request) throws Exception {
+        Node node = NlParser.parseNL(this,request);
         return node;
     }
 
-    public Object eval(InputStreamReader source){
-        return null;
+    public Object eval(InputStreamReader source) throws Exception {
+        Node parse = parse(source);
+        DFSNLLangRunner dfsnlLangRunner = new DFSNLLangRunner();
+        return dfsnlLangRunner.eval(parse);
     }
 
 }

@@ -1,8 +1,7 @@
 package nl.node;
 
 
-
-
+import nl.NLException;
 
 public  class DevExpression extends NumberBinaryExpression{
 
@@ -10,10 +9,6 @@ public  class DevExpression extends NumberBinaryExpression{
         super(language, left, right);
     }
 
-    @Override
-    public Object execute(VirtualFrame frame) {
-        return null;
-    }
 
     protected long doLong(long left, long right) {
         return Math.divideExact(left, right);

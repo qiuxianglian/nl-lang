@@ -2,9 +2,14 @@ package nl.parser;
 
 
 import nl.node.*;
+import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,9 +88,9 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         this.language = language;
     }
 
-    public static Node parseNL(Lang language,String source) {
-        String string = source;
-        NLLangLexer lexer = new NLLangLexer(CharStreams.fromString(string));
+    public static Node parseNL(Lang language, InputStreamReader source) throws IOException {
+        CodePointCharStream codePointCharStream = CharStreams.fromReader(source);
+        NLLangLexer lexer = new NLLangLexer(codePointCharStream);
         NLLangParser parser = new NLLangParser(new CommonTokenStream(lexer));
         NlParser nlParser = new NlParser(language);
         return nlParser.visit(parser.nllang());

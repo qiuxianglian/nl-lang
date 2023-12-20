@@ -95,6 +95,8 @@ public final class NLMain {
                 err.println(ex.getMessage());
             }
             return 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         } finally {
         }
     }

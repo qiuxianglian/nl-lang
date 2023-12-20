@@ -13,6 +13,10 @@ public class RootEnter extends Node{
     }
 
 
+    @Override
+    public String toString() {
+        return node.toString();
+    }
 
     @Override
     public Object execute(VirtualFrame frame) {
