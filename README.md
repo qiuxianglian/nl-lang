@@ -1,13 +1,17 @@
 # nl 语言
 
-一个lambda编译器，使用graal-truffle开发，因此可以编译出可以在其他平台
+一个支持**部分求值**的编程语言，~~使用graal-truffle开发，因此~~ 可以编译出可以在其他平台
 直接运行的二进制版本，执行速度接近于c++开发的应用程序。
+
 
 目前支持的特性：
 
+- 部分求值（待完善）
 - number 数字(混合int和double)
 - string 字符串
 - lambda 定义及其调用
+- 语句
+- 赋值
 - +-*/四则运算
 - 字符串+操作
 - 定义变量可以混合中文输入法，比如=>可以写成＝》，支持中文变量
@@ -18,11 +22,6 @@ lambda和计算器例子　见[tests](nl/tests).
 
 命令行执行`./native/target/nlnative tests/number1`
 
-## 四则运算
-```javascript
-(2*1+2+7.5)*3/1.2*22-99
-//结果　533.5
-```
 ## Lambda 
 
 ```javascript
@@ -44,6 +43,30 @@ lambda和计算器例子　见[tests](nl/tests).
 // 结果 args=>((x)(x))(args) 
 ```
 
+## 语句和赋值
+
+```javascript
+g:=21;// 赋值
+a:= f=>f+g;
+a(100);
+```
+
+## 部分求值
+
+```javascript
+g:=x;
+k:=f=>g+1;
+k(1)
+// 输出x+1
+```
+
+
+
+## 四则运算
+```javascript
+(2*1+2+7.5)*3/1.2*22-99
+//结果　533.5
+```
 # 编译
 
 依赖`graal-jdk-21+`,**mvn**命令。
@@ -82,6 +105,6 @@ mvn package　-Pnative
 - parser使用antlr4
 - 解释器自己写的，但是主要借助于truffle
 - 编译器truffle自动生成的
-- 到java代码的编译和native都是truffle自动生成的
+- 到java代码的编译和native都是~~truffle~~ graal自动生成的
 
 
