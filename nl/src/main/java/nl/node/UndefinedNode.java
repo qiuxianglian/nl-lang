@@ -23,15 +23,29 @@ public class UndefinedNode extends Node {
     protected Object doBinaryExpression(VirtualFrame frame) {
         Class<? extends BinaryExpression> cls = (Class<? extends BinaryExpression>) node.getClass();
         List<Node> collect = collect(node, cls);
-        List<Node>[] pair = split(collect);
+        List<Node> ec = new ArrayList<>();
+        for (Node c : collect) {
+            Object execute = c.execute(frame);
+            if(execute instanceof Node en){
+                ec.add(en);
+            }else{
+                ec.add(wrapper(lang,frame,execute));
+            }
+        }
+        List<Node>[] pair = split(ec);
         List<Node> hasUndefined = pair[0];
         List<Node> notHas = pair[1];
         if (notHas.size() < 2) {
             return node;
         } else {
-            Node res = wrapper(lang, frame, merge(notHas, cls).execute(frame));
-            Node und = merge(hasUndefined, cls);
-            return BinaryExpression.create(lang, und, res, cls);
+            if(!hasUndefined.isEmpty()){
+                Node und = merge(hasUndefined, cls);
+                Node res = wrapper(lang, frame, merge(notHas, cls).execute(frame));
+                return BinaryExpression.create(lang, und, res, cls);
+            }else{
+                Node res = wrapper(lang, frame, merge(notHas, cls).execute(frame));
+                return res;
+            }
         }
     }
 
