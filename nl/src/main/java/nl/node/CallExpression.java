@@ -42,6 +42,7 @@ public class CallExpression extends Node {
                 }
             }
             frame = new VirtualFrame();
+            frame.setArguments(argumentValues);
             frame.setScope(fn.getNlScope());
             Object call = fn.getBody().execute(frame);
             return call;

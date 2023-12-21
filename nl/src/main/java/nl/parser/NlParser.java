@@ -159,7 +159,7 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         }
         return new FunctionExpression(language
                 ,idExpressions
-                ,new FunctionBodyExpression(language, bodyRes)
+                ,bodyRes
         );
     }
 

@@ -1,5 +1,5 @@
 a:=10;
 f:=x=>a;
-f(1);
+println(f(1));
 a:=11;
-f(1);
+println(f(1));
