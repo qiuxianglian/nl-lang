@@ -34,6 +34,11 @@ public class Println extends FunctionExpression {
         protected List<Node> children() {
             return List.of();
         }
+
+        @Override
+        public String toString() {
+            return "builtin fn: println";
+        }
     }
 
 }

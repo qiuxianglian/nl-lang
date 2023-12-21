@@ -33,6 +33,11 @@ public class Print extends FunctionExpression {
         protected List<Node> children() {
             return List.of();
         }
+
+        @Override
+        public String toString() {
+            return "builtin fn: print";
+        }
     }
 
 }
