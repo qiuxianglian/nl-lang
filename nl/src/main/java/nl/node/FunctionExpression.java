@@ -3,6 +3,8 @@ package nl.node;
 
 
 
+import nl.NLScope;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +27,20 @@ public class FunctionExpression extends Node  {
     }
     @Override
     public Object execute(VirtualFrame frame) {
+        FunctionExpression functionExpression = new FunctionExpression(lang, idExpressions, body);
+        functionExpression.nlScope = NLScope.NLScopeOperator.newScope();
+        functionExpression.setUpNlScope(frame.getScope().getScope());
+        return functionExpression;
+    }
+    private NLScope.NLScopeOperator nlScope;
+
+    public FunctionExpression setUpNlScope(NLScope nlScope) {
+        this.nlScope.setOuter(nlScope);
         return this;
+    }
+
+    public NLScope.NLScopeOperator getNlScope() {
+        return nlScope;
     }
 
     public Node getBody() {

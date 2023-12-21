@@ -29,6 +29,10 @@ public class NLScope {
             this.scope = this.scope.outer;
         }
 
+        public void setOuter(NLScope nlScope){
+            this.scope.outer = nlScope;
+        }
+
         public NLScope getScope() {
             return scope;
         }

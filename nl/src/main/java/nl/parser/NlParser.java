@@ -115,7 +115,7 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         NLLangParser.CallValueContext callValueContext = ctx.callValue();
         Node callTarget = visit(callValueContext);
         List<NLLangParser.CallInputContext> callInputContexts = ctx.callInput();
-        CallExpression callExpression = null;
+        Node callExpression = null;
         for (NLLangParser.CallInputContext callInputContext : callInputContexts) {
             List<NLLangParser.ExpressionContext> expressionList = callInputContext.expression();
             Node[] nodes = new Node[expressionList.size()];

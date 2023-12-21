@@ -7,12 +7,8 @@ public class DFSNLLangRunner implements NLLangRunner{
     @Override
     public Object eval(Node node) {
         VirtualFrame frame = new VirtualFrame();
-        Object[] arr;
-        NLScope.NLScopeOperator scope;
-        scope = NLScope.NLScopeOperator.newScope();
-        arr=new Object[2];
-        arr[0] = scope;
-        frame.setArguments(arr);
+        NLScope.NLScopeOperator scope = NLScope.NLScopeOperator.newScope();
+        frame.setScope(scope);
         return node.execute(frame);
     }
 }

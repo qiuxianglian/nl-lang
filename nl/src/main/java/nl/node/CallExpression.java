@@ -26,7 +26,6 @@ public class CallExpression extends Node {
 
     @Override
     public Object execute(VirtualFrame frame) {
-        NLScope.NLScopeOperator scope = (NLScope.NLScopeOperator) frame.getArguments()[0];
 
         Object function = functionExpression.execute(frame);
         if(function instanceof FunctionExpression fn){
@@ -39,10 +38,11 @@ public class CallExpression extends Node {
             for (int i = 0; i < fn.getIdExpressions().size(); i++) {
                 IdExpression idExpression = fn.getIdExpressions().get(i);
                 if(i<argumentValues.length){
-                    scope.getScope().put(idExpression.getId(),argumentValues[i]);
+                    fn.getNlScope().getScope().put(idExpression.getId(),argumentValues[i]);
                 }
             }
-
+            frame = new VirtualFrame();
+            frame.setScope(fn.getNlScope());
             Object call = fn.getBody().execute(frame);
             return call;
         } else {
