@@ -103,8 +103,8 @@ mvn package　-Pnative
 # 技术
 
 - parser使用antlr4
-- 解释器自己写的~~但是主要借助于truffle~~
-- ~~编译器truffle自动生成的~~
-- 到java代码的编译和native都是~~truffle~~ graal自动生成的
+- 解释器自己写的
+- 编译器还没写
+- 到java代码的编译和native，graal自动生成的
 
 
