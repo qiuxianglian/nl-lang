@@ -33,6 +33,8 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     }
 
 
+
+
     @Override
     public Node visitNllang(NLLangParser.NllangContext ctx) {
         NLLangParser.StatementsContext statements = ctx.statements();
@@ -44,6 +46,20 @@ public class NlParser extends NLLangBaseVisitor<Node> {
             return new RootEnter(language,visit(expression));
         }
         return super.visitNllang(ctx);
+    }
+
+    @Override
+    public Node visitIf(NLLangParser.IfContext ctx) {
+        NLLangParser.ExpressionContext expression = ctx.expression();
+        Node exp = visit(expression);
+        Node block = visit(ctx.block());
+        return new IfNode(language,exp,block);
+    }
+
+    @Override
+    public Node visitBlock(NLLangParser.BlockContext ctx) {
+        Node stat = visit(ctx.statements());
+        return new BlockNode(language,stat);
     }
 
     @Override
@@ -63,7 +79,19 @@ public class NlParser extends NLLangBaseVisitor<Node> {
 
     @Override
     public Node visitStatement(NLLangParser.StatementContext ctx) {
-        return new Statement(language,visit(ctx.expression()));
+        NLLangParser.ExpressionContext expression = ctx.expression();
+        if(expression!=null){
+            return new Statement(language,visit(expression));
+        }
+        NLLangParser.IfContext ifContext = ctx.if_();
+        if(ifContext!=null){
+            return new Statement(language,visit(ifContext));
+        }
+        NLLangParser.BlockContext block = ctx.block();
+        if(block!=null){
+            return new Statement(language,visit(block));
+        }
+        return super.visitStatement(ctx);
     }
 
     @Override
@@ -76,10 +104,7 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         return new BooleanExpression(language,Boolean.parseBoolean(ctx.start.getText()));
     }
 
-    private static Object add(AddExpression addExpression){
-        return ((NumberExpression)addExpression.getLeft().execute(null)).getNum().longValue()
-                +((NumberExpression)addExpression.getRight().execute(null)).getNum().longValue();
-    }
+
 
 
     private final Lang language;
@@ -152,10 +177,13 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         Node bodyRes = null;
         NLLangParser.ExpressionContext exp = ctx.expression();
         NLLangParser.CallContext call = ctx.call();
+        NLLangParser.StatementsContext statements = ctx.statements();
         if(exp != null){
             bodyRes =  visit(exp);
         } else if(call!=null){
             bodyRes =  visit(call);
+        }else if(statements!=null){
+            bodyRes = visit(statements);
         }
         return new FunctionExpression(language
                 ,idExpressions
@@ -165,7 +193,9 @@ public class NlParser extends NLLangBaseVisitor<Node> {
 
     @Override
     public Node visitStr(NLLangParser.StrContext ctx) {
-        return new StringExpression(language, ctx.start.getText());
+        String text = ctx.start.getText();
+        text = text.substring(1,text.length()-1);
+        return new StringExpression(language, text);
     }
 
     @Override

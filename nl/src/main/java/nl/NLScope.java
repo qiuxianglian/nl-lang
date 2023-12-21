@@ -1,8 +1,9 @@
 package nl;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class NLScope {
@@ -39,8 +40,8 @@ public class NLScope {
     }
 
     protected  NLScope outer;
-    protected  List<String> index ;
-    protected  List<Object> values;
+    protected Map<String,Object> map;
+
 
     public NLScope(NLScope outer) {
         this.outer = outer;
@@ -48,27 +49,41 @@ public class NLScope {
     }
 
     private void init(){
-        this.index = new ArrayList<>();
-        this.values = new ArrayList<>();
+        this.map = new HashMap<>();
     }
     public void put(String id, Object val){
         innerPut(id,val);
     }
 
+    public  void putOrUpdate(String id,Object val){
+        if(!putOrUpdate(this, id, val)){
+            put(id,val);
+        }
+    }
+
+    private static boolean putOrUpdate(NLScope scope,String id,Object val){
+        Object result = scope.innerGet(id);
+        if (result != null) {
+            scope.put(id,val);
+            return true;
+        } else if (scope.outer != null) {
+             if(putOrUpdate(scope.outer,id,val)){
+                 return true;
+             }else{
+                 return false;
+             }
+        } else {
+            return false;
+        }
+    }
+
     private void innerPut(String id, Object val){
         if(id == null) return;
-        index.add(id);
-        values.add(val);
+        map.put(id,val);
     }
 
     private Object innerGet(String id){
-        for (int i = index.size() - 1; i >= 0; i--) {
-            String truffleString = index.get(i);
-            if(truffleString.equals(id)){
-                return values.get(i);
-            }
-        }
-        return null;
+        return map.get(id);
     }
 
     public Object find(String name) {

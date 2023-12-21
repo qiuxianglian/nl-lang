@@ -149,6 +149,18 @@ public class NLLangBaseListener implements NLLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIf(NLLangParser.IfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIf(NLLangParser.IfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStatements(NLLangParser.StatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -180,6 +192,18 @@ public class NLLangBaseListener implements NLLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssign(NLLangParser.AssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlock(NLLangParser.BlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlock(NLLangParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

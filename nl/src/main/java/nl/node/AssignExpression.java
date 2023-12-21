@@ -20,7 +20,7 @@ public class AssignExpression extends Node{
     public Object execute(VirtualFrame frame) {
         Object execute = expression.execute(frame);
         NLScope.NLScopeOperator argument = frame.getScope();
-        argument.getScope().put(id.getId(),execute);
+        argument.getScope().putOrUpdate(id.getId(),execute);
         return execute;
     }
 

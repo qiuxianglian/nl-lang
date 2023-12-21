@@ -19,19 +19,24 @@ expression:
 |boolean #bool
 |assign #as
 ;
+if: 'if' '(' expression ')' block ;
 
 statements: statement statement* (statement|expression)?;
 
-statement: expression? ';';
+statement: (if|block|expression? ';');
 
 assign : id ':''=' expression;
 
-boolean : TRUE | FALSE;
+
+
+block: '{' statements? '}';
+
+boolean : 'true' | 'false';
 
 id: Identifier;
 
-function : id FN_SP (expression|call)
-|'(' id? (',' id)* ')' FN_SP (expression|call)
+function : id FN_SP (expression|call|statements)
+|'(' id? (',' id)* ')' FN_SP (expression|call|statements)
 |'(' function ')'
 ;
 
@@ -79,13 +84,15 @@ Identifier: IdentifierStart IdentifierPart*;
 
 
 IDENTIFIER : LETTER (LETTER | DIGIT)*;
-STRING_LITERAL : '"' STRING_CHAR* '"';
+STRING_LITERAL : '"' STRING_CHAR* '"'|'\'' STRING_CHAR* '\'';
 INT : '0' | NON_ZERO_DIGIT DIGIT*;
 Decimal : INT '.' [0-9] [0-9_]*
     | '.' [0-9] [0-9_]* ;
 
+
+
 FN_SP: ('＝'|'=')('>'|'》');
-TRUE: 'T''R''U''E';
-FALSE: 'F''A''L''S''E';
+
+
 
 

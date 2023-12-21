@@ -138,6 +138,16 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitTheid(NLLangParser.TheidContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link NLLangParser#if}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf(NLLangParser.IfContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#if}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf(NLLangParser.IfContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link NLLangParser#statements}.
 	 * @param ctx the parse tree
 	 */
@@ -167,6 +177,16 @@ public interface NLLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssign(NLLangParser.AssignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlock(NLLangParser.BlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlock(NLLangParser.BlockContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NLLangParser#boolean}.
 	 * @param ctx the parse tree
