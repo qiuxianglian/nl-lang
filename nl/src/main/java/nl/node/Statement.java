@@ -1,7 +1,7 @@
 package nl.node;
 
 
-
+import java.util.List;
 
 public class Statement extends Node{
     private Node node;
@@ -14,5 +14,10 @@ public class Statement extends Node{
     @Override
     public Object execute(VirtualFrame frame) {
         return node.execute(frame);
+    }
+
+    @Override
+    protected List<Node> children() {
+        return List.of(node);
     }
 }

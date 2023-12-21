@@ -1,7 +1,7 @@
 package nl.node;
 
 
-
+import java.util.List;
 
 public class FunctionBodyExpression extends Node  {
     private Node body;
@@ -17,6 +17,10 @@ public class FunctionBodyExpression extends Node  {
         return body.execute(frame);
     }
 
+    @Override
+    protected List<Node> children() {
+        return List.of(getBody());
+    }
 
 
     public Node getBody() {

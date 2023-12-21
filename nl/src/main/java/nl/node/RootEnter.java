@@ -4,6 +4,8 @@ package nl.node;
 
 import nl.NLScope;
 
+import java.util.List;
+
 public class RootEnter extends Node{
     private Node node;
 
@@ -33,5 +35,10 @@ public class RootEnter extends Node{
         VirtualFrame virtualFrame = new VirtualFrame();
         virtualFrame.setArguments(arr);
         return node.execute(virtualFrame);
+    }
+
+    @Override
+    protected List<Node> children() {
+        return List.of(node);
     }
 }

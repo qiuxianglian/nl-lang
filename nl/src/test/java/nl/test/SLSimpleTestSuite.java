@@ -3,6 +3,8 @@ package nl.test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runner.manipulation.NoTestsRemainException;
+import org.junit.runners.model.InitializationError;
 
 @RunWith(SLTestRunner.class)
 @SLTestSuite({"nl/tests"})

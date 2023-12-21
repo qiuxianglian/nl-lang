@@ -1,7 +1,7 @@
 package nl.node;
 
 
-
+import java.util.List;
 
 public class BooleanExpression extends Node{
     private boolean bool;
@@ -14,5 +14,10 @@ public class BooleanExpression extends Node{
     @Override
     public Object execute(VirtualFrame frame) {
         return bool;
+    }
+
+    @Override
+    protected List<Node> children() {
+        return List.of();
     }
 }

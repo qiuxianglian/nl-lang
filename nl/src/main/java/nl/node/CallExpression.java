@@ -6,6 +6,7 @@ package nl.node;
 import nl.NLScope;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -47,6 +48,13 @@ public class CallExpression extends Node {
         } else {
             throw new RuntimeException("target is not function ");
         }
+    }
+
+    @Override
+    protected List<Node> children() {
+        List<Node> functionExpression1 = new java.util.ArrayList<>(List.of(functionExpression));
+        functionExpression1.addAll(Arrays.asList(inputs));
+        return functionExpression1;
     }
 
     @Override

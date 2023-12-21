@@ -3,6 +3,7 @@ package nl.node;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Statements extends Node{
@@ -23,5 +24,10 @@ public class Statements extends Node{
             res = statements.get(i).execute(frame);
         }
         return res;
+    }
+
+    @Override
+    protected List<Node> children() {
+        return statements;
     }
 }

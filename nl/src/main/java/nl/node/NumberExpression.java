@@ -1,8 +1,7 @@
 package nl.node;
 
 
-
-
+import java.util.List;
 
 public  class NumberExpression extends Expression{
     private final Number num;
@@ -26,5 +25,10 @@ public  class NumberExpression extends Expression{
     @Override
     public Object execute(VirtualFrame frame) {
         return num;
+    }
+
+    @Override
+    protected List<Node> children() {
+        return List.of();
     }
 }

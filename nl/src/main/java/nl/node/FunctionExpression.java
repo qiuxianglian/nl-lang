@@ -18,6 +18,12 @@ public class FunctionExpression extends Node  {
         this.idExpressions = idExpressions;
     }
     @Override
+    protected List<Node> children() {
+        List<Node> body1 = new java.util.ArrayList<>(List.of(getBody()));
+        body1.addAll(idExpressions);
+        return body1;
+    }
+    @Override
     public Object execute(VirtualFrame frame) {
         return this;
     }

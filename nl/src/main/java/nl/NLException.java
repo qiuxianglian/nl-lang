@@ -21,6 +21,6 @@ public class NLException extends RuntimeException {
     }
 
     public boolean isInternalError(){
-        return true;
+        return false;
     }
 }

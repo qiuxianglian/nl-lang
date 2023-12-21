@@ -8,7 +8,10 @@ public  class DevExpression extends NumberBinaryExpression{
     public DevExpression(Lang language, Node left, Node right) {
         super(language, left, right);
     }
-
+    @Override
+    public BinaryExpression create(Lang language, Node left, Node right) {
+        return new DevExpression(language,left,right);
+    }
 
     protected long doLong(long left, long right) {
         return Math.divideExact(left, right);

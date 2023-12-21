@@ -32,5 +32,8 @@ public  class MulExpression extends NumberBinaryExpression{
         return getLeft()+"*"+getRight();
     }
 
-
+    @Override
+    public BinaryExpression create(Lang language, Node left, Node right) {
+        return new MulExpression(language,left,right);
+    }
 }

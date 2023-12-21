@@ -31,5 +31,8 @@ public  class SubExpression extends NumberBinaryExpression{
         return getLeft()+"-"+getRight();
     }
 
-
+    @Override
+    public BinaryExpression create(Lang language, Node left, Node right) {
+        return new SubExpression(language,left,right);
+    }
 }

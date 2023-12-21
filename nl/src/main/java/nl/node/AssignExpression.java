@@ -4,6 +4,8 @@ package nl.node;
 
 import nl.NLScope;
 
+import java.util.List;
+
 public class AssignExpression extends Node{
     private IdExpression id;
     private Node expression;
@@ -20,5 +22,10 @@ public class AssignExpression extends Node{
         NLScope.NLScopeOperator argument = ( NLScope.NLScopeOperator) frame.getArguments()[0];
         argument.getScope().put(id.getId(),execute);
         return execute;
+    }
+
+    @Override
+    protected List<Node> children() {
+        return List.of(id,expression);
     }
 }
