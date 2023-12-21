@@ -12,7 +12,7 @@ public class ValueNode extends Node{
 
     @Override
     public Object execute(VirtualFrame frame) {
-        return this;
+        return value;
     }
 
     @Override

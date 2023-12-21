@@ -26,4 +26,11 @@ public abstract class Node {
     }
 
     abstract protected List<Node> children();
+
+    public static Node wrapper(Lang lang,VirtualFrame virtualFrame,Object o){
+//        if(o instanceof Node){
+//            return (Node) ((Node) o).execute(virtualFrame);
+//        }
+        return new ValueNode(lang,o);
+    }
 }

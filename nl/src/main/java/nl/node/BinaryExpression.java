@@ -18,6 +18,22 @@ public abstract   class BinaryExpression extends Node {
 
     abstract public BinaryExpression create(Lang language, Node left, Node right);
 
+    public  static BinaryExpression create(Lang lang,Node left,Node right,Class<?extends BinaryExpression> cls){
+        if(cls.equals(AddExpression.class)){
+            return new AddExpression(lang,left,right);
+        }
+        if(cls.equals(SubExpression.class)){
+            return new SubExpression(lang,left,right);
+        }
+        if(cls.equals(MulExpression.class)){
+            return new MulExpression(lang,left,right);
+        }
+        if(cls.equals(DevExpression.class)){
+            return new DevExpression(lang,left,right);
+        }
+        throw new NLException("not support binary opt "+cls);
+    }
+
     public Object execute(VirtualFrame frame) {
         Object l = getLeft().execute(frame);
         Object r = getRight().execute(frame);
@@ -29,26 +45,21 @@ public abstract   class BinaryExpression extends Node {
             return doDoubleLong(ll,rr);
         }else if(l instanceof Double ll && r instanceof Double rr){
             return doDouble(ll,rr);
-        }else if(l instanceof UndefinedVar ll){
+        }else if(l instanceof UndefinedId ll){
             return doUndefined(frame,ll,r);
-        }else if(r instanceof UndefinedVar rr){
+        }else if(r instanceof UndefinedId rr){
             return doUndefined(frame,l,rr);
         }
         if(l instanceof Node ll && ll.hasUndefined()){
-            return create(lang,ll, wrapper(r,frame));
+            return new UndefinedNode(lang,create(lang,ll, wrapper(lang,frame,r))).execute(frame);
         }
         if(r instanceof Node rr && rr.hasUndefined()){
-            return create(lang,wrapper(l,frame), rr);
+            return new UndefinedNode(lang,create(lang,wrapper(lang,frame,l), rr)).execute(frame);
         }
         throw new NLException("不支持的类型：left is "+l+"; right is "+r);
     }
 
-    private Node wrapper(Object o,VirtualFrame virtualFrame){
-        if(o instanceof Node){
-            return (Node) ((Node) o).execute(virtualFrame);
-        }
-        return new ValueNode(lang,o);
-    }
+
 
     public  Node getLeft(){
         return this.left;
@@ -58,12 +69,12 @@ public abstract   class BinaryExpression extends Node {
     }
 
 
-    protected Node doUndefined(VirtualFrame virtualFrame,UndefinedVar left, Object right) {
-        return  create(lang,left, wrapper(right,virtualFrame));
+    protected Object doUndefined(VirtualFrame virtualFrame, UndefinedId left, Object right) {
+        return  new UndefinedNode(lang,create(lang,left, wrapper(lang,virtualFrame,right))).execute(virtualFrame);
     }
 
-    protected Node doUndefined(VirtualFrame virtualFrame,Object left, UndefinedVar right) {
-        return  create(lang, wrapper(left,virtualFrame), right);
+    protected Object doUndefined(VirtualFrame virtualFrame,Object left, UndefinedId right) {
+        return  new UndefinedNode(lang,create(lang, wrapper(lang,virtualFrame,left), right)).execute(virtualFrame);
     }
 
     abstract protected long doLong(long left, long right) ;

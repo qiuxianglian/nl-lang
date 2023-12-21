@@ -3,10 +3,10 @@ package nl.node;
 
 import java.util.List;
 
-public class UndefinedVar extends Node{
+public class UndefinedId extends Node{
     private String name;
 
-    public UndefinedVar(Lang lang,String name) {
+    public UndefinedId(Lang lang, String name) {
         super(lang);
         this.name = name;
     }
