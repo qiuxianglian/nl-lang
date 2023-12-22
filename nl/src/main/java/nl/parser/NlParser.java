@@ -67,7 +67,10 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         List<Node> statements = new ArrayList<>();
         List<NLLangParser.StatementContext> statement = ctx.statement();
         for (NLLangParser.StatementContext statementContext : statement) {
-            statements.add(visit(statementContext));
+            Node visit = visit(statementContext);
+            if(visit!=null){
+                statements.add(visit);
+            }
         }
         NLLangParser.ExpressionContext expression = ctx.expression();
         if(expression!=null){
@@ -177,13 +180,14 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         Node bodyRes = null;
         NLLangParser.ExpressionContext exp = ctx.expression();
         NLLangParser.CallContext call = ctx.call();
-        NLLangParser.StatementsContext statements = ctx.statements();
+        NLLangParser.BlockContext block = ctx.block();
+
         if(exp != null){
             bodyRes =  visit(exp);
         } else if(call!=null){
             bodyRes =  visit(call);
-        }else if(statements!=null){
-            bodyRes = visit(statements);
+        }else if(block!=null){
+            bodyRes = visit(block);
         }
         return new FunctionExpression(language
                 ,idExpressions

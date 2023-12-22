@@ -25,4 +25,10 @@ public class BlockNode extends Node{
     protected List<Node> children() {
         return List.of(statements);
     }
+
+    @Override
+    public String toString() {
+        return "{\n" + statements +
+                "\n}";
+    }
 }

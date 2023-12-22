@@ -77,13 +77,13 @@ public abstract   class BinaryExpression extends Node {
         return  new UndefinedNode(lang,create(lang, wrapper(lang,virtualFrame,left), right)).execute(virtualFrame);
     }
 
-    abstract protected long doLong(long left, long right) ;
+    abstract protected Object doLong(long left, long right) ;
 
 
-    abstract protected double doDouble(double left, double right) ;
+    abstract protected Object doDouble(double left, double right) ;
 
-    abstract protected double doDoubleLong(double left, long right) ;
-    abstract protected double doLongDouble(long left, double right);
+    abstract protected Object doDoubleLong(double left, long right) ;
+    abstract protected Object doLongDouble(long left, double right);
 
     protected BinaryExpression(Lang language) {
         super(language);

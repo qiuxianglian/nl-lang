@@ -17,19 +17,19 @@ public  class AddExpression extends NumberBinaryExpression{
     }
 
 
-    protected long doLong(long left, long right) {
+    protected Object doLong(long left, long right) {
         return Math.addExact(left, right);
     }
 
 
-    protected double doDouble(double left, double right) {
+    protected Object doDouble(double left, double right) {
         return left + right;
     }
 
-    protected double doDoubleLong(double left, long right) {
+    protected Object doDoubleLong(double left, long right) {
         return left + (double) right;
     }
-    protected double doLongDouble(long left, double right) {
+    protected Object doLongDouble(long left, double right) {
         return  (double) left +right;
     }
 

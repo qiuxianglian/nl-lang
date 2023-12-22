@@ -30,4 +30,16 @@ public class Statements extends Node{
     protected List<Node> children() {
         return statements;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < statements.size(); i++) {
+            sb.append(statements.get(i));
+            if(i!=statements.size()-1){
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
 }

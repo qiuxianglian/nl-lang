@@ -20,4 +20,9 @@ public class BooleanExpression extends Node{
     protected List<Node> children() {
         return List.of();
     }
+
+    @Override
+    public String toString() {
+        return bool+"";
+    }
 }

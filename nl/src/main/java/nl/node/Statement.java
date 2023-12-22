@@ -20,4 +20,9 @@ public class Statement extends Node{
     protected List<Node> children() {
         return List.of(node);
     }
+
+    @Override
+    public String toString() {
+        return node +";";
+    }
 }

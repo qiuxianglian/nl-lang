@@ -1002,8 +1002,8 @@ public class NLLangParser extends Parser {
 		public CallContext call() {
 			return getRuleContext(CallContext.class,0);
 		}
-		public StatementsContext statements() {
-			return getRuleContext(StatementsContext.class,0);
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
 		}
 		public FunctionContext function() {
 			return getRuleContext(FunctionContext.class,0);
@@ -1060,7 +1060,7 @@ public class NLLangParser extends Parser {
 				case 3:
 					{
 					setState(101);
-					statements();
+					block();
 					}
 					break;
 				}
@@ -1119,7 +1119,7 @@ public class NLLangParser extends Parser {
 				case 3:
 					{
 					setState(119);
-					statements();
+					block();
 					}
 					break;
 				}
@@ -1577,7 +1577,7 @@ public class NLLangParser extends Parser {
 		"\r\u0001\u0000\u0000\u0000]^\u0007\u0002\u0000\u0000^\u000f\u0001\u0000"+
 		"\u0000\u0000_`\u0005\u0013\u0000\u0000`\u0011\u0001\u0000\u0000\u0000"+
 		"ab\u0003\u0010\b\u0000bf\u0005\u0018\u0000\u0000cg\u0003\u0002\u0001\u0000"+
-		"dg\u0003\u0014\n\u0000eg\u0003\u0006\u0003\u0000fc\u0001\u0000\u0000\u0000"+
+		"dg\u0003\u0014\n\u0000eg\u0003\f\u0006\u0000fc\u0001\u0000\u0000\u0000"+
 		"fd\u0001\u0000\u0000\u0000fe\u0001\u0000\u0000\u0000g\u007f\u0001\u0000"+
 		"\u0000\u0000hj\u0005\u0005\u0000\u0000ik\u0003\u0010\b\u0000ji\u0001\u0000"+
 		"\u0000\u0000jk\u0001\u0000\u0000\u0000kp\u0001\u0000\u0000\u0000lm\u0005"+
@@ -1585,7 +1585,7 @@ public class NLLangParser extends Parser {
 		"\u0000\u0000\u0000pn\u0001\u0000\u0000\u0000pq\u0001\u0000\u0000\u0000"+
 		"qs\u0001\u0000\u0000\u0000rp\u0001\u0000\u0000\u0000st\u0005\u0006\u0000"+
 		"\u0000tx\u0005\u0018\u0000\u0000uy\u0003\u0002\u0001\u0000vy\u0003\u0014"+
-		"\n\u0000wy\u0003\u0006\u0003\u0000xu\u0001\u0000\u0000\u0000xv\u0001\u0000"+
+		"\n\u0000wy\u0003\f\u0006\u0000xu\u0001\u0000\u0000\u0000xv\u0001\u0000"+
 		"\u0000\u0000xw\u0001\u0000\u0000\u0000y\u007f\u0001\u0000\u0000\u0000"+
 		"z{\u0005\u0005\u0000\u0000{|\u0003\u0012\t\u0000|}\u0005\u0006\u0000\u0000"+
 		"}\u007f\u0001\u0000\u0000\u0000~a\u0001\u0000\u0000\u0000~h\u0001\u0000"+

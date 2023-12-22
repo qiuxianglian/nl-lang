@@ -29,4 +29,11 @@ public class IfNode extends Node{
     protected List<Node> children() {
         return List.of(condition,body);
     }
+
+    @Override
+    public String toString() {
+        return "if" +
+                "(" + condition +
+                ")" + body ;
+    }
 }
