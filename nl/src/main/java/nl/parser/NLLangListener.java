@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from /home/dog/work/java/nl/nl/src/main/java/nl/parser/NLLang.g4 by ANTLR 4.12.0
 package nl.parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -29,6 +29,18 @@ public interface NLLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStr(NLLangParser.StrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code comp}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterComp(NLLangParser.CompContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code comp}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitComp(NLLangParser.CompContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code parens}
 	 * labeled alternative in {@link NLLangParser#expression}.
@@ -147,6 +159,16 @@ public interface NLLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIf(NLLangParser.IfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#while}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhile(NLLangParser.WhileContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#while}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhile(NLLangParser.WhileContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NLLangParser#statements}.
 	 * @param ctx the parse tree

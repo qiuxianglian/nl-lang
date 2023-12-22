@@ -13,7 +13,7 @@ public abstract class Node {
     public boolean hasUndefined(){
         if(isUndefined()) return true;
         for (Node child : children()) {
-            if(child.hasUndefined()){
+            if(child!=null && child.hasUndefined()){
                 return true;
             }
         }

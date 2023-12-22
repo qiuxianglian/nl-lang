@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from /home/dog/work/java/nl/nl/src/main/java/nl/parser/NLLang.g4 by ANTLR 4.12.0
 package nl.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -36,6 +36,18 @@ public class NLLangBaseListener implements NLLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStr(NLLangParser.StrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComp(NLLangParser.CompContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComp(NLLangParser.CompContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -156,6 +168,18 @@ public class NLLangBaseListener implements NLLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIf(NLLangParser.IfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhile(NLLangParser.WhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhile(NLLangParser.WhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

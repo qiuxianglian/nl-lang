@@ -6,10 +6,13 @@ public class IfNode extends Node{
     private Node condition;
     private Node body;
 
-    public IfNode(Lang language, Node condition, Node body) {
+    private Node elseBody;
+
+    public IfNode(Lang language, Node condition, Node body,Node elseBody) {
         super(language);
         this.condition = condition;
         this.body = body;
+        this.elseBody = elseBody;
     }
 
 
@@ -20,6 +23,8 @@ public class IfNode extends Node{
         if(execute instanceof Boolean bool){
             if(bool){
                 return body.execute(frame);
+            }else if(elseBody!=null){
+                return elseBody.execute(frame);
             }
         }
         return "";
@@ -27,7 +32,7 @@ public class IfNode extends Node{
 
     @Override
     protected List<Node> children() {
-        return List.of(condition,body);
+        return List.of(condition,body,elseBody);
     }
 
     @Override

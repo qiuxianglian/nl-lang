@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from /home/dog/work/java/nl/nl/src/main/java/nl/parser/NLLang.g4 by ANTLR 4.12.0
 package nl.parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -23,6 +23,13 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStr(NLLangParser.StrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code comp}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComp(NLLangParser.CompContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code parens}
 	 * labeled alternative in {@link NLLangParser#expression}.
@@ -92,6 +99,12 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIf(NLLangParser.IfContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#while}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhile(NLLangParser.WhileContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NLLangParser#statements}.
 	 * @param ctx the parse tree

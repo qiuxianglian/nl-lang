@@ -10,6 +10,7 @@ nllang :
 expression:
  expression op=('*'|'/') expression # MulDiv
 | expression op=('+'|'-') expression        # AddSub
+| expression op=('>'|'>='|'<'|'<='|'=='|'!=') expression        # comp
 | number                                    #Num
 | '(' expression ')'          # parens
 |STRING_LITERAL #str
@@ -19,13 +20,15 @@ expression:
 |boolean #bool
 |assign #as
 ;
-if: 'if' '(' expression ')' block ;
+if: 'if' '(' expression ')' block ('else' block)?;
+
+while: 'while' '(' expression ')' block;
 
 statements: statement statement* (statement|expression)?;
 
-statement: (if|block|expression? ';');
+statement: (if|while|block|expression? ';');
 
-assign : id ':''=' expression;
+assign : id '=' expression;
 
 
 
@@ -35,8 +38,8 @@ boolean : 'true' | 'false';
 
 id: Identifier;
 
-function : id FN_SP (expression|call|block|if)
-|'(' id? (',' id)* ')' FN_SP (expression|call|block|if)
+function : id FN_SP (expression|call|block|if|while)
+|'(' id? (',' id)* ')' FN_SP (expression|call|block|if|while)
 |'(' function ')'
 ;
 

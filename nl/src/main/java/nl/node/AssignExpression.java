@@ -28,4 +28,10 @@ public class AssignExpression extends Node{
     protected List<Node> children() {
         return List.of(id,expression);
     }
+
+    @Override
+    public String toString() {
+        return  id +
+                "=" + expression;
+    }
 }

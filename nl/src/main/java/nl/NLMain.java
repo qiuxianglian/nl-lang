@@ -84,7 +84,7 @@ public final class NLMain {
             Object result = nlLang.eval(source);
 
             if (result!=null) {
-                out.println(result);
+                out.print(result);
             }
             return 0;
         } catch (NLException ex) {

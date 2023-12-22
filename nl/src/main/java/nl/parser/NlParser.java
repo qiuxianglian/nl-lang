@@ -2,10 +2,7 @@ package nl.parser;
 
 
 import nl.node.*;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CodePointCharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,8 +49,36 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     public Node visitIf(NLLangParser.IfContext ctx) {
         NLLangParser.ExpressionContext expression = ctx.expression();
         Node exp = visit(expression);
+        Node block = visit(ctx.block(0));
+        Node elseBody = null;
+        NLLangParser.BlockContext eb = ctx.block(1);
+        if(eb!=null){
+            elseBody = visit(eb);
+        }
+        return new IfNode(language,exp,block,elseBody);
+    }
+
+
+    @Override
+    public Node visitWhile(NLLangParser.WhileContext ctx) {
+        Node expression = visit(ctx.expression());
         Node block = visit(ctx.block());
-        return new IfNode(language,exp,block);
+        return new WhileNode(language,expression,block);
+    }
+
+    @Override
+    public Node visitComp(NLLangParser.CompContext ctx) {
+        Node left = visit(ctx.expression(0));
+        Node right = visit(ctx.expression(1));
+        return switch (ctx.op.getText()){
+            case "<=" -> new LessThanAndEqualExpression(language,left,right);
+            case "<" -> new LessThanExpression(language,left,right);
+            case ">=" -> new MoreThanAndEqualExpression(language,left,right);
+            case ">" -> new MoreThanExpression(language,left,right);
+            case "==" -> new EuqalExpression(language,left,right);
+            case "!=" -> new NotEuqalExpression(language,left,right);
+            default -> super.visitComp(ctx);
+        };
     }
 
     @Override
