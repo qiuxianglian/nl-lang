@@ -12,18 +12,20 @@ public class Print extends FunctionExpression {
 
 
     public static class PrintBody extends Node {
+        java.io.PrintStream out;
 
         protected PrintBody(Lang language) {
             super(language);
+            out = language.printStream();
         }
 
         @Override
         public Object execute(VirtualFrame frame) {
             Object[] arguments = frame.getArguments();
             for (int i = 0; i < arguments.length; i++) {
-                System.out.print(arguments[i]);
+                out.print(arguments[i]);
                 if (i != arguments.length - 1) {
-                    System.out.print(" ");
+                    out.print(" ");
                 }
             }
             return "";

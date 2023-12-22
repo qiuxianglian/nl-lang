@@ -1,4 +1,4 @@
-// Generated from /home/dog/work/java/nl/nl/src/main/java/nl/parser/NLLang.g4 by ANTLR 4.12.0
+// Generated from java-escape by ANTLR 4.11.1
 package nl.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;

@@ -12,21 +12,23 @@ public class Println extends FunctionExpression {
 
 
     public static class PrintlnBody extends Node {
+        java.io.PrintStream out;
 
         protected PrintlnBody(Lang language) {
             super(language);
+            this.out = language.printStream();
         }
 
         @Override
         public Object execute(VirtualFrame frame) {
             Object[] arguments = frame.getArguments();
             for (int i = 0; i < arguments.length; i++) {
-                System.out.print(arguments[i]);
+                out.print(arguments[i]);
                 if (i != arguments.length - 1) {
-                    System.out.print(" ");
+                    out.print(" ");
                 }
             }
-            System.out.println();
+            out.println();
             return "";
         }
 

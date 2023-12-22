@@ -181,6 +181,7 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         NLLangParser.ExpressionContext exp = ctx.expression();
         NLLangParser.CallContext call = ctx.call();
         NLLangParser.BlockContext block = ctx.block();
+        NLLangParser.IfContext ifContext = ctx.if_();
 
         if(exp != null){
             bodyRes =  visit(exp);
@@ -188,6 +189,8 @@ public class NlParser extends NLLangBaseVisitor<Node> {
             bodyRes =  visit(call);
         }else if(block!=null){
             bodyRes = visit(block);
+        }else if(ifContext!=null){
+            bodyRes = visit(ifContext);
         }
         return new FunctionExpression(language
                 ,idExpressions

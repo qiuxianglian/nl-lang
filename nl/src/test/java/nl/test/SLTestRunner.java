@@ -239,7 +239,7 @@ public class SLTestRunner extends ParentRunner<SLTestRunner.TestCase> {
 //                            new ByteArrayInputStream(testCase.testInput.getBytes("UTF-8"))).out(out);
 
             context = new NLLang();
-
+            context.setOut(out);
             PrintWriter printer = new PrintWriter(out);
             run(context, testCase.path, printer);
             printer.flush();

@@ -25,10 +25,11 @@ public class BlockNode extends Node{
     protected List<Node> children() {
         return List.of(statements);
     }
+    private static final String LF = System.getProperty("line.separator");
 
     @Override
     public String toString() {
-        return "{\n" + statements +
-                "\n}";
+        return "{"+LF + statements +
+                LF+"}";
     }
 }

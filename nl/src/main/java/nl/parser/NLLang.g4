@@ -35,8 +35,8 @@ boolean : 'true' | 'false';
 
 id: Identifier;
 
-function : id FN_SP (expression|call|block)
-|'(' id? (',' id)* ')' FN_SP (expression|call|block)
+function : id FN_SP (expression|call|block|if)
+|'(' id? (',' id)* ')' FN_SP (expression|call|block|if)
 |'(' function ')'
 ;
 
