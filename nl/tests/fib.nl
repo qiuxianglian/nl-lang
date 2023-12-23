@@ -6,5 +6,5 @@ fib = (n) => {
     }
 };
 start = now();
-println(fib(25));
+println(fib(30));
 println('cost',now()-start);

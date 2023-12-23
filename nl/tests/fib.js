@@ -6,7 +6,7 @@ fib = (n) => {
         return  fib(n-1) + fib(n-2);
     }
 };
-
+fib(30);
 start = new Date().getTime();
-console.log(fib(25));
+console.log(fib(30));
 console.log((new Date().getTime())-start);
