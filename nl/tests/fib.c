@@ -24,7 +24,6 @@ long long current_timestamp() {
         printf("Timestamp: %llu\n",current_timestamp());
         printf("%lu\n",fib(30));
         printf("cost %llu",current_timestamp()-start);
-//        System.out.println("cost "+ (System.currentTimeMillis()-start));
     }
 
 

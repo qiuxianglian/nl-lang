@@ -2,7 +2,9 @@ package nl;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -45,9 +47,16 @@ public class NLScope {
 
     public NLScope(NLScope outer) {
         this.outer = outer;
-        init();
+//        init();
+        initList();
     }
 
+    private List<String> ids;
+    private List<Object> vals;
+    private void initList(){
+        ids = new ArrayList<>();
+        vals = new ArrayList<>();
+    }
     private void init(){
         this.map = new HashMap<>();
     }
@@ -56,7 +65,7 @@ public class NLScope {
     }
 
     public  void putOrUpdate(String id,Object val){
-        if(!putOrUpdate(this, id, val)){
+        if(!putOrUpdateWhile(this, id, val)){
             put(id,val);
         }
     }
@@ -77,23 +86,55 @@ public class NLScope {
         }
     }
 
+    private static boolean putOrUpdateWhile(NLScope scope,String id,Object val){
+        NLScope current = scope;
+        while (true){
+            Object result = current.innerGet(id);
+            if (result != null) {
+                current.put(id,val);
+                return true;
+            }
+            if(current.outer == null){
+                return false;
+            }
+            current = current.outer;
+        }
+    }
+
     private void innerPut(String id, Object val){
         if(id == null) return;
-        map.put(id,val);
+//        map.put(id,val);
+        ids.add(id);
+        vals.add(val);
     }
 
     private Object innerGet(String id){
-        return map.get(id);
+        if(id == null) return null;
+//        return map.get(id);
+        for (int i = ids.size() - 1; i >= 0; i--) {
+            String curId = ids.get(i);
+            if(id.equals(curId)){
+                return vals.get(i);
+            }
+        }
+        return null;
     }
 
     public Object find(String name) {
-        Object result = innerGet(name);
-        if (result != null) {
-            return result;
-        } else if (outer != null) {
-            return outer.find(name);
-        } else {
-            return null;
+        return find(this,name);
+    }
+
+    private static Object find(NLScope scope,String name){
+        NLScope current = scope;
+        while (true){
+            Object result = current.innerGet(name);
+            if(result != null){
+                return result;
+            }
+            if(current.outer == null){
+                return result;
+            }
+            current = current.outer;
         }
     }
 }
