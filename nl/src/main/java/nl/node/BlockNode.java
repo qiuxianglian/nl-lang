@@ -1,5 +1,6 @@
 package nl.node;
 
+import nl.NLInnerException;
 import nl.NLScope;
 
 import java.util.List;
@@ -16,9 +17,14 @@ public class BlockNode extends Node{
     public Object execute(VirtualFrame frame) {
         NLScope.NLScopeOperator scope = frame.getScope();
         scope.enter();
-        Object execute = statements.execute(frame);
-        scope.exit();
-        return execute;
+        try {
+            Object execute = statements.execute(frame);
+            scope.exit();
+            return execute;
+        }catch (NLInnerException e){
+            scope.exit();
+            throw e;
+        }
     }
 
     @Override

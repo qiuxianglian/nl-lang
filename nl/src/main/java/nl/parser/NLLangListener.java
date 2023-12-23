@@ -170,6 +170,36 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitWhile(NLLangParser.WhileContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link NLLangParser#return}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn(NLLangParser.ReturnContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#return}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn(NLLangParser.ReturnContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#break}.
+	 * @param ctx the parse tree
+	 */
+	void enterBreak(NLLangParser.BreakContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#break}.
+	 * @param ctx the parse tree
+	 */
+	void exitBreak(NLLangParser.BreakContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#continue}.
+	 * @param ctx the parse tree
+	 */
+	void enterContinue(NLLangParser.ContinueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#continue}.
+	 * @param ctx the parse tree
+	 */
+	void exitContinue(NLLangParser.ContinueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link NLLangParser#statements}.
 	 * @param ctx the parse tree
 	 */

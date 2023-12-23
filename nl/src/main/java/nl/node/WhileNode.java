@@ -1,5 +1,8 @@
 package nl.node;
 
+import nl.BreakException;
+import nl.ContinueException;
+
 import java.util.List;
 
 public class WhileNode extends Node{
@@ -22,7 +25,12 @@ public class WhileNode extends Node{
         while (true){
             Object execute = condition.execute(frame);
             if(execute instanceof Boolean bool && bool){
-                finalResult = body.execute(frame);
+                try {
+                    finalResult = body.execute(frame);
+                }catch (BreakException breakException){
+                    break;
+                }catch (ContinueException ignore){
+                }
             } else {
                 break;
             }

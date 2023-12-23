@@ -106,6 +106,24 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhile(NLLangParser.WhileContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link NLLangParser#return}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturn(NLLangParser.ReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#break}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBreak(NLLangParser.BreakContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#continue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContinue(NLLangParser.ContinueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link NLLangParser#statements}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

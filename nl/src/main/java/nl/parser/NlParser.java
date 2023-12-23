@@ -67,6 +67,16 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     }
 
     @Override
+    public Node visitReturn(NLLangParser.ReturnContext ctx) {
+        NLLangParser.ExpressionContext expression = ctx.expression();
+        Node rt = null;
+        if(expression!=null){
+            rt = visit(expression);
+        }
+        return new ReturnNode(language,rt);
+    }
+
+    @Override
     public Node visitComp(NLLangParser.CompContext ctx) {
         Node left = visit(ctx.expression(0));
         Node right = visit(ctx.expression(1));
@@ -119,7 +129,30 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         if(block!=null){
             return new Statement(language,visit(block));
         }
+        NLLangParser.ReturnContext returnContext = ctx.return_();
+        if(returnContext!=null){
+            return new Statement(language,visit(returnContext));
+        }
+        NLLangParser.BreakContext breakContext = ctx.break_();
+        if(breakContext!=null){
+            return new Statement(language,visit(breakContext));
+        }
+        NLLangParser.ContinueContext continueContext = ctx.continue_();
+
+        if(continueContext!=null){
+            return new Statement(language,visit(continueContext));
+        }
         return super.visitStatement(ctx);
+    }
+
+    @Override
+    public Node visitBreak(NLLangParser.BreakContext ctx) {
+        return new BreakNode(language);
+    }
+
+    @Override
+    public Node visitContinue(NLLangParser.ContinueContext ctx) {
+        return new ContinueNode(language);
     }
 
     @Override

@@ -24,9 +24,14 @@ if: 'if' '(' expression ')' block ('else' block)?;
 
 while: 'while' '(' expression ')' block;
 
+return: 'return' expression? ;
+
+break: 'break';
+continue: 'continue';
+
 statements: statement statement* (statement|expression)?;
 
-statement: (if|while|block|expression? ';');
+statement: (if|while|block|(expression?|return|break|continue) ';');
 
 assign : id '=' expression;
 

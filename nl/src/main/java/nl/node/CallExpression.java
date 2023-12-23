@@ -3,6 +3,7 @@ package nl.node;
 
 
 
+import nl.NLReturnException;
 import nl.NLScope;
 
 import java.util.Arrays;
@@ -44,8 +45,12 @@ public class CallExpression extends Node {
             frame = new VirtualFrame();
             frame.setArguments(argumentValues);
             frame.setScope(fn.getNlScope());
-            Object call = fn.getBody().execute(frame);
-            return call;
+            try {
+                Object call = fn.getBody().execute(frame);
+                return call;
+            } catch (NLReturnException returnException){
+                return returnException.getResult();
+            }
         } else {
             throw new RuntimeException("target is not function ");
         }
