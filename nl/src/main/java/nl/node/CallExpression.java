@@ -30,6 +30,8 @@ public class CallExpression extends Node {
 
         Object function = functionExpression.execute(frame);
         if(function instanceof FunctionExpression fn){
+            fn.setNlScope(NLScope.NLScopeOperator.newScope());
+            fn.setUpNlScope(frame.getScope().getScope());
 
             Object[] argumentValues = new Object[inputs.length];
             for (int i = 0; i < inputs.length; i++) {

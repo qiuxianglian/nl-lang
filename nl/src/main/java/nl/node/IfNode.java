@@ -39,6 +39,6 @@ public class IfNode extends Node{
     public String toString() {
         return "if" +
                 "(" + condition +
-                ")" + body ;
+                ")" + body + (elseBody==null?"":" else "+elseBody);
     }
 }

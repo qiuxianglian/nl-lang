@@ -28,15 +28,20 @@ public class FunctionExpression extends Node  {
     @Override
     public Object execute(VirtualFrame frame) {
         FunctionExpression functionExpression = new FunctionExpression(lang, idExpressions, body);
-        functionExpression.nlScope = NLScope.NLScopeOperator.newScope();
-        functionExpression.setUpNlScope(frame.getScope().getScope());
+
         return functionExpression;
     }
+
+
     private NLScope.NLScopeOperator nlScope;
 
     public FunctionExpression setUpNlScope(NLScope nlScope) {
         this.nlScope.setOuter(nlScope);
         return this;
+    }
+
+    public void setNlScope(NLScope.NLScopeOperator nlScope) {
+        this.nlScope = nlScope;
     }
 
     public NLScope.NLScopeOperator getNlScope() {

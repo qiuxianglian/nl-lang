@@ -9,5 +9,8 @@ public class BuiltIn {
     public static void install(Lang lang, NLScope scope) {
         scope.put("println", new Println(lang, new ArrayList<>()));
         scope.put("print", new Print(lang, new ArrayList<>()));
+        NowTimeMillis val = new NowTimeMillis(lang, new ArrayList<>());
+        scope.put("nowTimeMillis", val);
+        scope.put("now", val);
     }
 }
