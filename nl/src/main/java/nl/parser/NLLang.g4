@@ -45,7 +45,7 @@ continue: 'continue';
 
 statements: statement statement* (statement|expression)?;
 
-statement: (if|while|block|(expression?|return|break|continue) ';');
+statement: (if|while|block|namedFunction|(expression?|return|break|continue) ';');
 
 
 
@@ -56,6 +56,10 @@ block: '{' statements? '}';
 boolean : 'true' | 'false';
 
 id: Identifier;
+
+namedFunction : 'function' fnName '(' id? (',' id)* ')' block ;
+
+fnName : id;
 
 function : id FN_SP (expression|call|block|if|while)
 |'(' id? (',' id)* ')' FN_SP (expression|call|block|if|while)

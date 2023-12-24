@@ -201,6 +201,11 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         if(continueContext!=null){
             return new Statement(language,visit(continueContext));
         }
+        NLLangParser.NamedFunctionContext namedFunctionContext = ctx.namedFunction();
+        if(namedFunctionContext!=null){
+            return new Statement(language,visit(namedFunctionContext));
+        }
+
         return super.visitStatement(ctx);
     }
 
@@ -287,6 +292,35 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         return callExpression;
     }
 
+    @Override
+    public Node visitFnName(NLLangParser.FnNameContext ctx) {
+        return visit(ctx.id());
+    }
+
+    @Override
+    public Node visitNamedFunction(NLLangParser.NamedFunctionContext ctx) {
+        NLLangParser.FnNameContext fnNameContext = ctx.fnName();
+        IdExpression fnName = (IdExpression) visit(fnNameContext);
+
+        List<NLLangParser.IdContext> ids = ctx.id();
+        List<IdExpression> idExpressions = new ArrayList<>();
+        for (int i = 0; i < ids.size(); i++) {
+            NLLangParser.IdContext idContext = ids.get(i);
+            IdExpression id = (IdExpression) visit(idContext);
+            idExpressions.add(id);
+        }
+        Node bodyRes = null;
+        NLLangParser.BlockContext block = ctx.block();
+
+        if(block!=null){
+            bodyRes = visit(block);
+        }
+
+        return new AssignExpression(language,fnName,new FunctionExpression(language
+                ,idExpressions
+                ,bodyRes
+        ));
+    }
 
     @Override
     public Node visitFunction(NLLangParser.FunctionContext ctx) {

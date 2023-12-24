@@ -326,6 +326,26 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitId(NLLangParser.IdContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link NLLangParser#namedFunction}.
+	 * @param ctx the parse tree
+	 */
+	void enterNamedFunction(NLLangParser.NamedFunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#namedFunction}.
+	 * @param ctx the parse tree
+	 */
+	void exitNamedFunction(NLLangParser.NamedFunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#fnName}.
+	 * @param ctx the parse tree
+	 */
+	void enterFnName(NLLangParser.FnNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#fnName}.
+	 * @param ctx the parse tree
+	 */
+	void exitFnName(NLLangParser.FnNameContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link NLLangParser#function}.
 	 * @param ctx the parse tree
 	 */

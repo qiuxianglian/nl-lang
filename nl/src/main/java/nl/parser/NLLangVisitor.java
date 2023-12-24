@@ -199,6 +199,18 @@ public interface NLLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitId(NLLangParser.IdContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link NLLangParser#namedFunction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNamedFunction(NLLangParser.NamedFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NLLangParser#fnName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFnName(NLLangParser.FnNameContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link NLLangParser#function}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
