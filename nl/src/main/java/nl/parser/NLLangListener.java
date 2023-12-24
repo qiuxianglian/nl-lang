@@ -18,17 +18,29 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitNllang(NLLangParser.NllangContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code str}
+	 * Enter a parse tree produced by the {@code acc}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterStr(NLLangParser.StrContext ctx);
+	void enterAcc(NLLangParser.AccContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code str}
+	 * Exit a parse tree produced by the {@code acc}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitStr(NLLangParser.StrContext ctx);
+	void exitAcc(NLLangParser.AccContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arr}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArr(NLLangParser.ArrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arr}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArr(NLLangParser.ArrContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code comp}
 	 * labeled alternative in {@link NLLangParser#expression}.
@@ -53,18 +65,6 @@ public interface NLLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParens(NLLangParser.ParensContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code as}
-	 * labeled alternative in {@link NLLangParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterAs(NLLangParser.AsContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code as}
-	 * labeled alternative in {@link NLLangParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitAs(NLLangParser.AsContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code c}
 	 * labeled alternative in {@link NLLangParser#expression}.
@@ -138,6 +138,30 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitFn(NLLangParser.FnContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code str}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterStr(NLLangParser.StrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code str}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitStr(NLLangParser.StrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code as}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAs(NLLangParser.AsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code as}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAs(NLLangParser.AsContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code theid}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree
@@ -159,6 +183,36 @@ public interface NLLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIf(NLLangParser.IfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#arrayAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayAccess(NLLangParser.ArrayAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#arrayAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayAccess(NLLangParser.ArrayAccessContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray(NLLangParser.ArrayContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray(NLLangParser.ArrayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#assign}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssign(NLLangParser.AssignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#assign}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssign(NLLangParser.AssignContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NLLangParser#while}.
 	 * @param ctx the parse tree
@@ -219,16 +273,6 @@ public interface NLLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStatement(NLLangParser.StatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link NLLangParser#assign}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssign(NLLangParser.AssignContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link NLLangParser#assign}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssign(NLLangParser.AssignContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NLLangParser#block}.
 	 * @param ctx the parse tree

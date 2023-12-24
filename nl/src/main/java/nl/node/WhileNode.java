@@ -35,7 +35,7 @@ public class WhileNode extends Node{
                 break;
             }
         }
-        return "";
+        return Null.NULL;
     }
 
     @Override

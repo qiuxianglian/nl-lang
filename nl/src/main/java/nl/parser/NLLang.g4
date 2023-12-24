@@ -19,8 +19,15 @@ expression:
 |call #c
 |boolean #bool
 |assign #as
+|arrayAccess #acc
+|array #arr
 ;
 if: 'if' '(' expression ')' block ('else' block)?;
+
+arrayAccess : (id|call|array) '[' expression ']';
+
+array : '[' expression? (',' expression)* ']';
+assign : (id|arrayAccess) '=' expression;
 
 while: 'while' '(' expression ')' block;
 
@@ -33,7 +40,7 @@ statements: statement statement* (statement|expression)?;
 
 statement: (if|while|block|(expression?|return|break|continue) ';');
 
-assign : id '=' expression;
+
 
 
 

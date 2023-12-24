@@ -45,6 +45,35 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         return super.visitNllang(ctx);
     }
 
+
+    @Override
+    public Node visitArray(NLLangParser.ArrayContext ctx) {
+        List<NLLangParser.ExpressionContext> expression = ctx.expression();
+        List<Node> nodes = new ArrayList<>(expression.size());
+        for (NLLangParser.ExpressionContext expressionContext : expression) {
+            nodes.add(visit(expressionContext));
+        }
+        return new ArrayNode(language,nodes);
+    }
+
+    @Override
+    public Node visitArrayAccess(NLLangParser.ArrayAccessContext ctx) {
+        NLLangParser.ArrayContext array = ctx.array();
+        NLLangParser.IdContext id = ctx.id();
+        NLLangParser.CallContext call = ctx.call();
+        Node cont = null;
+        if(array!=null){
+            cont = visit(array);
+        }else if(id!=null){
+            cont = visit(id);
+        }else if(call!=null){
+            cont = visit(ctx);
+        }
+
+        NLLangParser.ExpressionContext expression = ctx.expression();
+        return new ArrayAccessNode(language,cont,visit(expression));
+    }
+
     @Override
     public Node visitIf(NLLangParser.IfContext ctx) {
         NLLangParser.ExpressionContext expression = ctx.expression();
@@ -157,7 +186,16 @@ public class NlParser extends NLLangBaseVisitor<Node> {
 
     @Override
     public Node visitAssign(NLLangParser.AssignContext ctx) {
-        return new AssignExpression(language, (IdExpression) visitId(ctx.id()),visit(ctx.expression()));
+        NLLangParser.ArrayAccessContext arrayAccessContext = ctx.arrayAccess();
+        NLLangParser.IdContext id = ctx.id();
+
+        Node target = null;
+        if(arrayAccessContext!=null){
+            target=visit(arrayAccessContext);
+        }else if(id!=null){
+            target = visit(id);
+        }
+        return new AssignExpression(language, target,visit(ctx.expression()));
     }
 
     @Override

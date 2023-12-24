@@ -29,13 +29,25 @@ public class NLLangBaseListener implements NLLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStr(NLLangParser.StrContext ctx) { }
+	@Override public void enterAcc(NLLangParser.AccContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStr(NLLangParser.StrContext ctx) { }
+	@Override public void exitAcc(NLLangParser.AccContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArr(NLLangParser.ArrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArr(NLLangParser.ArrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -60,18 +72,6 @@ public class NLLangBaseListener implements NLLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParens(NLLangParser.ParensContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAs(NLLangParser.AsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAs(NLLangParser.AsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -149,6 +149,30 @@ public class NLLangBaseListener implements NLLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStr(NLLangParser.StrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStr(NLLangParser.StrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAs(NLLangParser.AsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAs(NLLangParser.AsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTheid(NLLangParser.TheidContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -168,6 +192,42 @@ public class NLLangBaseListener implements NLLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIf(NLLangParser.IfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayAccess(NLLangParser.ArrayAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayAccess(NLLangParser.ArrayAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArray(NLLangParser.ArrayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArray(NLLangParser.ArrayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssign(NLLangParser.AssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssign(NLLangParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -240,18 +300,6 @@ public class NLLangBaseListener implements NLLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStatement(NLLangParser.StatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssign(NLLangParser.AssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssign(NLLangParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

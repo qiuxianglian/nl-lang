@@ -27,7 +27,7 @@ public class IfNode extends Node{
                 return elseBody.execute(frame);
             }
         }
-        return "";
+        return Null.NULL;
     }
 
     @Override
