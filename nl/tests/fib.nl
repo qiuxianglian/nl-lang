@@ -5,6 +5,7 @@ fib = (n) => {
         return  fib(n-1) + fib(n-2);
     }
 };
+fib(20);
 start = now();
-println(fib(20));
+println(fib(30));
 println('cost',now()-start);

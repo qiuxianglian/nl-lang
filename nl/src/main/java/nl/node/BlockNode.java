@@ -24,6 +24,9 @@ public class BlockNode extends Node{
         }catch (NLInnerException e){
             scope.exit();
             throw e;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw e;
         }
     }
 

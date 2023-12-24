@@ -1,8 +1,34 @@
 package nl.node;
 
 import nl.NLScope;
+import nl.ObjCache;
 
 public class VirtualFrame {
+
+    private static VirtualFrameCache FRAME_CACHE = new VirtualFrameCache();
+
+    public static VirtualFrameCache getFrameCache() {
+        return FRAME_CACHE;
+    }
+
+    static {
+        FRAME_CACHE.initCache(20);
+    }
+
+    public static class VirtualFrameCache extends ObjCache<VirtualFrame>{
+
+        @Override
+        protected VirtualFrame newSelf() {
+            return new VirtualFrame();
+        }
+
+        @Override
+        protected void clear(VirtualFrame virtualFrame) {
+            virtualFrame.arguments = null;
+            virtualFrame.scope = null;
+        }
+    }
+
     private static  long cnt = 0;
 
     public VirtualFrame() {

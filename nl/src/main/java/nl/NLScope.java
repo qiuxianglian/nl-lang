@@ -1,20 +1,80 @@
 package nl;
-
-
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+public class NLScope{
 
+    private static final NLScopeCache nlScopeCache = new NLScopeCache();
 
-public class NLScope {
+    public static NLScopeCache getNlScopeCache(){
+        return nlScopeCache;
+    }
+
+    public static class NLScopeCache extends ObjCache<NLScope>{
+
+        @Override
+        protected NLScope newSelf() {
+            return new NLScope(null);
+        }
+
+        @Override
+        protected void clear(NLScope scope) {
+            if(scope == null) return;
+            scope.outer = null;
+            scope.map.clear();
+        }
+    }
+
+    static {
+        nlScopeCache.initCache(60);
+    }
+
+    public static void cyl(NLScope nlScope){
+        nlScopeCache.cyl(nlScope);
+    }
 
     public static class NLScopeOperator{
+        private static final NLScopeOperatorCache NL_SCOPE_OPERATOR_CACHE = new NLScopeOperatorCache();
+        static {
+            NL_SCOPE_OPERATOR_CACHE.initCache(20);
+        }
+        public static NLScopeOperatorCache getNlScopeOperatorCache(){
+            return NL_SCOPE_OPERATOR_CACHE;
+        }
+        public static class NLScopeOperatorCache extends ObjCache<NLScopeOperator>{
+
+            @Override
+            protected NLScopeOperator newSelf() {
+                return new NLScopeOperator(null);
+            }
+
+            @Override
+            protected void clear(NLScopeOperator nlScopeOperator) {
+                nlScopeOperator.scope = null;
+            }
+        }
+
+        private static long enterCnt = 0;
+        private static long exitCnt = 0;
+
+        public NLScopeOperator() {
+            newScopeCnt++;
+        }
+
+        public static long getEnterCnt() {
+            return enterCnt;
+        }
+
+        public static long getExitCnt() {
+            return exitCnt;
+        }
+
         private NLScope scope;
 
         private static long newScopeCnt = 0;
 
+        public static void cyl (NLScopeOperator nlScopeOperator){
+            NL_SCOPE_OPERATOR_CACHE.cyl(nlScopeOperator);
+        }
         public NLScopeOperator(NLScope scope) {
             this.scope = scope;
         }
@@ -24,19 +84,27 @@ public class NLScope {
         }
 
         public static NLScopeOperator newScope(){
-            newScopeCnt++;
-            return new NLScopeOperator(new NLScope(null));
+            NLScope newScope = nlScopeCache.getInstance();
+            NLScopeOperator nlScopeOperator = NL_SCOPE_OPERATOR_CACHE.getInstance();
+            nlScopeOperator.scope = newScope;
+            return nlScopeOperator;
         }
 
         public void enter(){
-            this.scope = new NLScope(this.scope);
+            enterCnt++;
+            NLScope newNLScope = nlScopeCache.getInstance();
+            newNLScope.outer = this.scope;
+            this.scope = newNLScope;
         }
 
         public void exit(){
+            exitCnt++;
             if(this.scope.outer == null){
                 return;
             }
+            NLScope nlScope = this.scope;
             this.scope = this.scope.outer;
+            nlScopeCache.cyl(nlScope);
         }
 
         public void setOuter(NLScope nlScope){
@@ -52,10 +120,9 @@ public class NLScope {
     protected Map<String,Object> map;
 
     private static long cnt = 0;
-    public NLScope(NLScope outer) {
+    private NLScope(NLScope outer) {
         this.outer = outer;
-//        init();
-        initList();
+        init();
         cnt++;
     }
 
@@ -63,12 +130,7 @@ public class NLScope {
         return cnt;
     }
 
-    private List<String> ids;
-    private List<Object> vals;
-    private void initList(){
-        ids = new ArrayList<>();
-        vals = new ArrayList<>();
-    }
+
     private void init(){
         this.map = new HashMap<>();
     }
@@ -82,21 +144,7 @@ public class NLScope {
         }
     }
 
-    private static boolean putOrUpdate(NLScope scope,String id,Object val){
-        Object result = scope.innerGet(id);
-        if (result != null) {
-            scope.put(id,val);
-            return true;
-        } else if (scope.outer != null) {
-             if(putOrUpdate(scope.outer,id,val)){
-                 return true;
-             }else{
-                 return false;
-             }
-        } else {
-            return false;
-        }
-    }
+
 
     private static boolean putOrUpdateWhile(NLScope scope,String id,Object val){
         NLScope current = scope;
@@ -115,21 +163,12 @@ public class NLScope {
 
     private void innerPut(String id, Object val){
         if(id == null) return;
-//        map.put(id,val);
-        ids.add(id);
-        vals.add(val);
+        map.put(id,val);
     }
 
     private Object innerGet(String id){
         if(id == null) return null;
-//        return map.get(id);
-        for (int i = ids.size() - 1; i >= 0; i--) {
-            String curId = ids.get(i);
-            if(id.equals(curId)){
-                return vals.get(i);
-            }
-        }
-        return null;
+        return map.get(id);
     }
 
     public Object find(String name) {

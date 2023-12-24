@@ -30,7 +30,8 @@ public class CallExpression extends Node {
 
         Object function = functionExpression.execute(frame);
         if(function instanceof FunctionExpression fn){
-            fn.setNlScope(NLScope.NLScopeOperator.newScope());
+            NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
+            fn.setNlScope(nlScope);
             fn.setUpNlScope(frame.getScope().getScope());
 
             Object[] argumentValues = new Object[inputs.length];
@@ -44,7 +45,7 @@ public class CallExpression extends Node {
                     fn.getNlScope().getScope().put(idExpression.getId(),argumentValues[i]);
                 }
             }
-            frame = new VirtualFrame();
+            frame = VirtualFrame.getFrameCache().getInstance();
             frame.setArguments(argumentValues);
             frame.setScope(fn.getNlScope());
             try {
@@ -52,6 +53,11 @@ public class CallExpression extends Node {
                 return call;
             } catch (NLReturnException returnException){
                 return returnException.getResult();
+            }finally {
+                NLScope.cyl(nlScope.getScope());
+                fn.setNlScope(null);
+                NLScope.NLScopeOperator.cyl(nlScope);
+                VirtualFrame.getFrameCache().cyl(frame);
             }
         } else {
             throw new RuntimeException("target is not function ");

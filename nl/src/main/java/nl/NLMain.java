@@ -87,6 +87,9 @@ public final class NLMain {
             if (result!=null) {
                 out.print(result);
             }
+            if(nlLang.isDebug()){
+                ObjCache.stats(nlLang);
+            }
             return 0;
         } catch (NLException ex) {
             if (ex.isInternalError()) {
