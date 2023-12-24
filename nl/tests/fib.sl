@@ -7,6 +7,8 @@ function fib(n){
 }
 
 function main(){
+
+    fib(30);
     start = now();
     println(fib(30));
     println("cost "+ (now()-start));
