@@ -75,7 +75,7 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     @Override
     public Node visitArrayAccess(NLLangParser.ArrayAccessContext ctx) {
         NLLangParser.ArrayContext array = ctx.array();
-        NLLangParser.IdContext id = ctx.id();
+        NLLangParser.IdContext id = ctx.key;
         NLLangParser.CallContext call = ctx.call();
         NLLangParser.ObjectContext object = ctx.object();
         NLLangParser.ArrayAccessContext arrayAccessContext = ctx.arrayAccess();
@@ -94,7 +94,14 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         }
 
         NLLangParser.ExpressionContext expression = ctx.expression();
-        return new AccessNode(language,cont,visit(expression));
+        NLLangParser.IdContext val = ctx.val;
+        Node body = null;
+        if(expression!=null){
+            body = visit(expression);
+        }else if(val!=null){
+            body = visit(val);
+        }
+        return new AccessNode(language,cont,body);
     }
 
     @Override

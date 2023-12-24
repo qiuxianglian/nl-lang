@@ -25,8 +25,11 @@ expression:
 ;
 if: 'if' '(' expression ')' block ('else' block)?;
 
-arrayAccess : (id|call|array|object) '[' expression ']'
-| arrayAccess '[' expression ']';
+arrayAccess : (key=id|call|array|object) '[' expression ']'
+| arrayAccess '[' expression ']'
+|(key=id|call|array|object) '.' val=id
+|arrayAccess '.' val=id
+;
 
 object : '{' (id ':' expression)? (',' id ':' expression)*   '}' ;
 
