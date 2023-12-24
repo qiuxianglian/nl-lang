@@ -21,10 +21,14 @@ expression:
 |assign #as
 |arrayAccess #acc
 |array #arr
+|object #obj
 ;
 if: 'if' '(' expression ')' block ('else' block)?;
 
-arrayAccess : (id|call|array) '[' expression ']';
+arrayAccess : (id|call|array|object) '[' expression ']'
+| arrayAccess '[' expression ']';
+
+object : '{' (id ':' expression)? (',' id ':' expression)*   '}' ;
 
 array : '[' expression? (',' expression)* ']';
 assign : (id|arrayAccess) '=' expression;

@@ -3,12 +3,13 @@ package nl.node;
 import nl.NLException;
 
 import java.util.List;
+import java.util.Map;
 
-public class ArrayAccessNode extends Node{
+public class AccessNode extends Node{
     private Node node;
     private Node id;
 
-    public ArrayAccessNode(Lang language, Node node, Node id) {
+    public AccessNode(Lang language, Node node, Node id) {
         super(language);
         this.node = node;
         this.id = id;
@@ -35,7 +36,11 @@ public class ArrayAccessNode extends Node{
                     return list.get(index);
                 }
             }
+        }else if(execute instanceof Map map){
+            return map.get(theId+"");
         }
+
+
         throw new NLException("unsupport opt "+execute+"["+theId+"]");
     }
 

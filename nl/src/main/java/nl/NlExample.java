@@ -13,7 +13,7 @@ public class NlExample {
         nlLang.setDebug(true);
 //        Object eval = nlLang.eval(new InputStreamReader((new ByteArrayInputStream("1+1".getBytes()))));
         Object eval2 = nlLang.eval(new InputStreamReader(
-                new FileInputStream("./nl/tests/array4.nl")));
+                new FileInputStream("./nl/tests/obj1.nl")));
         System.out.print(eval2);
         System.out.println();
         ObjCache.stats(nlLang);

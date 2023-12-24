@@ -6,6 +6,7 @@ import nl.NLException;
 import nl.NLScope;
 
 import java.util.List;
+import java.util.Map;
 
 public class AssignExpression extends Node{
     private Node id;
@@ -23,16 +24,16 @@ public class AssignExpression extends Node{
         NLScope.NLScopeOperator argument = frame.getScope();
         if(id instanceof IdExpression iid){
             argument.getScope().putOrUpdate(iid.getId(),execute);
-        }else if(id instanceof ArrayAccessNode accessNode){
+        }else if(id instanceof AccessNode accessNode){
             execute(frame,accessNode,execute);
         }
 
         return execute;
     }
 
-    private Object execute(VirtualFrame frame,ArrayAccessNode arrayAccessNode,Object newVal) {
-        Object execute = arrayAccessNode.getNode().execute(frame);
-        Object theId = arrayAccessNode.getId().execute(frame);
+    private Object execute(VirtualFrame frame, AccessNode accessNode, Object newVal) {
+        Object execute = accessNode.getNode().execute(frame);
+        Object theId = accessNode.getId().execute(frame);
         if(execute instanceof List list){
             if(theId instanceof Number){
                 int index = ((Number) theId).intValue();
@@ -42,6 +43,8 @@ public class AssignExpression extends Node{
                     return list.set(index,newVal);
                 }
             }
+        }else if(execute instanceof Map map){
+            return map.put(theId+"",newVal);
         }
         throw new NLException("unsupport opt "+execute+"["+theId+"]");
     }

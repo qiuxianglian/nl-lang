@@ -162,6 +162,18 @@ public interface NLLangListener extends ParseTreeListener {
 	 */
 	void exitAs(NLLangParser.AsContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code obj}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterObj(NLLangParser.ObjContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code obj}
+	 * labeled alternative in {@link NLLangParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitObj(NLLangParser.ObjContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code theid}
 	 * labeled alternative in {@link NLLangParser#expression}.
 	 * @param ctx the parse tree
@@ -193,6 +205,16 @@ public interface NLLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArrayAccess(NLLangParser.ArrayAccessContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NLLangParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void enterObject(NLLangParser.ObjectContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NLLangParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void exitObject(NLLangParser.ObjectContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NLLangParser#array}.
 	 * @param ctx the parse tree

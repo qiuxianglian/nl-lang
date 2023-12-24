@@ -1,28 +1,18 @@
 package nl.node;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-public class ArrayNode extends Node{
-    private List<Node> nodes;
+public class ArrayNode extends ObjectNode{
 
-    public ArrayNode(Lang language, List<Node> nodes) {
-        super(language);
-        this.nodes = nodes;
-    }
 
-    @Override
-    public Object execute(VirtualFrame frame) {
-        return nodes.stream().map(k->k.execute(frame)).collect(Collectors.toList());
-    }
-
-    @Override
-    protected List<Node> children() {
-        return nodes;
+    public ArrayNode(Lang language, Map<String, Node> nodes) {
+        super(language, nodes);
     }
 
     @Override
     public String toString() {
-        return nodes+"";
+        return nodes.values().stream().toList()+"";
     }
 }

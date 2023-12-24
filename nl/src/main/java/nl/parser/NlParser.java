@@ -5,10 +5,11 @@ import nl.node.*;
 import org.antlr.v4.runtime.*;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NlParser extends NLLangBaseVisitor<Node> {
 
@@ -45,13 +46,28 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         return super.visitNllang(ctx);
     }
 
+    @Override
+    public Node visitObject(NLLangParser.ObjectContext ctx) {
+        List<NLLangParser.IdContext> ids = ctx.id();
+        List<NLLangParser.ExpressionContext> expression = ctx.expression();
+        Map<String,Node> nodes = new HashMap<>(expression.size());
+
+        for (int i = 0; i < ids.size(); i++) {
+            Node id = visit(ids.get(i));
+            Node exp = visit(expression.get(i));
+            nodes.put(id + "", exp);
+        }
+        return new ObjectNode(language,nodes);
+    }
 
     @Override
     public Node visitArray(NLLangParser.ArrayContext ctx) {
         List<NLLangParser.ExpressionContext> expression = ctx.expression();
-        List<Node> nodes = new ArrayList<>(expression.size());
+        Map<String,Node> nodes = new HashMap<>(expression.size());
+        int i = 0;
         for (NLLangParser.ExpressionContext expressionContext : expression) {
-            nodes.add(visit(expressionContext));
+            nodes.put(i+"",visit(expressionContext));
+            i++;
         }
         return new ArrayNode(language,nodes);
     }
@@ -61,17 +77,24 @@ public class NlParser extends NLLangBaseVisitor<Node> {
         NLLangParser.ArrayContext array = ctx.array();
         NLLangParser.IdContext id = ctx.id();
         NLLangParser.CallContext call = ctx.call();
+        NLLangParser.ObjectContext object = ctx.object();
+        NLLangParser.ArrayAccessContext arrayAccessContext = ctx.arrayAccess();
+
         Node cont = null;
         if(array!=null){
             cont = visit(array);
         }else if(id!=null){
             cont = visit(id);
         }else if(call!=null){
-            cont = visit(ctx);
+            cont = visit(call);
+        }if(object!=null){
+            cont = visit(object);
+        }if(arrayAccessContext!=null){
+            cont = visit(arrayAccessContext);
         }
 
         NLLangParser.ExpressionContext expression = ctx.expression();
-        return new ArrayAccessNode(language,cont,visit(expression));
+        return new AccessNode(language,cont,visit(expression));
     }
 
     @Override
