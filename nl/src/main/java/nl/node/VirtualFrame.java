@@ -3,6 +3,16 @@ package nl.node;
 import nl.NLScope;
 
 public class VirtualFrame {
+    private static  long cnt = 0;
+
+    public VirtualFrame() {
+        cnt++;
+    }
+
+    public static long getCnt() {
+        return cnt;
+    }
+
     private Object [] arguments;
 
     public Object[] getArguments() {

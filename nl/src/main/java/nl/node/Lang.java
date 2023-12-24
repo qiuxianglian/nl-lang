@@ -8,6 +8,10 @@ public class Lang {
     private OutputStream out;
     private InputStream in;
 
+    private PrintStream printStream;
+
+    private boolean debug = false;
+
     public Lang() {
         out = System.out;
         in = System.in;
@@ -23,8 +27,20 @@ public class Lang {
         return this;
     }
 
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+
     public PrintStream printStream(){
-        return new PrintStream(out);
+        if(printStream!=null) return printStream;
+        printStream = new PrintStream(out);
+        return printStream;
     }
 
     public OutputStream getOut() {

@@ -11,7 +11,7 @@ public class BreakNode extends Node{
 
     @Override
     public Object execute(VirtualFrame frame) {
-        throw new BreakException();
+        throw BreakException.BREAK_EXCEPTION;
     }
 
     @Override

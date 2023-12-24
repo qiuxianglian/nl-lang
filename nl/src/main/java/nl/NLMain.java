@@ -81,6 +81,7 @@ public final class NLMain {
         NLLang nlLang;
         try {
             nlLang = new NLLang();
+            nlLang.setDebug(false);
             Object result = nlLang.eval(source);
 
             if (result!=null) {

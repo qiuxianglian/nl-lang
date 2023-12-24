@@ -5,6 +5,7 @@ package nl.node;
 
 import nl.NLScope;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,6 @@ public class FunctionExpression extends Node  {
     @Override
     public Object execute(VirtualFrame frame) {
         FunctionExpression functionExpression = new FunctionExpression(lang, idExpressions, body);
-
         return functionExpression;
     }
 

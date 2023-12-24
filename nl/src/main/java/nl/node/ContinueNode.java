@@ -5,6 +5,8 @@ import nl.ContinueException;
 
 import java.util.List;
 
+import static nl.ContinueException.CONTINUE_EXCEPTION;
+
 public class ContinueNode extends Node{
     public ContinueNode(Lang language) {
         super(language);
@@ -12,7 +14,7 @@ public class ContinueNode extends Node{
 
     @Override
     public Object execute(VirtualFrame frame) {
-        throw new ContinueException();
+        throw CONTINUE_EXCEPTION;
     }
 
     @Override

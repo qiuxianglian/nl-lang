@@ -13,11 +13,18 @@ public class NLScope {
     public static class NLScopeOperator{
         private NLScope scope;
 
+        private static long newScopeCnt = 0;
+
         public NLScopeOperator(NLScope scope) {
             this.scope = scope;
         }
 
+        public static long getNewScopeCnt() {
+            return newScopeCnt;
+        }
+
         public static NLScopeOperator newScope(){
+            newScopeCnt++;
             return new NLScopeOperator(new NLScope(null));
         }
 
@@ -44,11 +51,16 @@ public class NLScope {
     protected  NLScope outer;
     protected Map<String,Object> map;
 
-
+    private static long cnt = 0;
     public NLScope(NLScope outer) {
         this.outer = outer;
 //        init();
         initList();
+        cnt++;
+    }
+
+    public static long getCnt() {
+        return cnt;
     }
 
     private List<String> ids;
