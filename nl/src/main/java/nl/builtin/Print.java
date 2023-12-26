@@ -32,6 +32,11 @@ public class Print extends FunctionExpression {
         }
 
         @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return null;
+        }
+
+        @Override
         protected List<Node> children() {
             return List.of();
         }

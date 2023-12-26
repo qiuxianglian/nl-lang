@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Null extends Node{
     public static final Null NULL = new Null();
-    public Null() {
+    private Null() {
         super(null);
     }
 
@@ -22,10 +22,6 @@ public class Null extends Node{
         return null;
     }
 
-    @Override
-    protected List<Node> children() {
-        return List.of();
-    }
 
     @Override
     public String toString() {

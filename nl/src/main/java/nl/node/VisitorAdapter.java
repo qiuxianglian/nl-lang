@@ -4,6 +4,21 @@ import nl.NLException;
 
 public interface VisitorAdapter<T> extends Visitor<T> {
 
+    @Override
+    default T visitNav(Nav node) {
+        return visitUnaryOperationNode(node);
+    }
+
+    @Override
+    default T visitReciprocal(Reciprocal node) {
+        return visitUnaryOperationNode(node);
+    }
+
+    @Override
+    default T visitUnaryOperationNode(UnaryOperationNode node) {
+        return visitNode(node);
+    }
+
     default T visitAddExpression(AddExpression addExpression) {
         return visitNumberBinaryExpression(addExpression);
     }

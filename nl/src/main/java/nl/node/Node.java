@@ -12,6 +12,13 @@ public abstract class Node {
         cnt++;
     }
 
+    public boolean executable(){
+        return true;
+    }
+
+    abstract public Object reduce();
+
+
     public boolean hasUndefined(){
         return HasUndefinedVisitor.hasUndefinedVisitor.visit(this);
     }
@@ -26,12 +33,15 @@ public abstract class Node {
 
     abstract public <T> T accept(Visitor<T> visitor);
 
-    abstract protected List<Node> children();
 
     public static Node wrapper(Lang lang,VirtualFrame virtualFrame,Object o){
 //        if(o instanceof Node){
 //            return (Node) ((Node) o).execute(virtualFrame);
 //        }
         return new ValueNode(lang,o);
+    }
+
+    protected List<Node> children(){
+        return List.of();
     }
 }

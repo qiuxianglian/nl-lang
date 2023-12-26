@@ -26,6 +26,7 @@ public interface Visitor<T> {
         }
         return res;
     }
+
     default T accept(Node ... nodes){
          T res = null;
         for (Node node : nodes) {
@@ -79,12 +80,19 @@ public interface Visitor<T> {
         if (node instanceof ValueNode nnode) return visitValueNode(nnode);
         if (node instanceof WhileNode nnode) return visitWhileNode(nnode);
         if (node instanceof NumberBinaryExpression nnode) return visitNumberBinaryExpression(nnode);
+        if( node instanceof  Nav nnode) return visitNav(nnode);
+        if( node instanceof  Reciprocal nnode) return visitReciprocal(nnode);
+        if( node instanceof  UnaryOperationNode nnode) return visitUnaryOperationNode(nnode);
         if (node instanceof IdExpression nnode) return visitIdExpression(nnode);
         if (node instanceof ComparisonExpression nnode) return visitComparisonExpression(nnode);
         if (node instanceof BinaryExpression nnode) return visitBinaryExpression(nnode);
         if (node instanceof Expression nnode) return visitExpression(nnode);
         throw new NLException("unsupport node " + node.getClass().getName());
     }
+
+    T visitNav(Nav node);
+    T visitReciprocal(Reciprocal node);
+    T visitUnaryOperationNode(UnaryOperationNode node);
 
     T visitAddExpression(AddExpression addExpression);
 

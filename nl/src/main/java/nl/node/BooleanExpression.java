@@ -12,6 +12,11 @@ public class BooleanExpression extends Node{
     }
 
     @Override
+    public Object reduce() {
+        return bool;
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         return bool;
     }
