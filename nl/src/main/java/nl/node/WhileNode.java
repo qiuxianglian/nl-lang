@@ -39,6 +39,11 @@ public class WhileNode extends Node{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(condition,body);
+    }
+
+    @Override
     protected List<Node> children() {
         return List.of(condition,body);
     }

@@ -45,6 +45,12 @@ public class AccessNode extends Node{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(this.id,this.node);
+    }
+
+
+    @Override
     protected List<Node> children() {
         return List.of(node,id);
     }

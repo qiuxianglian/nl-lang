@@ -32,6 +32,11 @@ public class FunctionExpression extends Node  {
         return functionExpression;
     }
 
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.aggResult(visitor.accept(body),visitor.accept(idExpressions));
+    }
+
 
     private NLScope.NLScopeOperator nlScope;
 

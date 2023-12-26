@@ -65,6 +65,12 @@ public class CallExpression extends Node {
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.aggResult(visitor.accept(functionExpression),visitor.accept(inputs));
+    }
+
+
+    @Override
     protected List<Node> children() {
         List<Node> functionExpression1 = new java.util.ArrayList<>(List.of(functionExpression));
         functionExpression1.addAll(Arrays.asList(inputs));

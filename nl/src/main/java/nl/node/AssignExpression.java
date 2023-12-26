@@ -31,6 +31,12 @@ public class AssignExpression extends Node{
         return execute;
     }
 
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(id,expression);
+    }
+
+
     private Object execute(VirtualFrame frame, AccessNode accessNode, Object newVal) {
         Object execute = accessNode.getNode().execute(frame);
         Object theId = accessNode.getId().execute(frame);

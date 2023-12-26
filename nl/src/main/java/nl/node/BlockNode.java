@@ -31,6 +31,12 @@ public class BlockNode extends Node{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(statements);
+    }
+
+
+    @Override
     protected List<Node> children() {
         return List.of(statements);
     }

@@ -20,6 +20,11 @@ public class UndefinedNode extends Node {
         }
     }
 
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(node);
+    }
+
     protected Object doBinaryExpression(VirtualFrame frame) {
         Class<? extends BinaryExpression> cls = (Class<? extends BinaryExpression>) node.getClass();
         List<Node> collect = collect(node, cls);

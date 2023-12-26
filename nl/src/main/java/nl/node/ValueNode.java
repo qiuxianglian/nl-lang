@@ -16,6 +16,14 @@ public class ValueNode extends Node{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        if(value instanceof Node node){
+            return visitor.accept(node);
+        }
+        return null;
+    }
+
+    @Override
     protected List<Node> children() {
         return List.of();
     }

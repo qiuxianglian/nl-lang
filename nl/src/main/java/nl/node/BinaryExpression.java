@@ -59,7 +59,10 @@ public abstract   class BinaryExpression extends Node {
         throw new NLException("不支持的类型：left is "+l+"; right is "+r);
     }
 
-
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(left,right);
+    }
 
     public  Node getLeft(){
         return this.left;
@@ -93,4 +96,6 @@ public abstract   class BinaryExpression extends Node {
     protected List<Node> children() {
         return List.of(getLeft(),getRight());
     }
+
+
 }

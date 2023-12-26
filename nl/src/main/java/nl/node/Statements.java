@@ -27,6 +27,11 @@ public class Statements extends Node{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(statements);
+    }
+
+    @Override
     protected List<Node> children() {
         return statements;
     }

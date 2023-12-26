@@ -22,6 +22,11 @@ public class ReturnNode extends Node {
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(value);
+    }
+
+    @Override
     protected List<Node> children() {
         return List.of(value);
     }

@@ -18,6 +18,11 @@ public class Null extends Node{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return null;
+    }
+
+    @Override
     protected List<Node> children() {
         return List.of();
     }

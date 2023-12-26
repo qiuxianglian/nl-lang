@@ -31,6 +31,11 @@ public class IfNode extends Node{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept(condition,body,elseBody);
+    }
+
+    @Override
     protected List<Node> children() {
         return List.of(condition,body,elseBody);
     }

@@ -10,21 +10,6 @@ public class UndefinedId extends IdExpression{
     }
 
 
-
-//    @Override
-//    public Object execute(VirtualFrame frame) {
-//        return this;
-//    }
-
-    public boolean hasUndefined(){
-        return true;
-    }
-
-    public boolean isUndefined(){
-
-        return true;
-    }
-
     @Override
     protected List<Node> children() {
         return List.of();

@@ -16,6 +16,11 @@ public class StringExpression extends Expression{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.accept();
+    }
+
+    @Override
     protected List<Node> children() {
         return List.of();
     }

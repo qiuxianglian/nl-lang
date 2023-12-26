@@ -27,6 +27,24 @@ public class ObjectNode extends Node{
     }
 
     @Override
+    public <T> T accept(Visitor<T> visitor) {
+        T res = null;
+        for (Map.Entry<String, Object> stringObjectEntry : nodes.entrySet()) {
+            Object value = stringObjectEntry.getValue();
+            if(value instanceof Node node){
+                if(res!=null){
+                    res=visitor.aggResult(res,visitor.accept(node));
+                }else{
+                    res = visitor.accept(node);
+                }
+            }
+        }
+        return res;
+    }
+
+
+
+    @Override
     protected List<Node> children() {
         return List.of();
     }

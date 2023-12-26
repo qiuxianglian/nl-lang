@@ -12,26 +12,19 @@ public abstract class Node {
         cnt++;
     }
 
+    public boolean hasUndefined(){
+        return HasUndefinedVisitor.hasUndefinedVisitor.visit(this);
+    }
+
     public static long getCnt() {
         return cnt;
     }
     private static long executeCnt = 0;
     public abstract Object execute(VirtualFrame frame);
 
-    public boolean hasUndefined(){
-        if(isUndefined()) return true;
-        for (Node child : children()) {
-            if(child!=null && child.hasUndefined()){
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public boolean isUndefined(){
 
-        return false;
-    }
+    abstract public <T> T accept(Visitor<T> visitor);
 
     abstract protected List<Node> children();
 
