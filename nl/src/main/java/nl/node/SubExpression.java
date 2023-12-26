@@ -28,7 +28,7 @@ public  class SubExpression extends NumberBinaryExpression{
 
     @Override
     public String toString() {
-        return getLeft()+"-"+getRight();
+        return getLeft()+"+"+getRight();
     }
 
     @Override

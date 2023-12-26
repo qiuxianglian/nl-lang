@@ -8,9 +8,46 @@ import java.util.List;
 public class BlockNode extends Node{
     private Node statements;
 
+    private  NLScope.NLScopeOperator scope;
+
+
     public BlockNode(Lang language, Node statements) {
         super(language);
         this.statements = statements;
+    }
+
+    @Override
+    public boolean reducible() {
+        return statements.reducible();
+    }
+
+    @Override
+    public Node copy() {
+        return new BlockNode(lang,statements.copy());
+    }
+
+    @Override
+    public Node reduce(VirtualFrame frame) {
+        if(this.scope == null){
+            this.scope = frame.getScope();
+            scope.enter();
+        }
+        if(statements.reducible()){
+            NLScope.NLScopeOperator scope = this.scope ;
+            try {
+                this.statements = statements.reduce(frame);;
+                return this;
+            }catch (NLInnerException e){
+                scope.exit();
+                throw e;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }
+        }else{
+            this.scope.exit();
+        }
+        return this;
     }
 
     @Override

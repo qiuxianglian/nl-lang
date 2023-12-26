@@ -18,7 +18,7 @@ abstract public class UnaryOperationNode extends Node{
         } else if (execute instanceof Null) {
             return Null.NULL;
         } else {
-            return new ValueNode(lang, execute);
+            return ValueNode.createIf(lang, execute);
         }
     }
 

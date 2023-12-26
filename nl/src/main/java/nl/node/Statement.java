@@ -12,6 +12,21 @@ public class Statement extends Node{
     }
 
     @Override
+    public Node copy() {
+        return new Statement(lang,node.copy());
+    }
+
+    @Override
+    public boolean reducible() {
+        return node.reducible();
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        return node.reduce(virtualFrame);
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         return node.execute(frame);
     }

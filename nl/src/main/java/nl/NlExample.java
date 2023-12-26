@@ -10,11 +10,13 @@ public class NlExample {
     public static void main(String[] args) throws Exception {
         NLLang nlLang = new NLLang();
         nlLang.setDebug(true);
-//        Object eval = nlLang.eval(new InputStreamReader((new ByteArrayInputStream("1+1".getBytes()))));
-        Object eval2 = nlLang.eval(new InputStreamReader(
-                new FileInputStream("./nl/tests/namedFn1.nl")));
-        System.out.print(eval2);
+        //30*20+40/(2*4+1+1)
+//        Object eval =
+//                nlLang.eval(new InputStreamReader((new ByteArrayInputStream("a=10; b=9+7; c=a*b".getBytes()))));
+        Object eval = nlLang.eval(new InputStreamReader(
+                new FileInputStream("./nl/tests/fib2.nl")));
+        System.out.print(eval);
         System.out.println();
-        ObjCache.stats(nlLang);
+//        ObjCache.stats(nlLang);
     }
 }

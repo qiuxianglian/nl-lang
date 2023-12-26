@@ -17,6 +17,7 @@ public  class AddExpression extends NumberBinaryExpression{
     }
 
 
+
     protected Object doLong(long left, long right) {
         return Math.addExact(left, right);
     }

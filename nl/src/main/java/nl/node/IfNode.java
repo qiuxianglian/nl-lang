@@ -16,6 +16,43 @@ public class IfNode extends Node{
     }
 
 
+    @Override
+    public boolean reducible() {
+        return super.reducible();
+    }
+
+    @Override
+    public Node copy() {
+        return new IfNode(lang,condition.copy(),body.copy()
+                ,elseBody==null?null:elseBody.copy());
+    }
+
+    @Override
+    public Node reduce(VirtualFrame frame) {
+        if(condition.reducible()){
+            condition = condition.reduce(frame);
+            return this;
+        }
+        Object execute = condition.execute(frame);
+        if(execute instanceof Boolean bool){
+            if(bool){
+                if(body.reducible()){
+                    body = body.reduce(frame);
+                    return this;
+                }else{
+                    return ValueNode.createIf(lang,body.execute(frame));
+                }
+            }else if(elseBody!=null){
+                if(elseBody.reducible()){
+                    elseBody = elseBody.reduce(frame);
+                    return this;
+                }else{
+                    return  ValueNode.createIf(lang,elseBody.execute(frame));
+                }
+            }
+        }
+        return Null.NULL;
+    }
 
     @Override
     public Object execute(VirtualFrame frame) {

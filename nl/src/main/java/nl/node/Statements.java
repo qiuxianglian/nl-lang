@@ -16,9 +16,42 @@ public class Statements extends Node{
 
 
     @Override
+    public boolean reducible() {
+        for (Node statement : this.statements) {
+            if(statement.reducible()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Node copy() {
+        ArrayList<Node> newStats = new ArrayList<>(statements.size());
+        for (int i = 0; i < statements.size(); i++) {
+            Node node = statements.get(i);
+            newStats.add(node.copy());
+        }
+        return new Statements(lang,newStats);
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        for (int i = 0; i < this.statements.size(); i++) {
+            Node node = statements.get(i);
+            if(node.reducible()){
+                statements.set(i,node.reduce(virtualFrame));
+                return this;
+            } else{
+                statements.remove(i);
+                return this;
+            }
+        }
+        return this;
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
-
-
         Object res = null;
         for (int i = 0; i < statements.size(); i++) {
             res = statements.get(i).execute(frame);

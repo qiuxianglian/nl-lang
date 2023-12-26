@@ -400,7 +400,7 @@ public class NlParser extends NLLangBaseVisitor<Node> {
     public Node visitAddSub(NLLangParser.AddSubContext ctx) {
         return switch (ctx.op.getText()) {
             case "+" -> new AddExpression(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
-            case "-" -> new AddExpression(language, visit(ctx.expression(0)), new Nav(language,visit(ctx.expression(1))));
+            case "-" -> new SubExpression(language, visit(ctx.expression(0)), visit(ctx.expression(1)));
             default -> super.visitAddSub(ctx);
         };
     }

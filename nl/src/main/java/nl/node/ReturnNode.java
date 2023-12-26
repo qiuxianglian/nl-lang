@@ -13,6 +13,21 @@ public class ReturnNode extends Node {
     }
 
     @Override
+    public boolean reducible() {
+        return super.reducible();
+    }
+
+    @Override
+    public Node reduce(VirtualFrame frame) {
+        if(value.reducible()){
+            value = value.reduce(frame);
+            return this;
+        }else{
+            return ValueNode.createIf(lang,value.execute(frame));
+        }
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         Object execute = "";
         if(value!=null){
@@ -33,6 +48,6 @@ public class ReturnNode extends Node {
 
     @Override
     public String toString() {
-        return "return" + (value==null?"":" "+ value);
+        return "\treturn" + (value==null?"":" "+ value);
     }
 }

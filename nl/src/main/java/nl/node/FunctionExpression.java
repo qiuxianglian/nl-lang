@@ -26,6 +26,17 @@ public class FunctionExpression extends Node  {
         body1.addAll(idExpressions);
         return body1;
     }
+
+    @Override
+    public boolean reducible() {
+        return false;
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        return this;
+    }
+
     @Override
     public Object execute(VirtualFrame frame) {
         FunctionExpression functionExpression = new FunctionExpression(lang, idExpressions, body);

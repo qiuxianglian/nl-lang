@@ -27,6 +27,17 @@ public  class NumberExpression extends Expression{
         return num;
     }
 
+
+    @Override
+    public boolean reducible() {
+        return false;
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        return ValueNode.createIf(lang,num);
+    }
+
     @Override
     public <T> T accept(Visitor<T> visitor) {
         return null;

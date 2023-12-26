@@ -16,6 +16,11 @@ public abstract   class BinaryExpression extends Node {
         this.right = right;
     }
 
+    @Override
+    public Node copy() {
+        return create(lang,left.copy(),right.copy(),this.getClass());
+    }
+
     abstract public BinaryExpression create(Lang language, Node left, Node right);
 
     public  static BinaryExpression create(Lang lang,Node left,Node right,Class<?extends BinaryExpression> cls){
@@ -30,6 +35,24 @@ public abstract   class BinaryExpression extends Node {
         }
         if(cls.equals(DevExpression.class)){
             return new DevExpression(lang,left,right);
+        }
+        if(cls.equals(MoreThanAndEqualExpression.class)){
+            return new MoreThanAndEqualExpression(lang,left,right);
+        }
+        if(cls.equals(MoreThanExpression.class)){
+            return new MoreThanExpression(lang,left,right);
+        }
+        if(cls.equals(LessThanAndEqualExpression.class)){
+            return new LessThanAndEqualExpression(lang,left,right);
+        }
+        if(cls.equals(LessThanExpression.class)){
+            return new LessThanExpression(lang,left,right);
+        }
+        if(cls.equals(EuqalExpression.class)){
+            return new EuqalExpression(lang,left,right);
+        }
+        if(cls.equals(NotEuqalExpression.class)){
+            return new NotEuqalExpression(lang,left,right);
         }
         throw new NLException("not support binary opt "+cls);
     }
@@ -59,6 +82,18 @@ public abstract   class BinaryExpression extends Node {
         throw new NLException("不支持的类型：left is "+l+"; right is "+r);
     }
 
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        if(getLeft().reducible()){
+            left = left.reduce(virtualFrame);
+            return this;
+        }
+        if(getRight().reducible()){
+            right = right.reduce(virtualFrame);
+            return this;
+        }
+        return ValueNode.createIf(lang,this.execute(virtualFrame));
+    }
     @Override
     public <T> T accept(Visitor<T> visitor) {
         return visitor.accept(left,right);

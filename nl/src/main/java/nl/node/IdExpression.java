@@ -15,6 +15,21 @@ public class IdExpression extends Expression{
     }
 
     @Override
+    public boolean reducible() {
+        return super.reducible();
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        return ValueNode.createIf(lang,execute(virtualFrame));
+    }
+
+    @Override
+    public Node copy() {
+        return new IdExpression(lang,id);
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         NLScope.NLScopeOperator argument = frame.getScope();
         Object o = argument.getScope().find(id);

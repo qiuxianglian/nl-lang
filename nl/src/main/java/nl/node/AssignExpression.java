@@ -19,6 +19,15 @@ public class AssignExpression extends Node{
     }
 
     @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        if(expression.reducible()){
+            this.expression = expression.reduce(virtualFrame);
+        }
+
+        return ValueNode.createIf(lang,this.execute(virtualFrame));
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         Object execute = expression.execute(frame);
         NLScope.NLScopeOperator argument = frame.getScope();
@@ -29,6 +38,11 @@ public class AssignExpression extends Node{
         }
 
         return execute;
+    }
+
+    @Override
+    public Node copy() {
+        return new AssignExpression(lang,id.copy(),expression.copy());
     }
 
     @Override

@@ -22,6 +22,15 @@ public class Null extends Node{
         return null;
     }
 
+    @Override
+    public boolean reducible() {
+        return false;
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        return this;
+    }
 
     @Override
     public String toString() {

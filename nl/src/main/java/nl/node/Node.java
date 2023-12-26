@@ -12,11 +12,11 @@ public abstract class Node {
         cnt++;
     }
 
-    public boolean executable(){
+    public boolean reducible(){
         return true;
     }
 
-    abstract public Object reduce();
+     public Node reduce(VirtualFrame frame){return null;}
 
 
     public boolean hasUndefined(){
@@ -29,19 +29,21 @@ public abstract class Node {
     private static long executeCnt = 0;
     public abstract Object execute(VirtualFrame frame);
 
+    public  Node copy(){
+        return this;
+    }
 
 
     abstract public <T> T accept(Visitor<T> visitor);
 
 
     public static Node wrapper(Lang lang,VirtualFrame virtualFrame,Object o){
-//        if(o instanceof Node){
-//            return (Node) ((Node) o).execute(virtualFrame);
-//        }
         return new ValueNode(lang,o);
     }
 
     protected List<Node> children(){
         return List.of();
     }
+
+
 }

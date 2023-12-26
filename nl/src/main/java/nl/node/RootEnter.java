@@ -14,6 +14,15 @@ public class RootEnter extends Node{
         this.node = node;
     }
 
+    @Override
+    public boolean reducible() {
+        return this.node.reducible();
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        return this.node.reduce(virtualFrame);
+    }
 
     @Override
     public String toString() {
@@ -23,6 +32,11 @@ public class RootEnter extends Node{
     @Override
     public Object execute(VirtualFrame frame) {
         return node.execute(frame);
+    }
+
+    @Override
+    public Node copy() {
+        return new RootEnter(lang,node.copy());
     }
 
     @Override

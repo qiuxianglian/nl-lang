@@ -10,6 +10,14 @@ public class ValueNode extends Node{
         this.value = obj;
     }
 
+    public static Node createIf(Lang lang,Object o){
+        if(o instanceof Node oo){
+            return oo;
+        }else{
+            return new ValueNode(lang,o);
+        }
+    }
+
     @Override
     public Object execute(VirtualFrame frame) {
         return value;
@@ -21,6 +29,16 @@ public class ValueNode extends Node{
             return visitor.accept(node);
         }
         return null;
+    }
+
+    @Override
+    public boolean reducible() {
+        return false;
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        return this;
     }
 
     @Override

@@ -12,8 +12,8 @@ public class BooleanExpression extends Node{
     }
 
     @Override
-    public Object reduce() {
-        return bool;
+    public Node reduce(VirtualFrame virtualFrame) {
+        return ValueNode.createIf(lang,bool);
     }
 
     @Override
