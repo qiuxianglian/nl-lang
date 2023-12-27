@@ -5,7 +5,7 @@ import nl.node.Lang;
 import nl.node.Node;
 import nl.node.VirtualFrame;
 
-public class DFSNLLangRunner implements NLLangRunner{
+public class BigStepLangRunner implements NLLangRunner{
     @Override
     public Object eval(Lang lang, Node node) {
         VirtualFrame frame = new VirtualFrame();
