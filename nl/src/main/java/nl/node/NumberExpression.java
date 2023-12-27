@@ -23,6 +23,11 @@ public  class NumberExpression extends Expression{
 
 
     @Override
+    public Node copy() {
+        return new NumberExpression(lang,num);
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         return num;
     }

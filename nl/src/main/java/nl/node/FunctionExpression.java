@@ -6,6 +6,7 @@ package nl.node;
 import nl.NLScope;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,8 +34,18 @@ public class FunctionExpression extends Node  {
     }
 
     @Override
+    public Node copy() {
+        Node newBody = body.copy();
+        List<IdExpression> newIds = new ArrayList<>(idExpressions.size());
+        for (IdExpression idExpression : idExpressions) {
+            newIds.add((IdExpression) idExpression.copy());
+        }
+        return new FunctionExpression(lang,newIds,newBody);
+    }
+
+    @Override
     public Node reduce(VirtualFrame virtualFrame) {
-        return this;
+        return this.copy();
     }
 
     @Override

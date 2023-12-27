@@ -17,6 +17,12 @@ public class ReturnNode extends Node {
         return super.reducible();
     }
 
+
+    @Override
+    public Node copy() {
+        return new ReturnNode(lang,value==null?null:value.copy());
+    }
+
     @Override
     public Node reduce(VirtualFrame frame) {
         if(value.reducible()){

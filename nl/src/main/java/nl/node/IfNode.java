@@ -36,19 +36,9 @@ public class IfNode extends Node{
         Object execute = condition.execute(frame);
         if(execute instanceof Boolean bool){
             if(bool){
-                if(body.reducible()){
-                    body = body.reduce(frame);
-                    return this;
-                }else{
-                    return ValueNode.createIf(lang,body.execute(frame));
-                }
+                return body;
             }else if(elseBody!=null){
-                if(elseBody.reducible()){
-                    elseBody = elseBody.reduce(frame);
-                    return this;
-                }else{
-                    return  ValueNode.createIf(lang,elseBody.execute(frame));
-                }
+                return elseBody;
             }
         }
         return Null.NULL;

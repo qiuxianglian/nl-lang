@@ -36,7 +36,7 @@ public class BlockNode extends Node{
             NLScope.NLScopeOperator scope = this.scope ;
             try {
                 this.statements = statements.reduce(frame);;
-                return this;
+                return this.statements;
             }catch (NLInnerException e){
                 scope.exit();
                 throw e;
@@ -46,8 +46,8 @@ public class BlockNode extends Node{
             }
         }else{
             this.scope.exit();
+            return this.statements;
         }
-        return this;
     }
 
     @Override

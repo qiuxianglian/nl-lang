@@ -35,7 +35,9 @@ public class CallExpression extends Node {
     @Override
     public Node reduce(VirtualFrame frame) {
         if(functionExpression.reducible()){
-            return new CallExpression(lang,functionExpression.reduce(frame),inputs);
+            Node reduce = functionExpression.reduce(frame);
+            functionExpression = reduce.copy();
+            return this;
         }else{
             for (int i = 0; i < inputs.length; i++) {
                 Node input = inputs[i];
@@ -46,50 +48,52 @@ public class CallExpression extends Node {
             }
         }
 
-        Object function = functionExpression.reduce(frame);
-        if(function instanceof FunctionExpression fn){
-            if(cacheFn == null){
-                cacheFn = fn;
-                NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
-                cacheFn.setNlScope(nlScope);
-                cacheFn.setUpNlScope(frame.getScope().getScope());
-                Object[] argumentValues = new Object[inputs.length];
-                for (int i = 0; i < inputs.length; i++) {
-                    argumentValues[i] = inputs[i].execute(frame);
-                }
+        return ValueNode.createIf(lang,this.execute(frame));
 
-                for (int i = 0; i < cacheFn.getIdExpressions().size(); i++) {
-                    IdExpression idExpression = cacheFn.getIdExpressions().get(i);
-                    if(i<argumentValues.length){
-                        cacheFn.getNlScope().getScope().put(idExpression.getId(),argumentValues[i]);
-                    }
-                }
-
-                if(nodeFrame==null){
-                    nodeFrame = VirtualFrame.getFrameCache().getInstance();
-                    nodeFrame.setArguments(argumentValues);
-                    nodeFrame.setScope(cacheFn.getNlScope());
-                }
-                if(fnBodyCopy == null){
-                    fnBodyCopy = cacheFn.getBody().copy();
-                }
-
-            }
-            try {
-                if(fnBodyCopy.reducible()){
-                    fnBodyCopy = fnBodyCopy.reduce(nodeFrame);
-                    return this;
-                }else {
-                    cyl(cacheFn,nodeFrame);
-                    return ValueNode.createIf(lang,fnBodyCopy.execute(nodeFrame));
-                }
-            } catch (NLReturnException returnException){
-                cyl(cacheFn,nodeFrame);
-                return ValueNode.createIf(lang,returnException.getResult());
-            }
-        } else {
-            throw new RuntimeException("target is not function ");
-        }
+//        Object function = functionExpression.reduce(frame);
+//        if(function instanceof FunctionExpression fn){
+//            if(cacheFn == null){
+//                cacheFn = fn;
+//                NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
+//                cacheFn.setNlScope(nlScope);
+//                cacheFn.setUpNlScope(frame.getScope().getScope());
+//                Object[] argumentValues = new Object[inputs.length];
+//                for (int i = 0; i < inputs.length; i++) {
+//                    argumentValues[i] = inputs[i].execute(frame);
+//                }
+//
+//                for (int i = 0; i < cacheFn.getIdExpressions().size(); i++) {
+//                    IdExpression idExpression = cacheFn.getIdExpressions().get(i);
+//                    if(i<argumentValues.length){
+//                        cacheFn.getNlScope().getScope().put(idExpression.getId(),argumentValues[i]);
+//                    }
+//                }
+//
+//                if(nodeFrame==null){
+//                    nodeFrame = VirtualFrame.getFrameCache().getInstance();
+//                    nodeFrame.setArguments(argumentValues);
+//                    nodeFrame.setScope(cacheFn.getNlScope());
+//                }
+//                if(fnBodyCopy == null){
+//                    fnBodyCopy = cacheFn.getBody().copy();
+//                }
+//
+//            }
+//            try {
+//                if(fnBodyCopy.reducible()){
+//                    fnBodyCopy = fnBodyCopy.reduce(nodeFrame);
+//                    return fnBodyCopy;
+//                }else {
+//                    cyl(cacheFn,nodeFrame);
+//                    return ValueNode.createIf(lang,fnBodyCopy.execute(nodeFrame));
+//                }
+//            } catch (NLReturnException returnException){
+//                cyl(cacheFn,nodeFrame);
+//                return ValueNode.createIf(lang,returnException.getResult());
+//            }
+//        } else {
+//            throw new RuntimeException("target is not function ");
+//        }
     }
 
     private void  cyl(FunctionExpression fn,VirtualFrame nodeFrame){
