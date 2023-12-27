@@ -35,8 +35,13 @@ public class BlockNode extends Node{
         if(statements.reducible()){
             NLScope.NLScopeOperator scope = this.scope ;
             try {
-                this.statements = statements.reduce(frame);;
-                return this.statements;
+                VirtualFrame virtualFrame = new VirtualFrame();
+                virtualFrame.setScope(scope);
+                this.statements = statements.reduce(virtualFrame);
+                if(!this.statements.reducible()){
+                    return this.statements;
+                }
+                return this;
             }catch (NLInnerException e){
                 scope.exit();
                 throw e;

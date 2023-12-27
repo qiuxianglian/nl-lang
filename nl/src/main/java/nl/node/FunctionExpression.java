@@ -5,7 +5,6 @@ package nl.node;
 
 import nl.NLScope;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,19 +59,19 @@ public class FunctionExpression extends Node  {
     }
 
 
-    private NLScope.NLScopeOperator nlScope;
+    private NLScope.NLScopeOperator scope;
 
     public FunctionExpression setUpNlScope(NLScope nlScope) {
-        this.nlScope.setOuter(nlScope);
+        this.scope.setOuter(nlScope);
         return this;
     }
 
-    public void setNlScope(NLScope.NLScopeOperator nlScope) {
-        this.nlScope = nlScope;
+    public void setScope(NLScope.NLScopeOperator scope) {
+        this.scope = scope;
     }
 
-    public NLScope.NLScopeOperator getNlScope() {
-        return nlScope;
+    public NLScope.NLScopeOperator getScope() {
+        return scope;
     }
 
     public Node getBody() {

@@ -37,6 +37,9 @@ public class Statements extends Node{
 
     @Override
     public Node reduce(VirtualFrame virtualFrame) {
+        if(statements.size()==1){
+            return statements.get(0).reduce(virtualFrame);
+        }
         for (int i = 0; i < this.statements.size(); i++) {
             Node node = statements.get(i);
             if(node.reducible()){
