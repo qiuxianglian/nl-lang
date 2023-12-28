@@ -1,6 +1,7 @@
 package nl.node;
 
 import nl.NLException;
+import nl.builtin.BuiltIn;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public interface Visitor<T> {
 
     default T visit(Node node) {
         if (node == null) return null;
+        if (node instanceof BuiltInNode nnode) return visitBuiltIn(nnode);
         if (node instanceof AddExpression nnode) return visitAddExpression(nnode);
         if (node instanceof ArrayNode nnode) return visitArrayNode(nnode);
         if (node instanceof AssignExpression nnode) return visitAssignExpression(nnode);
@@ -89,6 +91,8 @@ public interface Visitor<T> {
         if (node instanceof Expression nnode) return visitExpression(nnode);
         throw new NLException("unsupport node " + node.getClass().getName());
     }
+
+    T visitBuiltIn(BuiltInNode builtInNode);
 
     T visitNav(Nav node);
     T visitReciprocal(Reciprocal node);

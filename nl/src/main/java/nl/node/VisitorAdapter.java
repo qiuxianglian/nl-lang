@@ -9,6 +9,11 @@ public interface VisitorAdapter<T> extends Visitor<T> {
         return visitUnaryOperationNode(node);
     }
 
+    default T visitBuiltIn(BuiltInNode builtInNode){
+        return visitNode(builtInNode);
+    }
+
+
     @Override
     default T visitReciprocal(Reciprocal node) {
         return visitUnaryOperationNode(node);

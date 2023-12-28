@@ -11,7 +11,7 @@ public class Println extends FunctionExpression {
     }
 
 
-    public static class PrintlnBody extends Node {
+    public static class PrintlnBody extends BuiltInNode {
         java.io.PrintStream out;
 
         protected PrintlnBody(Lang language) {

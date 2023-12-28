@@ -11,6 +11,16 @@ public class UndefinedId extends IdExpression{
 
 
     @Override
+    public boolean reducible() {
+        return false;
+    }
+
+    @Override
+    public Node reduce(VirtualFrame virtualFrame) {
+        return this;
+    }
+
+    @Override
     protected List<Node> children() {
         return List.of();
     }

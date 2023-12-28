@@ -15,6 +15,16 @@ public class StringExpression extends Expression{
     }
 
     @Override
+    public boolean reducible() {
+        return false;
+    }
+
+    @Override
+    public Node reduce(VirtualFrame frame) {
+        return ValueNode.createIf(lang,str);
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         return str;
     }

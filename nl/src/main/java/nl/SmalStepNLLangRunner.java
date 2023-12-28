@@ -1,5 +1,6 @@
 package nl;
 
+import nl.builtin.BuiltIn;
 import nl.node.Lang;
 import nl.node.Node;
 import nl.node.NodeToString;
@@ -13,6 +14,7 @@ public class SmalStepNLLangRunner implements NLLangRunner {
     @Override
     public Object eval(Lang lang, Node node) {
         NLScope.NLScopeOperator scope = NLScope.NLScopeOperator.newScope();
+        BuiltIn.install(lang,scope.getScope());
         VirtualFrame instance = VirtualFrame.getFrameCache().getInstance();
         instance.setScope(scope);
         Node currentNode = node;
@@ -23,11 +25,11 @@ public class SmalStepNLLangRunner implements NLLangRunner {
         while (currentNode.reducible()) {
             Object reduce = currentNode.reduce(instance);
             String x = NodeToString.nodeToString(currentNode);
-            length.add(x.length());
-            lang.printStream().println("////////////////第"+i+"步,表达式长"+x.length()+"////////////////");
-            lang.printStream().println(x);
             if (reduce instanceof Node rNode) {
                 currentNode = rNode;
+                length.add(x.length());
+                lang.printStream().println("////////////////第"+i+"步,表达式长"+x.length()+"////////////////");
+                lang.printStream().println(x);
             } else {
                 return null;
             }

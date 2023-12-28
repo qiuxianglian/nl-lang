@@ -14,7 +14,7 @@ public class NlExample {
 //        Object eval =
 //                nlLang.eval(new InputStreamReader((new ByteArrayInputStream("a=10; b=9+7; c=a*b".getBytes()))));
         Object eval = nlLang.eval(new InputStreamReader(
-                new FileInputStream("./nl/tests/fib2.nl")));
+                new FileInputStream("./nl/tests/if1.nl")));
         System.out.print(eval);
         System.out.println();
 //        ObjCache.stats(nlLang);

@@ -11,7 +11,7 @@ public class Print extends FunctionExpression {
     }
 
 
-    public static class PrintBody extends Node {
+    public static class PrintBody extends BuiltInNode {
         java.io.PrintStream out;
 
         protected PrintBody(Lang language) {

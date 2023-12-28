@@ -4,8 +4,10 @@ import nl.NLReturnException;
 import nl.NLScope;
 
 public class CallExpressionWithEnv extends CallExpression{
-    public CallExpressionWithEnv(Lang language, Node functionExpression, Node[] inputs) {
-        super(language, functionExpression, inputs);
+
+
+    public CallExpressionWithEnv(Lang language,CallExpression callExpression) {
+        super(language, callExpression.functionExpression, callExpression.inputs);
     }
 
     private VirtualFrame nodeFrame;
@@ -35,7 +37,6 @@ public class CallExpressionWithEnv extends CallExpression{
             nodeFrame = frame;
             nodeFrame.setScope(frame.getScope());
         }
-
 
         if(functionExpression.reducible()){
             Node reduce = functionExpression.reduce(nodeFrame);
@@ -70,10 +71,12 @@ public class CallExpressionWithEnv extends CallExpression{
                         cacheFn.getScope().getScope().put(idExpression.getId(),argumentValues[i]);
                     }
                 }
+
             }
             try {
                 if(cacheFn.getBody().reducible()){
                     VirtualFrame virtualFrame = new VirtualFrame();
+                    virtualFrame.setArguments(inputs);
                     virtualFrame.setScope(cacheFn.getScope());
                     return cacheFn.getBody().reduce(virtualFrame);
                 }else {
@@ -94,8 +97,8 @@ public class CallExpressionWithEnv extends CallExpression{
 
     private void  cyl(FunctionExpression fn,VirtualFrame nodeFrame){
         NLScope.cyl(fn.getScope().getScope());
-        fn.setScope(null);
         NLScope.NLScopeOperator.cyl(fn.getScope());
+        fn.setScope(null);
         VirtualFrame.getFrameCache().cyl(nodeFrame);
     }
 

@@ -14,6 +14,15 @@ public class NodeToString implements VisitorAdapter<String>{
         return new NodeToString().visit(node);
     }
 
+    @Override
+    public String visitUndefinedId(UndefinedId undefinedId) {
+        return undefinedId.getId();
+    }
+
+    @Override
+    public String visitBuiltIn(BuiltInNode builtInNode) {
+        return "builtIn["+builtInNode.getClass().getName()+"]";
+    }
 
     @Override
     public String visitNav(Nav node) {
@@ -253,20 +262,20 @@ public class NodeToString implements VisitorAdapter<String>{
     @Override
     public String visitStatement(Statement statement) {
         String res =  tabString() +visit(statement.getNode());
-        if(!(statement.getNode() instanceof BlockNode)){
-            res += ";";
-        }
+//        if(!(statement.getNode() instanceof BlockNode)){
+//            res += ";";
+//        }
         return res;
     }
 
     @Override
     public String visitStatements(Statements statements) {
-        return statements.getStatements().stream().map(this::visit).collect(Collectors.joining("\n"));
+        return statements.getStatements().stream().map(this::visit).collect(Collectors.joining(";\n"))+";";
     }
 
     @Override
     public String visitStringExpression(StringExpression stringExpression) {
-        return "\\\\'"+stringExpression.getStr().replaceAll("'","\\\\'")+"\\\\'";
+        return "'"+stringExpression.getStr().replaceAll("'","\\\\'")+"'";
     }
 
     @Override
@@ -293,11 +302,10 @@ public class NodeToString implements VisitorAdapter<String>{
 
     @Override
     public String visitWhileNode(WhileNode whileNode) {
-        StringBuffer sb = new StringBuffer();
-        sb.append("while(");
-        sb.append(visit(whileNode.getCondition()));
-        sb.append(")");
-        sb.append(visit(whileNode.getBody()));
-        return sb.toString();
+        return tabString() +
+                "while(" +
+                visit(whileNode.getCondition()) +
+                ")" +
+                visit(whileNode.getBody());
     }
 }

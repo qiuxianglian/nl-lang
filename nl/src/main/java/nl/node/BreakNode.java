@@ -19,6 +19,15 @@ public class BreakNode extends Node{
         return null;
     }
 
+    @Override
+    public boolean reducible() {
+        return true;
+    }
+
+    @Override
+    public Node reduce(VirtualFrame frame) {
+        throw BreakException.BREAK_EXCEPTION;
+    }
 
     @Override
     protected List<Node> children() {

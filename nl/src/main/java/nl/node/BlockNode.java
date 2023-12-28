@@ -43,6 +43,7 @@ public class BlockNode extends Node{
                 virtualFrame.setScope(scope);
                 this.statements = statements.reduce(virtualFrame);
                 if(!this.statements.reducible()){
+                    scope.exit();
                     return this.statements;
                 }
                 return this;

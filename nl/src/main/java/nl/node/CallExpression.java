@@ -33,7 +33,7 @@ public class CallExpression extends Node {
 
     @Override
     public Node reduce(VirtualFrame frame) {
-        return new CallExpressionWithEnv(lang,functionExpression,inputs).reduce(frame);
+        return new CallExpressionWithEnv(lang,this).reduce(frame);
     }
 
     @Override

@@ -6,8 +6,8 @@ import nl.ContinueException;
 import java.util.List;
 
 public class WhileNode extends Node{
-    private Node condition;
-    private Node body;
+    protected Node condition;
+    protected Node body;
 
     public Node getCondition() {
         return condition;
@@ -23,16 +23,18 @@ public class WhileNode extends Node{
         this.body = body;
     }
 
-
+    @Override
+    public Node reduce(VirtualFrame frame) {
+        return new ReduceWhileNode(lang,this);
+    }
 
     @Override
     public Object execute(VirtualFrame frame) {
-        Object finalResult = "";
         while (true){
             Object execute = condition.execute(frame);
             if(execute instanceof Boolean bool && bool){
                 try {
-                    finalResult = body.execute(frame);
+                    body.execute(frame);
                 }catch (BreakException breakException){
                     break;
                 }catch (ContinueException ignore){
