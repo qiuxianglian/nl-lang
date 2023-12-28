@@ -7,7 +7,7 @@ public class NodeToString implements VisitorAdapter<String>{
 
     private int tab  = 0;
     private String tabString(){
-        return " ".repeat(Math.max(0, tab));
+        return "  ".repeat(Math.max(0, tab));
     }
 
     public static String nodeToString(Node node){
@@ -73,10 +73,16 @@ public class NodeToString implements VisitorAdapter<String>{
     @Override
     public String visitBlockNode(BlockNode blockNode) {
         StringBuilder sb = new StringBuilder();
+        sb.append("\n");
         sb.append(tabString());
         sb.append("{\n");
         tab++;
-        sb.append(visit(blockNode.getStatements()));
+        if(blockNode.getStatements() instanceof Statements||blockNode.getStatements() instanceof Statement){
+            sb.append(visit(blockNode.getStatements()));
+        }else{
+            sb.append(tabString());
+            sb.append(visit(blockNode.getStatements()));
+        }
         tab--;
         sb.append("\n");
         sb.append(tabString());
@@ -100,9 +106,10 @@ public class NodeToString implements VisitorAdapter<String>{
         if(callExpression.getFunctionExpression() instanceof IdExpression){
             sb.append(visit(callExpression.getFunctionExpression()));
         }else{
-            sb.append("(\n");
+            sb.append("\n");
+            sb.append(tabString()+"(");
             tab++;
-            sb.append(tabString());
+
             sb.append(visit(callExpression.getFunctionExpression()));
             sb.append("\n");
             tab--;
@@ -138,9 +145,9 @@ public class NodeToString implements VisitorAdapter<String>{
                 + "=>") ;
 
         if(functionExpression.getBody() instanceof BlockNode){
-            sb.append("\n");
-            sb.append(tabString());
+            tab++;
             sb.append(visit(functionExpression.getBody()));
+            tab--;
 
         }else{
             sb.append(visit(functionExpression.getBody()));
@@ -156,7 +163,6 @@ public class NodeToString implements VisitorAdapter<String>{
     @Override
     public String visitIfNode(IfNode ifNode) {
         StringBuilder sb = new StringBuilder();
-        sb.append(tabString());
         sb.append("if(");
         sb.append(visit(ifNode.getCondition()));
         sb.append(")");
@@ -232,7 +238,11 @@ public class NodeToString implements VisitorAdapter<String>{
 
     @Override
     public String visitReturnNode(ReturnNode returnNode) {
-        return tabString()+"return "+visit(returnNode.getValue());
+        String res = ("return ");
+        tab++;
+        res = res + visit(returnNode.getValue());
+        tab--;
+        return res;
     }
 
     @Override
@@ -242,7 +252,11 @@ public class NodeToString implements VisitorAdapter<String>{
 
     @Override
     public String visitStatement(Statement statement) {
-        return tabString()+visit(statement.getNode());
+        String res =  tabString() +visit(statement.getNode());
+        if(!(statement.getNode() instanceof BlockNode)){
+            res += ";";
+        }
+        return res;
     }
 
     @Override
