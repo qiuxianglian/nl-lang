@@ -57,12 +57,12 @@ public class SmalStepNLLangRunner implements NLLangRunner {
             }
             int len = (int) ((sumMax+(sum/avgCnt))/1.5);
 
-            System.out.print("//"+j+" to "+(j+groupSize-1)+"\t");
+            lang.printStream().print("//"+j+" to "+(j+groupSize-1)+"\t");
             int p = (int) ((len/max)*100);
             for (int integer = 0; integer < p; integer++) {
-                System.out.print("*");
+                lang.printStream().print("*");
             }
-            System.out.println();
+            lang.printStream().println();
         }
 
 
