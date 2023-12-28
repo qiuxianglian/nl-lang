@@ -12,6 +12,14 @@ public class AssignExpression extends Node{
     private Node id;
     private Node expression;
 
+    public Node getId() {
+        return id;
+    }
+
+    public Node getExpression() {
+        return expression;
+    }
+
     public AssignExpression(Lang language, Node id, Node expression) {
         super(language);
         this.id = id;

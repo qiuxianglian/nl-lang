@@ -10,6 +10,10 @@ public class StringExpression extends Expression{
         this.str = str;
     }
 
+    public String getStr() {
+        return str;
+    }
+
     @Override
     public Object execute(VirtualFrame frame) {
         return str;

@@ -9,6 +9,10 @@ import java.util.List;
 public class RootEnter extends Node{
     private Node node;
 
+    public Node getNode() {
+        return node;
+    }
+
     public RootEnter(Lang language, Node node) {
         super(language);
         this.node = node;

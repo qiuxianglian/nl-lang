@@ -7,6 +7,10 @@ import java.util.Map;
 public class ObjectNode extends Node{
     protected Map<String,Object> nodes;
 
+    public Map<String, Object> getNodes() {
+        return nodes;
+    }
+
     public ObjectNode(Lang language, Map<String,Node> nodes) {
         super(language);
         this.nodes = new HashMap<>();

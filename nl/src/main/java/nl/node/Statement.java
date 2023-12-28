@@ -6,6 +6,10 @@ import java.util.List;
 public class Statement extends Node{
     private Node node;
 
+    public Node getNode() {
+        return node;
+    }
+
     public Statement(Lang language, Node node) {
         super(language);
         this.node = node;

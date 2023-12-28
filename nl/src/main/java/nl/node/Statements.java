@@ -9,6 +9,10 @@ import java.util.List;
 public class Statements extends Node{
     private List<Node> statements;
 
+    public List<Node> getStatements() {
+        return statements;
+    }
+
     public Statements(Lang language, List<Node> statements) {
         super(language);
         this.statements = statements;

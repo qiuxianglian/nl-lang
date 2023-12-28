@@ -7,6 +7,11 @@ import java.util.List;
 public class ReturnNode extends Node {
     private Node value;
 
+
+    public Node getValue() {
+        return value;
+    }
+
     public ReturnNode(Lang language, Node value) {
         super(language);
         this.value = value;

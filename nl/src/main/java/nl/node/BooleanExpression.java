@@ -6,6 +6,10 @@ import java.util.List;
 public class BooleanExpression extends Node{
     private boolean bool;
 
+    public boolean isBool() {
+        return bool;
+    }
+
     public BooleanExpression(Lang language, boolean bool) {
         super(language);
         this.bool = bool;

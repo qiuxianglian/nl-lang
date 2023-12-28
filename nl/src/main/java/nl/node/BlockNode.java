@@ -8,6 +8,10 @@ import java.util.List;
 public class BlockNode extends Node{
     private Node statements;
 
+    public Node getStatements() {
+        return statements;
+    }
+
     private  NLScope.NLScopeOperator scope;
 
 

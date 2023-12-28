@@ -6,6 +6,10 @@ import java.util.List;
 public class UndefinedNode extends Node {
     private Node node;
 
+    public Node getNode() {
+        return node;
+    }
+
     public UndefinedNode(Lang language, Node node) {
         super(language);
         this.node = node;

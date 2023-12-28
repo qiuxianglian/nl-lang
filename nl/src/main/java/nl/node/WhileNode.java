@@ -9,7 +9,13 @@ public class WhileNode extends Node{
     private Node condition;
     private Node body;
 
+    public Node getCondition() {
+        return condition;
+    }
 
+    public Node getBody() {
+        return body;
+    }
 
     public WhileNode(Lang language, Node condition, Node body) {
         super(language);

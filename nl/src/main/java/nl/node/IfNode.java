@@ -8,7 +8,19 @@ public class IfNode extends Node{
 
     private Node elseBody;
 
-    public IfNode(Lang language, Node condition, Node body,Node elseBody) {
+    public Node getCondition() {
+        return condition;
+    }
+
+    public Node getBody() {
+        return body;
+    }
+
+    public Node getElseBody() {
+        return elseBody;
+    }
+
+    public IfNode(Lang language, Node condition, Node body, Node elseBody) {
         super(language);
         this.condition = condition;
         this.body = body;

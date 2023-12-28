@@ -17,6 +17,14 @@ public class CallExpression extends Node {
     protected Node functionExpression;
     protected final Node[] inputs;
 
+    public Node getFunctionExpression() {
+        return functionExpression;
+    }
+
+    public Node[] getInputs() {
+        return inputs;
+    }
+
     public CallExpression(Lang language, Node functionExpression, Node[] inputs) {
         super(language);
         this.functionExpression = functionExpression;

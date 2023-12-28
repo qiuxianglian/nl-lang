@@ -8,6 +8,10 @@ abstract public class UnaryOperationNode extends Node{
         this.target = target;
     }
 
+    public Node getTarget() {
+        return target;
+    }
+
     @Override
     public Object execute(VirtualFrame frame) {
         Object execute = target.execute(frame);
