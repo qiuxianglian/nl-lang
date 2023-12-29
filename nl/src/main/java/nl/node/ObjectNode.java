@@ -27,7 +27,7 @@ public class ObjectNode extends Node{
             }
             nodes.put(key,value);
         }
-        return nodes;
+        return this;
     }
 
     @Override

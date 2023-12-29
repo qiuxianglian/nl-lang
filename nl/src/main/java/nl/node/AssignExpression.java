@@ -80,6 +80,10 @@ public class AssignExpression extends Node{
             }
         }else if(execute instanceof Map map){
             return map.put(theId+"",newVal);
+        }else if(execute instanceof ArrayNode array){
+            return array.getNodes().put(theId+"",newVal);
+        }else if(execute instanceof ObjectNode obj){
+            return obj.getNodes().put(theId+"",newVal);
         }
         throw new NLException("unsupport opt "+execute+"["+theId+"]");
     }

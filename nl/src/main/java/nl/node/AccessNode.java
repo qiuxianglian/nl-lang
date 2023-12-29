@@ -23,8 +23,7 @@ public class AccessNode extends Node{
         return id;
     }
 
-    @Override
-    public Object execute(VirtualFrame frame) {
+    protected Object executeInner(VirtualFrame frame) {
         Object execute = node.execute(frame);
         Object theId = id.execute(frame);
         if(execute instanceof List<?> list){
@@ -37,11 +36,24 @@ public class AccessNode extends Node{
                 }
             }
         }else if(execute instanceof Map map){
-            return map.get(theId+"");
+            return map.get(String.valueOf(theId));
+        }else if(execute instanceof ArrayNode array){
+            return array.getNodes().get(String.valueOf(theId));
+        }else if(execute instanceof ObjectNode obj){
+            return obj.getNodes().get(String.valueOf(theId));
         }
 
 
         throw new NLException("unsupport opt "+execute+"["+theId+"]");
+    }
+
+    @Override
+    public Object execute(VirtualFrame frame){
+        Object o = executeInner(frame);
+        if(o == null){
+            return Null.NULL;
+        }
+        return o;
     }
 
     @Override

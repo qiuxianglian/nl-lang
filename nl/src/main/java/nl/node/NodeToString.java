@@ -248,6 +248,7 @@ public class NodeToString implements VisitorAdapter<String>{
             if(i!=objectNode.getNodes().size()-1){
                 sb.append(",");
             }
+            i++;
         }
         sb.append("}");
         return tabString()+sb.toString();
