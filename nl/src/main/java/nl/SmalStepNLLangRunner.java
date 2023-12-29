@@ -1,10 +1,7 @@
 package nl;
 
 import nl.builtin.BuiltIn;
-import nl.node.Lang;
-import nl.node.Node;
-import nl.node.NodeToString;
-import nl.node.VirtualFrame;
+import nl.node.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,7 +34,7 @@ public class SmalStepNLLangRunner implements NLLangRunner {
         }
         lang.printStream().println("////////////////结束////////////////");
 
-        double max = (double)length.stream().max(Comparator.comparingInt(o -> o)).get();
+        double max = (double)length.stream().max(Comparator.comparingInt(o -> o)).orElse(0);
 
         int groupSize;
         if(length.size()>100){
@@ -69,6 +66,9 @@ public class SmalStepNLLangRunner implements NLLangRunner {
 
 
         VirtualFrame.getFrameCache().cyl(instance);
+        if(currentNode instanceof ValueNode vn){
+            return vn.getValue();
+        }
         return currentNode;
     }
 }

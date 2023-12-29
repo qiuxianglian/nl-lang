@@ -16,7 +16,9 @@ public abstract class Node {
         return true;
     }
 
-     public Node reduce(VirtualFrame frame){return null;}
+     public Node reduce(VirtualFrame frame){
+        return ValueNode.createIf(lang,execute(frame));
+    }
 
 
     public boolean hasUndefined(){

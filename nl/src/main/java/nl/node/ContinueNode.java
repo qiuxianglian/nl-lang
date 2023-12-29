@@ -13,6 +13,11 @@ public class ContinueNode extends Node{
     }
 
     @Override
+    public Node reduce(VirtualFrame frame) {
+        throw CONTINUE_EXCEPTION;
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         throw CONTINUE_EXCEPTION;
     }

@@ -13,6 +13,15 @@ abstract public class UnaryOperationNode extends Node{
     }
 
     @Override
+    public Node reduce(VirtualFrame frame) {
+        if(this.target.reducible()){
+            this.target = this.target.reduce(frame);
+            return this;
+        }
+        return ValueNode.createIf(lang,this.execute(frame));
+    }
+
+    @Override
     public Object execute(VirtualFrame frame) {
         Object execute = target.execute(frame);
         if (execute instanceof Long l) {

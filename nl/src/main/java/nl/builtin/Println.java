@@ -21,9 +21,10 @@ public class Println extends FunctionExpression {
 
         @Override
         public Object execute(VirtualFrame frame) {
+            NodeToString node = new NodeToString();
             Object[] arguments = frame.getArguments();
             for (int i = 0; i < arguments.length; i++) {
-                out.print(arguments[i]);
+                out.print(node.toString(arguments[i]));
                 if (i != arguments.length - 1) {
                     out.print(" ");
                 }

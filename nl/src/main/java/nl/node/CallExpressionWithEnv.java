@@ -60,11 +60,7 @@ public class CallExpressionWithEnv extends CallExpression{
                 NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
                 cacheFn.setScope(nlScope);
                 cacheFn.setUpNlScope(nodeFrame.getScope().getScope());
-                Object[] argumentValues = new Object[inputs.length];
-                for (int i = 0; i < inputs.length; i++) {
-                    argumentValues[i] = inputs[i].execute(nodeFrame);
-                }
-
+                Object[] argumentValues = execInputs();
                 for (int i = 0; i < cacheFn.getIdExpressions().size(); i++) {
                     IdExpression idExpression = cacheFn.getIdExpressions().get(i);
                     if(i<argumentValues.length){
@@ -76,7 +72,7 @@ public class CallExpressionWithEnv extends CallExpression{
             try {
                 if(cacheFn.getBody().reducible()){
                     VirtualFrame virtualFrame = new VirtualFrame();
-                    virtualFrame.setArguments(inputs);
+                    virtualFrame.setArguments(execInputs());
                     virtualFrame.setScope(cacheFn.getScope());
                     return cacheFn.getBody().reduce(virtualFrame);
                 }else {
@@ -100,6 +96,14 @@ public class CallExpressionWithEnv extends CallExpression{
         NLScope.NLScopeOperator.cyl(fn.getScope());
         fn.setScope(null);
         VirtualFrame.getFrameCache().cyl(nodeFrame);
+    }
+
+    private  Object[] execInputs(){
+        Object[] argumentValues = new Object[inputs.length];
+        for (int i = 0; i < inputs.length; i++) {
+            argumentValues[i] = inputs[i].execute(nodeFrame);
+        }
+        return argumentValues;
     }
 
 }

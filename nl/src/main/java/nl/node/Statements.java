@@ -21,12 +21,7 @@ public class Statements extends Node{
 
     @Override
     public boolean reducible() {
-        for (Node statement : this.statements) {
-            if(statement.reducible()){
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 
     @Override

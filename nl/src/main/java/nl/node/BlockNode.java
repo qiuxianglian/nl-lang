@@ -22,7 +22,7 @@ public class BlockNode extends Node{
 
     @Override
     public boolean reducible() {
-        return statements.reducible();
+        return true;
     }
 
     @Override

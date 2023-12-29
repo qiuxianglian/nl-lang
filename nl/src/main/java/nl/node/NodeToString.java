@@ -10,6 +10,14 @@ public class NodeToString implements VisitorAdapter<String>{
         return "  ".repeat(Math.max(0, tab));
     }
 
+    public String toString(Object o){
+        if(o instanceof Node nn){
+            return visit(nn);
+        }else{
+            return o+"";
+        }
+    }
+
     public static String nodeToString(Node node){
         return new NodeToString().visit(node);
     }
