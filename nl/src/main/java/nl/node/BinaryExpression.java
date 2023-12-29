@@ -82,6 +82,19 @@ public abstract   class BinaryExpression extends Node {
         throw new NLException("不支持的类型：left is "+l+"; right is "+r);
     }
 
+
+    @Override
+    public boolean reducible() {
+        if(getLeft().reducible()){
+            return true;
+        }
+        if(getRight().reducible()){
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public Node reduce(VirtualFrame virtualFrame) {
         if(getLeft().reducible()){

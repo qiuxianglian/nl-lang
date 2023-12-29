@@ -20,6 +20,12 @@ public class UndefinedId extends IdExpression{
         return this;
     }
 
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
     @Override
     protected List<Node> children() {
         return List.of();

@@ -13,6 +13,6 @@ public class ArrayNode extends ObjectNode{
 
     @Override
     public String toString() {
-        return nodes.values().stream().toList()+"";
+        return NodeToString.nodeToString(this);
     }
 }

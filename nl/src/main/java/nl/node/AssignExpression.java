@@ -25,13 +25,20 @@ public class AssignExpression extends Node{
         this.id = id;
         this.expression = expression;
     }
+    protected boolean reducible = true;
+
+    @Override
+    public boolean reducible() {
+        return reducible;
+    }
 
     @Override
     public Node reduce(VirtualFrame virtualFrame) {
         if(expression.reducible()){
             this.expression = expression.reduce(virtualFrame);
+            return this;
         }
-
+        reducible = false;
         return ValueNode.createIf(lang,this.execute(virtualFrame));
     }
 

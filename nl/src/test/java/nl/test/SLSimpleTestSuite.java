@@ -7,7 +7,7 @@ import org.junit.runner.manipulation.NoTestsRemainException;
 import org.junit.runners.model.InitializationError;
 
 @RunWith(SLTestRunner.class)
-@SLTestSuite({"nl/tests"})
+@SLTestSuite({"nl/tests/smallstep"})
 public class SLSimpleTestSuite {
 
     public static void main(String[] args) throws Exception {

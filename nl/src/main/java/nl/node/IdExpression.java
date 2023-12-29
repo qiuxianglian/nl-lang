@@ -41,7 +41,7 @@ public class IdExpression extends Expression{
 
     @Override
     public <T> T accept(Visitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 
     @Override

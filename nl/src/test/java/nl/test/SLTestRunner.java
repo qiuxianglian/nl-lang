@@ -5,6 +5,7 @@ package nl.test;
 import nl.NLException;
 import nl.NLLang;
 
+import nl.node.Node;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.internal.TextListener;
@@ -247,6 +248,7 @@ public class SLTestRunner extends ParentRunner<SLTestRunner.TestCase> {
             String actualOutput = new String(out.toByteArray());
             Assert.assertEquals(testCase.name.toString(), testCase.expectedOutput, actualOutput);
         } catch (Throwable ex) {
+            ex.printStackTrace();
             notifier.fireTestFailure(new Failure(testCase.name, ex));
         } finally {
 
@@ -257,6 +259,7 @@ public class SLTestRunner extends ParentRunner<SLTestRunner.TestCase> {
     private static void run(NLLang context, Path path, PrintWriter out) throws IOException {
         try {
             /* Parse the SL source file. */
+            System.out.println("eval file "+path);
             InputStreamReader source = new InputStreamReader(new FileInputStream(path.toFile()));
 
             /* Call the main entry point, without any arguments. */
