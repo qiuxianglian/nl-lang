@@ -33,7 +33,7 @@ public class CallExpression extends Node {
 
     @Override
     public Node reduce(VirtualFrame frame) {
-        return new CallExpressionWithEnv(lang,this).reduce(frame);
+        return new CallExpressionReduce(lang,this).reduce(frame);
     }
 
     @Override
@@ -41,9 +41,12 @@ public class CallExpression extends Node {
 
         Object function = functionExpression.execute(frame);
         if(function instanceof FunctionExpression fn){
+
+            FunctionExpression functionExpression = new FunctionExpression(lang, fn.getIdExpressions(), fn.getBody());
             NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
-            fn.setScope(nlScope);
-            fn.setUpNlScope(frame.getScope().getScope());
+            functionExpression.setScope(nlScope);
+            functionExpression.setUpNlScope(frame.getScope().getScope());
+            fn = functionExpression;
 
             Object[] argumentValues = new Object[inputs.length];
             for (int i = 0; i < inputs.length; i++) {
@@ -63,11 +66,10 @@ public class CallExpression extends Node {
                 Object call = fn.getBody().execute(frame);
                 return call;
             } catch (NLReturnException returnException){
+                fn.getScope().exit();
                 return returnException.getResult();
-            }finally {
-                NLScope.cyl(nlScope.getScope());
-                fn.setScope(null);
-                NLScope.NLScopeOperator.cyl(nlScope);
+            }
+            finally {
                 VirtualFrame.getFrameCache().cyl(frame);
             }
         } else {

@@ -3,11 +3,9 @@ package nl.node;
 import nl.BreakException;
 import nl.ContinueException;
 
-import java.util.List;
-
-public class ReduceWhileNode extends WhileNode{
+public class WhileNodeReduce extends WhileNode{
     private WhileNode whileNode;
-    public ReduceWhileNode(Lang language, WhileNode whileNode) {
+    public WhileNodeReduce(Lang language, WhileNode whileNode) {
         super(language, whileNode.getCondition(), whileNode.getBody());
         this.whileNode = whileNode;
         this.condition = whileNode.getCondition().copy();

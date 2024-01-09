@@ -3,10 +3,10 @@ package nl.node;
 import nl.NLReturnException;
 import nl.NLScope;
 
-public class CallExpressionWithEnv extends CallExpression{
+public class CallExpressionReduce extends CallExpression{
 
 
-    public CallExpressionWithEnv(Lang language,CallExpression callExpression) {
+    public CallExpressionReduce(Lang language, CallExpression callExpression) {
         super(language, callExpression.functionExpression, callExpression.inputs);
     }
 

@@ -40,7 +40,7 @@ public class ReturnNode extends Node {
 
     @Override
     public Object execute(VirtualFrame frame) {
-        Object execute = "";
+        Object execute = Null.NULL;
         if(value!=null){
             execute = value.execute(frame);
         }

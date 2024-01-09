@@ -25,7 +25,7 @@ public class WhileNode extends Node{
 
     @Override
     public Node reduce(VirtualFrame frame) {
-        return new ReduceWhileNode(lang,this);
+        return new WhileNodeReduce(lang,this);
     }
 
     @Override

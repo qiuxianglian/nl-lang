@@ -49,8 +49,7 @@ public class FunctionExpression extends Node  {
 
     @Override
     public Object execute(VirtualFrame frame) {
-        FunctionExpression functionExpression = new FunctionExpression(lang, idExpressions, body);
-        return functionExpression;
+        return this;
     }
 
     @Override
