@@ -42,11 +42,11 @@ public class CallExpression extends Node {
         Object function = functionExpression.execute(frame);
         if(function instanceof FunctionExpression fn){
 
-            FunctionExpression functionExpression = new FunctionExpression(lang, fn.getIdExpressions(), fn.getBody());
-            NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
-            functionExpression.setScope(nlScope);
-            functionExpression.setUpNlScope(frame.getScope().getScope());
-            fn = functionExpression;
+//            FunctionExpression functionExpression = new FunctionExpression(lang, fn.getIdExpressions(), fn.getBody());
+//            NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
+//            functionExpression.setScope(nlScope);
+//            functionExpression.setUpNlScope(frame.getScope().getScope());
+//            fn = functionExpression;
 
             Object[] argumentValues = new Object[inputs.length];
             for (int i = 0; i < inputs.length; i++) {
@@ -66,7 +66,6 @@ public class CallExpression extends Node {
                 Object call = fn.getBody().execute(frame);
                 return call;
             } catch (NLReturnException returnException){
-                fn.getScope().exit();
                 return returnException.getResult();
             }
             finally {
