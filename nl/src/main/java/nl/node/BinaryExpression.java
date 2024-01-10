@@ -2,6 +2,7 @@ package nl.node;
 
 
 import nl.NLException;
+import nl.NLScope;
 
 import java.util.List;
 
@@ -58,7 +59,10 @@ public abstract   class BinaryExpression extends Node {
     }
 
     public Object execute(VirtualFrame frame) {
+        NLScope scope = frame.getScope().getScope();
+
         Object l = getLeft().execute(frame);
+//        frame.getScope().setScope(scope);
         Object r = getRight().execute(frame);
         if(l instanceof Long tl && r instanceof Long lr){
             return doLong(tl,lr);

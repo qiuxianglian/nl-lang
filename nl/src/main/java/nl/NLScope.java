@@ -114,6 +114,10 @@ public class NLScope{
         public NLScope getScope() {
             return scope;
         }
+
+        public void setScope(NLScope scope) {
+            this.scope = scope;
+        }
     }
 
     protected  NLScope outer;

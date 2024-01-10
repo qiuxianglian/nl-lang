@@ -49,12 +49,13 @@ public class FunctionExpression extends Node  {
 
     @Override
     public Object execute(VirtualFrame frame) {
-        FunctionExpression functionExpression = new FunctionExpression(lang, idExpressions, body);
-        NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
-        functionExpression.setScope(nlScope);
-        functionExpression.setUpNlScope(frame.getScope().getScope());
-
-        return functionExpression;
+//        FunctionExpression functionExpression = new FunctionExpression(lang, idExpressions, body);
+//        NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
+//        functionExpression.setScope(nlScope);
+//        functionExpression.setUpNlScope(frame.getScope().getScope());
+//
+//        return functionExpression;
+        return this;
     }
 
     @Override

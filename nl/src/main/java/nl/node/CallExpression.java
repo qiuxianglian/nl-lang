@@ -41,12 +41,14 @@ public class CallExpression extends Node {
 
         Object function = functionExpression.execute(frame);
         if(function instanceof FunctionExpression fn){
-
-//            FunctionExpression functionExpression = new FunctionExpression(lang, fn.getIdExpressions(), fn.getBody());
-//            NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
-//            functionExpression.setScope(nlScope);
-//            functionExpression.setUpNlScope(frame.getScope().getScope());
-//            fn = functionExpression;
+            // 如果函数作用域不为空，说明是含有值的函数。否则继承当前的作用域
+            if(fn.getScope()==null){
+                FunctionExpression functionExpression = new FunctionExpression(lang, fn.getIdExpressions(), fn.getBody());
+                NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
+                functionExpression.setScope(nlScope);
+                functionExpression.setUpNlScope(frame.getScope().getScope());
+                fn = functionExpression;
+            }
 
             Object[] argumentValues = new Object[inputs.length];
             for (int i = 0; i < inputs.length; i++) {
@@ -59,17 +61,26 @@ public class CallExpression extends Node {
                     fn.getScope().getScope().put(idExpression.getId(),argumentValues[i]);
                 }
             }
-            frame = VirtualFrame.getFrameCache().getInstance();
-            frame.setArguments(argumentValues);
-            frame.setScope(fn.getScope());
+            VirtualFrame newFrame = VirtualFrame.getFrameCache().getInstance();
+            newFrame.setArguments(argumentValues);
+
+            newFrame.setScope(fn.getScope());
             try {
-                Object call = fn.getBody().execute(frame);
+                Object call = fn.getBody().execute(newFrame);
+                // 如果返回值是函数，继承当前函数作用域的scope
+                if(call instanceof FunctionExpression callFN){
+                    FunctionExpression nfn = new FunctionExpression(lang, callFN.getIdExpressions(), callFN.getBody());
+                    NLScope.NLScopeOperator nnlScope = NLScope.NLScopeOperator.newScope();
+                    nfn.setScope(nnlScope);
+                    nfn.setUpNlScope(newFrame.getScope().getScope());
+                    return nfn;
+                }
                 return call;
             } catch (NLReturnException returnException){
                 return returnException.getResult();
             }
             finally {
-                VirtualFrame.getFrameCache().cyl(frame);
+                VirtualFrame.getFrameCache().cyl(newFrame);
             }
         } else {
             throw new RuntimeException("target is not function ");
