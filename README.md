@@ -7,17 +7,17 @@
 
 不过要优化速度最简单的办法就是写一个编译器（当然解释器优化空间还是大大的有）
 
-经过我测试，执行[fib(30)](nl/tests/fib.nl)在我电脑上需要25s左右,作为对比：
+经过我测试，执行[fib(30)](nl/tests/speed/fib.nl)在我电脑上需要25s左右,作为对比：
 
 代码见见[tests](nl/tests). fib开头.
 
-- [nodejs](nl/tests/fib.js) : 19ms
-- [c++(不优化)](nl/tests/fib.c): 17ms
-- [c++(-O3优化选项)](nl/tests/fib.c): 5ms
-- [java](nl/tests/fib.java): 5ms
-- [python](nl/tests/fib.py): 274ms
-- [sampleLanguage native(java基于graal-truffle写的)](nl/tests/fib.sl)：90ms
-- [sampleLanguage jar版本(java基于graal-truffle写的)](nl/tests/fib.sl)：1s
+- [nodejs](nl/tests/speed/fib.js) : 19ms
+- [c++(不优化)](nl/tests/speed/fib.c): 17ms
+- [c++(-O3优化选项)](nl/tests/speed/fib.c): 5ms
+- [java](nl/tests/speed/fib.java): 5ms
+- [python](nl/tests/speed/fib.py): 274ms
+- [sampleLanguage native(java基于graal-truffle写的)](nl/tests/speed/fib.sl)：90ms
+- [sampleLanguage jar版本(java基于graal-truffle写的)](nl/tests/speed/fib.sl)：1s
 
 这样看，参考【sampleLanguage jar版本】，解释器优化空间还有20倍。
 
