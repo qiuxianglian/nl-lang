@@ -40,46 +40,45 @@ public class CallExpression extends Node {
     public Object execute(VirtualFrame frame) {
 
         Object function = functionExpression.execute(frame);
-        if(function instanceof FunctionExpression fn){
-            // 如果函数作用域不为空，说明是含有值的函数。否则继承当前的作用域
-            if(fn.getScope()==null){
-                fn = assignScope(fn,frame.getScopeOperator());
-            }
-
-            Object[] argumentValues = new Object[inputs.length];
-            for (int i = 0; i < inputs.length; i++) {
-                argumentValues[i] = inputs[i].execute(frame);
-            }
-
-            for (int i = 0; i < fn.getIdExpressions().size(); i++) {
-                IdExpression idExpression = fn.getIdExpressions().get(i);
-                if(i<argumentValues.length){
-                    fn.getScope().getScope().put(idExpression.getId(),argumentValues[i]);
-                }
-            }
-            VirtualFrame newFrame = VirtualFrame.getFrameCache().getInstance();
-            newFrame.setArguments(argumentValues);
-
-            newFrame.setScopeOperator(fn.getScope());
-            try {
-                Object call = fn.getBody().execute(newFrame);
-                // 如果返回值是函数，继承当前函数作用域的scope
-                if(call instanceof FunctionExpression callFN){
-                    return assignScope(callFN,newFrame.getScopeOperator());
-                }
-                return call;
-            } catch (NLReturnException returnException){
-                Object result = returnException.getResult();
-                if(result instanceof FunctionExpression callFN){
-                    return assignScope(callFN,newFrame.getScopeOperator());
-                }
-                return result;
-            }
-            finally {
-                VirtualFrame.getFrameCache().cyl(newFrame);
-            }
-        } else {
+        if(!(function instanceof FunctionExpression fn)){
             throw new RuntimeException("target is not function "+function);
+        }
+        // 如果函数作用域不为空，说明是含有值的函数。否则继承当前的作用域
+        if(fn.getScope()==null){
+            fn = assignScope(fn,frame.getScopeOperator());
+        }
+
+        Object[] argumentValues = new Object[inputs.length];
+        for (int i = 0; i < inputs.length; i++) {
+            argumentValues[i] = inputs[i].execute(frame);
+        }
+
+        for (int i = 0; i < fn.getIdExpressions().size(); i++) {
+            IdExpression idExpression = fn.getIdExpressions().get(i);
+            if(i<argumentValues.length){
+                fn.getScope().getScope().put(idExpression.getId(),argumentValues[i]);
+            }
+        }
+        VirtualFrame newFrame = VirtualFrame.getFrameCache().getInstance();
+        newFrame.setArguments(argumentValues);
+
+        newFrame.setScopeOperator(fn.getScope());
+        try {
+            Object call = fn.getBody().execute(newFrame);
+            // 如果返回值是函数，继承当前函数作用域的scope
+            if(call instanceof FunctionExpression callFN){
+                return assignScope(callFN,newFrame.getScopeOperator());
+            }
+            return call;
+        } catch (NLReturnException returnException){
+            Object result = returnException.getResult();
+            if(result instanceof FunctionExpression callFN){
+                return assignScope(callFN,newFrame.getScopeOperator());
+            }
+            return result;
+        }
+        finally {
+            VirtualFrame.getFrameCache().cyl(newFrame);
         }
     }
 
