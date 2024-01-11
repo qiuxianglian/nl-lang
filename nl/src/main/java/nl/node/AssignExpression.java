@@ -45,7 +45,7 @@ public class AssignExpression extends Node{
     @Override
     public Object execute(VirtualFrame frame) {
         Object execute = expression.execute(frame);
-        NLScope.NLScopeOperator argument = frame.getScope();
+        NLScope.NLScopeOperator argument = frame.getScopeOperator();
         if(id instanceof IdExpression iid){
             argument.getScope().putOrUpdate(iid.getId(),execute);
         }else if(id instanceof AccessNode accessNode){

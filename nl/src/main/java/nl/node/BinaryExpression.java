@@ -59,7 +59,7 @@ public abstract   class BinaryExpression extends Node {
     }
 
     public Object execute(VirtualFrame frame) {
-        NLScope scope = frame.getScope().getScope();
+        NLScope scope = frame.getScopeOperator().getScope();
 
         Object l = getLeft().execute(frame);
 //        frame.getScope().setScope(scope);

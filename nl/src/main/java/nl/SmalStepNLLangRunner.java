@@ -13,7 +13,7 @@ public class SmalStepNLLangRunner implements NLLangRunner {
         NLScope.NLScopeOperator scope = NLScope.NLScopeOperator.newScope();
         BuiltIn.install(lang,scope.getScope());
         VirtualFrame instance = VirtualFrame.getFrameCache().getInstance();
-        instance.setScope(scope);
+        instance.setScopeOperator(scope);
         Node currentNode = node;
         int i = 0;
         List<Integer> length = new ArrayList<>();

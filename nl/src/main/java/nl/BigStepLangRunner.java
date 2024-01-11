@@ -10,7 +10,7 @@ public class BigStepLangRunner implements NLLangRunner{
     public Object eval(Lang lang, Node node) {
         VirtualFrame frame = new VirtualFrame();
         NLScope.NLScopeOperator scope = NLScope.NLScopeOperator.newScope();
-        frame.setScope(scope);
+        frame.setScopeOperator(scope);
         BuiltIn.install(lang,scope.getScope());
         return node.execute(frame);
     }

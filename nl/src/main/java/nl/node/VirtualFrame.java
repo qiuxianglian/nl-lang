@@ -25,7 +25,7 @@ public class VirtualFrame {
         @Override
         protected void clear(VirtualFrame virtualFrame) {
             virtualFrame.arguments = null;
-            virtualFrame.scope = null;
+            virtualFrame.scopeOperator = null;
         }
     }
 
@@ -49,14 +49,14 @@ public class VirtualFrame {
         this.arguments = arguments;
     }
 
-    private NLScope.NLScopeOperator scope;
+    private NLScope.NLScopeOperator scopeOperator;
 
-    public NLScope.NLScopeOperator getScope() {
-        return scope;
+    public NLScope.NLScopeOperator getScopeOperator() {
+        return scopeOperator;
     }
 
-    public VirtualFrame setScope(NLScope.NLScopeOperator scope) {
-        this.scope = scope;
+    public VirtualFrame setScopeOperator(NLScope.NLScopeOperator scopeOperator) {
+        this.scopeOperator = scopeOperator;
         return this;
     }
 }

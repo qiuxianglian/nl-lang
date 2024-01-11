@@ -33,14 +33,14 @@ public class BlockNode extends Node{
     @Override
     public Node reduce(VirtualFrame frame) {
         if(this.scope == null){
-            this.scope = frame.getScope();
+            this.scope = frame.getScopeOperator();
             scope.enter();
         }
         if(statements.reducible()){
             NLScope.NLScopeOperator scope = this.scope ;
             try {
                 VirtualFrame virtualFrame = new VirtualFrame();
-                virtualFrame.setScope(scope);
+                virtualFrame.setScopeOperator(scope);
                 this.statements = statements.reduce(virtualFrame);
                 if(!this.statements.reducible()){
                     scope.exit();
@@ -62,7 +62,7 @@ public class BlockNode extends Node{
 
     @Override
     public Object execute(VirtualFrame frame) {
-        NLScope.NLScopeOperator scope = frame.getScope();
+        NLScope.NLScopeOperator scope = frame.getScopeOperator();
         scope.enter();
         try {
             Object execute = statements.execute(frame);

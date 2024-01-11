@@ -43,11 +43,7 @@ public class CallExpression extends Node {
         if(function instanceof FunctionExpression fn){
             // 如果函数作用域不为空，说明是含有值的函数。否则继承当前的作用域
             if(fn.getScope()==null){
-                FunctionExpression functionExpression = new FunctionExpression(lang, fn.getIdExpressions(), fn.getBody());
-                NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
-                functionExpression.setScope(nlScope);
-                functionExpression.setUpNlScope(frame.getScope().getScope());
-                fn = functionExpression;
+                fn = assignScope(fn,frame.getScopeOperator());
             }
 
             Object[] argumentValues = new Object[inputs.length];
@@ -64,27 +60,35 @@ public class CallExpression extends Node {
             VirtualFrame newFrame = VirtualFrame.getFrameCache().getInstance();
             newFrame.setArguments(argumentValues);
 
-            newFrame.setScope(fn.getScope());
+            newFrame.setScopeOperator(fn.getScope());
             try {
                 Object call = fn.getBody().execute(newFrame);
                 // 如果返回值是函数，继承当前函数作用域的scope
                 if(call instanceof FunctionExpression callFN){
-                    FunctionExpression nfn = new FunctionExpression(lang, callFN.getIdExpressions(), callFN.getBody());
-                    NLScope.NLScopeOperator nnlScope = NLScope.NLScopeOperator.newScope();
-                    nfn.setScope(nnlScope);
-                    nfn.setUpNlScope(newFrame.getScope().getScope());
-                    return nfn;
+                    return assignScope(callFN,newFrame.getScopeOperator());
                 }
                 return call;
             } catch (NLReturnException returnException){
-                return returnException.getResult();
+                Object result = returnException.getResult();
+                if(result instanceof FunctionExpression callFN){
+                    return assignScope(callFN,newFrame.getScopeOperator());
+                }
+                return result;
             }
             finally {
                 VirtualFrame.getFrameCache().cyl(newFrame);
             }
         } else {
-            throw new RuntimeException("target is not function ");
+            throw new RuntimeException("target is not function "+function);
         }
+    }
+
+
+    private FunctionExpression assignScope(FunctionExpression callFN, NLScope.NLScopeOperator scope){
+        FunctionExpression nfn = new FunctionExpression(lang, callFN.getIdExpressions(), callFN.getBody());
+        nfn.setScope(NLScope.NLScopeOperator.newScope());
+        nfn.setUpNlScope(scope.getScope());
+        return nfn;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class CallExpressionReduce extends CallExpression{
     public Node reduce(VirtualFrame frame) {
         if(nodeFrame==null){
             nodeFrame = frame;
-            nodeFrame.setScope(frame.getScope());
+            nodeFrame.setScopeOperator(frame.getScopeOperator());
         }
 
         if(functionExpression.reducible()){
@@ -59,7 +59,7 @@ public class CallExpressionReduce extends CallExpression{
                 cacheFn = fn;
                 NLScope.NLScopeOperator nlScope = NLScope.NLScopeOperator.newScope();
                 cacheFn.setScope(nlScope);
-                cacheFn.setUpNlScope(nodeFrame.getScope().getScope());
+                cacheFn.setUpNlScope(nodeFrame.getScopeOperator().getScope());
                 Object[] argumentValues = execInputs();
                 for (int i = 0; i < cacheFn.getIdExpressions().size(); i++) {
                     IdExpression idExpression = cacheFn.getIdExpressions().get(i);
@@ -73,7 +73,7 @@ public class CallExpressionReduce extends CallExpression{
                 if(cacheFn.getBody().reducible()){
                     VirtualFrame virtualFrame = new VirtualFrame();
                     virtualFrame.setArguments(execInputs());
-                    virtualFrame.setScope(cacheFn.getScope());
+                    virtualFrame.setScopeOperator(cacheFn.getScope());
                     return cacheFn.getBody().reduce(virtualFrame);
                 }else {
                     cyl(cacheFn,nodeFrame);
